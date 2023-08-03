@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="441.0" prefWidth="833.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.view_controllers.ReportsPage">
+    <children>
+        <TableView layoutX="307.0" layoutY="70.0" prefHeight="311.0" prefWidth="513.0" style="-fx-border-color: black;">
+            <columns>
+                <TableColumn prefWidth="53.0" text="Appt ID" />
+                <TableColumn prefWidth="49.333335876464844" text="Title" />
+                <TableColumn prefWidth="94.00001525878906" text="Description" />
+                <TableColumn minWidth="3.0" prefWidth="98.33334350585938" text="Location" />
+                <TableColumn prefWidth="72.66668701171875" text="Contact" />
+                <TableColumn prefWidth="61.33331298828125" text="Type" />
+                <TableColumn prefWidth="70.0" text="Start Time" />
+                <TableColumn prefWidth="67.0" text="End Time" />
+                <TableColumn prefWidth="87.66668701171875" text="Customer ID" />
+                <TableColumn prefWidth="55.33331298828125" text="User ID" />
+                <TableColumn prefWidth="116.66668701171875" text="Contact ID" />
+            </columns>
+        </TableView>
+        <Label layoutX="373.0" layoutY="14.0" text="Reports" underline="true">
+            <font>
+                <Font name="System Bold" size="24.0" />
+            </font>
+        </Label>
+        <Button fx:id="exitButton" layoutX="785.0" layoutY="391.0" mnemonicParsing="false" onAction="#closeApplication" text="Exit" />
+        <Button layoutX="8.0" layoutY="391.0" mnemonicParsing="false" onAction="#toCustomers" text="View Customer List" />
+        <Button layoutX="136.0" layoutY="391.0" mnemonicParsing="false" onAction="#toAppointments" text="View Appointment List" />
+        <AnchorPane layoutX="14.0" layoutY="70.0" prefHeight="94.0" prefWidth="286.0" style="-fx-background-color: White; -fx-border-color: Black;">
+            <children>
+                <Label layoutX="76.0" layoutY="6.0" text="Monthly Totals by Type">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Label>
+                <Label layoutX="14.0" layoutY="30.0" text="Type" />
+                <Label layoutX="14.0" layoutY="59.0" text="Month" />
+                <Button layoutX="222.0" layoutY="39.0" mnemonicParsing="false" onAction="#generateMonthlyReport" text="Submit" />
+                <ComboBox fx:id="monthlyType" layoutX="74.0" layoutY="26.0" prefHeight="25.0" prefWidth="134.0" />
+                <ComboBox fx:id="monthlyMonth" layoutX="74.0" layoutY="55.0" prefHeight="25.0" prefWidth="134.0" />
+            </children>
+        </AnchorPane>
+        <AnchorPane layoutX="14.0" layoutY="179.0" prefHeight="64.0" prefWidth="286.0" style="-fx-background-color: White; -fx-border-color: Black;">
+            <children>
+                <Label layoutX="14.0" layoutY="30.0" text="Contact" />
+                <Button layoutX="218.0" layoutY="26.0" mnemonicParsing="false" onAction="#generateContactReport" text="Submit" />
+                <ComboBox fx:id="contactName" layoutX="74.0" layoutY="26.0" prefHeight="25.0" prefWidth="134.0" />
+                <Label layoutX="92.0" layoutY="6.0" text="Contact Schedule">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+        <AnchorPane layoutX="14.0" layoutY="259.0" prefHeight="122.0" prefWidth="286.0" style="-fx-background-color: White; -fx-border-color: Black;">
+            <children>
+                <Label layoutX="14.0" layoutY="30.0" text="??" />
+                <Label layoutX="14.0" layoutY="59.0" text="??" />
+                <Button layoutX="218.0" layoutY="55.0" mnemonicParsing="false" text="Submit" />
+                <ComboBox layoutX="74.0" layoutY="26.0" prefHeight="25.0" prefWidth="134.0" />
+                <ComboBox layoutX="74.0" layoutY="55.0" prefHeight="25.0" prefWidth="134.0" />
+                <Label layoutX="112.0" layoutY="6.0" text="New Option">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Label>
+                <Label layoutX="14.0" layoutY="88.0" text="??" />
+                <ComboBox layoutX="74.0" layoutY="84.0" prefHeight="25.0" prefWidth="134.0" />
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>

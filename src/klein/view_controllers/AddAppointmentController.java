@@ -26,6 +26,10 @@ public class AddAppointmentController implements Initializable {
     public TextField descriptionField;
     public TextField locationField;
     public TextField typeField;
+    public DatePicker startDate;
+    public ComboBox startTime;
+    public DatePicker endDate;
+    public ComboBox endTime;
     public TextField customerIDField;
     public TextField userIDField;
     public ComboBox contactCB;
@@ -36,10 +40,6 @@ public class AddAppointmentController implements Initializable {
     private String type;
     private LocalDateTime start;
     private LocalDateTime end;
-    private DatePicker startDate;
-    private ComboBox startTime;
-    private DatePicker endDate;
-    private ComboBox endTime;
     private LocalDateTime createDate;
     private String createUser;
     private LocalDateTime updateDate;

@@ -1,4 +1,4 @@
-package main.view_controllers;
+package klein.view_controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,9 +12,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import main.helper_controllers.DAO.CustomerDB;
-import main.helper_controllers.JDBC;
-import main.helper_controllers.CustomerObj;
+import klein.helper_controllers.DAO.CustomerDB;
+import klein.helper_controllers.JDBC;
+import klein.helper_controllers.CustomerObj;
 
 import java.io.IOException;
 import java.net.URL;

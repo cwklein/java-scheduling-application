@@ -1,4 +1,4 @@
-package main.view_controllers;
+package klein.view_controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -8,9 +8,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import main.helper_controllers.DAO.LoginDB;
-import main.helper_controllers.JDBC;
-import main.helper_controllers.UserObj;
+import klein.helper_controllers.DAO.LoginDB;
+import klein.helper_controllers.JDBC;
+import klein.helper_controllers.UserObj;
 
 import java.io.IOException;
 import java.net.URL;

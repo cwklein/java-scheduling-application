@@ -1,10 +1,10 @@
-package main.helper_controllers.DAO;
+package klein.helper_controllers.DAO;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import main.helper_controllers.JDBC;
-import main.helper_controllers.AppointmentObj;
-import main.helper_controllers.UserObj;
+import klein.helper_controllers.JDBC;
+import klein.helper_controllers.AppointmentObj;
+import klein.helper_controllers.UserObj;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

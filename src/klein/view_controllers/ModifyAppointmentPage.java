@@ -1,4 +1,4 @@
-package main.view_controllers;
+package klein.view_controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -10,7 +10,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import main.helper_controllers.AppointmentObj;
+import klein.helper_controllers.AppointmentObj;
 
 import java.io.IOException;
 import java.net.URL;

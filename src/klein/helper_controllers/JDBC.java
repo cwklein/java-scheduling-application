@@ -1,4 +1,4 @@
-package main.helper_controllers;
+package klein.helper_controllers;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

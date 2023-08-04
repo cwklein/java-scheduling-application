@@ -1,10 +1,10 @@
-package main;
+package klein;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import main.helper_controllers.JDBC;
+import klein.helper_controllers.JDBC;
 
 import java.io.IOException;
 

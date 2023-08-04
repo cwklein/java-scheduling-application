@@ -1,7 +1,6 @@
-package main.helper_controllers;
+package klein.helper_controllers;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 public class CustomerObj {
     private final int customerID;

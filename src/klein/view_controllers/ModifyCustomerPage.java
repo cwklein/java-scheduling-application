@@ -1,17 +1,21 @@
-package main.view_controllers;
+package klein.view_controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import klein.helper_controllers.CustomerObj;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class AddCustomerPage {
+public class ModifyCustomerPage implements Initializable {
     public TextField customerID;
     public TextField name;
     public TextField address;
@@ -19,15 +23,20 @@ public class AddCustomerPage {
     public ComboBox countryCB;
     public ComboBox regionCB;
     public TextField phone;
+    private CustomerObj selectedCustomer;
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        selectedCustomer = CustomersPage.getSelectedCustomer();
 
-    public void addCustomer(ActionEvent actionEvent) {
-        String customerIDText = customerID.getText();
-        String nameText = name.getText();
-        String addressText = address.getText();
-        String postalCodeText = postalCode.getText();
-        String countryText = countryCB.getAccessibleText();
-        String regionText = regionCB.getAccessibleText();
-        String phoneText = phone.getText();
+        customerID.setText(String.valueOf(selectedCustomer.getCustomerID()));
+        name.setText(String.valueOf(selectedCustomer.getCustomerName()));
+        address.setText(String.valueOf(selectedCustomer.getCustomerAddress()));
+        postalCode.setText(String.valueOf(selectedCustomer.getCustomerPostalCode()));
+        phone.setText(String.valueOf(selectedCustomer.getCustomerPhone()));
+        //POPULATE CB'S
+    }
+    public void modifyCustomer(ActionEvent actionEvent) {
+
     }
 
     public void returnToCustomers(ActionEvent actionEvent) throws IOException {

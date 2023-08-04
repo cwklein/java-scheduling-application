@@ -1,7 +1,8 @@
-package main.view_controllers;
+package klein.view_controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -9,12 +10,14 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
-import main.helper_controllers.JDBC;
+import klein.helper_controllers.JDBC;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
-public class ReportsPage {
+public class ReportsPage implements Initializable {
     public ComboBox<String> monthlyMonth;
 
     public void generateContactReport(ActionEvent actionEvent) {
@@ -52,5 +55,10 @@ public class ReportsPage {
             JDBC.closeConnection();
             System.exit(0);
         }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
     }
 }

@@ -1,6 +1,6 @@
-package main.helper_controllers.DAO;
+package klein.helper_controllers.DAO;
 
-import main.helper_controllers.JDBC;
+import klein.helper_controllers.JDBC;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

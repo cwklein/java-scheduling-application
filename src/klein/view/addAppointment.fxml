@@ -65,13 +65,13 @@
                 <Font name="System Bold" size="14.0" />
             </font>
         </Label>
-        <TextField fx:id="appointmentID" disable="true" editable="false" layoutX="175.0" layoutY="73.0" prefHeight="12.0" prefWidth="149.0" />
-        <TextField fx:id="title" layoutX="175.0" layoutY="103.0" />
-        <TextField fx:id="description" layoutX="175.0" layoutY="133.0" />
-        <TextField fx:id="locationInput" layoutX="175.0" layoutY="163.0" />
-        <TextField fx:id="type" layoutX="175.0" layoutY="223.0" />
-        <TextField fx:id="customerID" layoutX="175.0" layoutY="373.0" />
-        <TextField fx:id="userID" layoutX="175.0" layoutY="403.0" />
+        <TextField fx:id="appointmentIDField" disable="true" editable="false" layoutX="175.0" layoutY="73.0" prefHeight="12.0" prefWidth="149.0" />
+        <TextField fx:id="titleField" layoutX="175.0" layoutY="103.0" />
+        <TextField fx:id="descriptionField" layoutX="175.0" layoutY="133.0" />
+        <TextField fx:id="locationField" layoutX="175.0" layoutY="163.0" />
+        <TextField fx:id="typeField" layoutX="175.0" layoutY="223.0" />
+        <TextField fx:id="customerIDField" layoutX="175.0" layoutY="373.0" />
+        <TextField fx:id="userIDField" layoutX="175.0" layoutY="403.0" />
         <ComboBox fx:id="contactCB" layoutX="175.0" layoutY="193.0" prefWidth="150.0" />
         <Label layoutX="87.0" layoutY="255.0" text="Date">
             <font>

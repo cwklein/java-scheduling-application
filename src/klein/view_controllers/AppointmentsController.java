@@ -49,8 +49,8 @@ public class AppointmentsController implements Initializable {
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
         locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
-        startTimeColumn.setCellValueFactory(new PropertyValueFactory<>("startTime"));
-        endTimeColumn.setCellValueFactory(new PropertyValueFactory<>("endTime"));
+        startTimeColumn.setCellValueFactory(new PropertyValueFactory<>("start"));
+        endTimeColumn.setCellValueFactory(new PropertyValueFactory<>("end"));
         customerIDColumn.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         userIDColumn.setCellValueFactory(new PropertyValueFactory<>("userID"));
 
@@ -100,7 +100,8 @@ public class AppointmentsController implements Initializable {
             Optional<ButtonType> result = alert.showAndWait();
 
             if (result.isPresent() && result.get() == ButtonType.OK) {
-                //DELETE FROM DB
+                AppointmentDB.deleteAppointment(selectedAppointment.getAppointmentID());
+                refreshView(actionEvent);
             }
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -134,7 +135,7 @@ public class AppointmentsController implements Initializable {
             alert.showAndWait();
         } else {
             allAppointments.forEach(appointmentObj -> {
-                if (appointmentObj.getStartTime().isAfter(startDate) && appointmentObj.getEndTime().isBefore(endDate)) {
+                if (appointmentObj.getStart().isAfter(startDate) && appointmentObj.getEnd().isBefore(endDate)) {
                     selectedAppointments.add(appointmentObj);
                 }
                 appointmentTableView.setItems(selectedAppointments);
@@ -160,7 +161,7 @@ public class AppointmentsController implements Initializable {
             alert.showAndWait();
         } else {
             allAppointments.forEach(appointmentObj -> {
-                if (appointmentObj.getStartTime().isAfter(startDate) && appointmentObj.getEndTime().isBefore(endDate)) {
+                if (appointmentObj.getStart().isAfter(startDate) && appointmentObj.getEnd().isBefore(endDate)) {
                     selectedAppointments.add(appointmentObj);
                 }
                 appointmentTableView.setItems(selectedAppointments);
@@ -232,6 +233,15 @@ public class AppointmentsController implements Initializable {
 
     public static void setSelectedAppointment(AppointmentObj selectedAppointment) {
         AppointmentsController.selectedAppointment = selectedAppointment;
+    }
+
+    public void refreshView(ActionEvent actionEvent) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource("/klein/view/appointments.fxml"));
+        Scene scene = new Scene(parent);
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        stage.setTitle("Appointment View");
+        stage.setScene(scene);
+        stage.show();
     }
 }
 

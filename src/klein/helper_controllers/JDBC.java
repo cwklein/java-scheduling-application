@@ -34,4 +34,8 @@ public class JDBC {
             System.out.println("Error:" + e.getMessage());
         }
     }
+
+    public static Connection accessDB() {
+        return connection;
+    }
 }

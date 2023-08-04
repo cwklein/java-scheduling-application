@@ -8,7 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import klein.helper_controllers.DAO.LoginDB;
+import klein.helper_controllers.DAO.UserDB;
 import klein.helper_controllers.JDBC;
 import klein.helper_controllers.UserObj;
 
@@ -59,9 +59,9 @@ public class LoginController implements Initializable {
             String usernameAttempt = usernameText.getText();
             String passwordAttempt = passwordText.getText();
 
-            UserObj.userID = LoginDB.ValidateUser(usernameAttempt, passwordAttempt);
+            UserObj.setUserID(UserDB.ValidateUser(usernameAttempt, passwordAttempt));
 
-            if (UserObj.userID != 0) {
+            if (UserObj.getUserID() != 0) {
                 Parent parent = FXMLLoader.load(getClass().getResource("/klein/view/appointments.fxml"));
                 Scene scene = new Scene(parent);
                 Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();

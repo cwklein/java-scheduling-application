@@ -1,12 +1,13 @@
 package klein.helper_controllers.DAO;
 
 import klein.helper_controllers.JDBC;
+import klein.helper_controllers.UserObj;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class LoginDB {
+public class UserDB {
     public static int ValidateUser(String username, String password) throws SQLException {
         String sqlQuery = "SELECT * FROM users WHERE User_Name = ? AND Password = ? ";
 
@@ -17,9 +18,12 @@ public class LoginDB {
         ResultSet rs = ps.executeQuery();
 
         while(rs.next()) {
-            int userid = rs.getInt("User_ID");
-            System.out.println("User ID: " + userid);
-            return userid;
+            int userID = rs.getInt("User_ID");
+            String userName = rs.getString("User_Name");
+            UserObj.setUserID(userID);
+            UserObj.setUserName(userName);
+            System.out.println("User ID: " + userID + ", User Name: " + userName);
+            return userID;
         }
         return 0;
     }

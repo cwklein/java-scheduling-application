@@ -33,7 +33,7 @@ public class LoginPage implements Initializable {
     public Label languageText;
 
 
-    ResourceBundle rb = ResourceBundle.getBundle("language", Locale.getDefault());
+    ResourceBundle rb = ResourceBundle.getBundle("klein/language", Locale.getDefault());
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ZoneId zone = ZoneId.systemDefault();
@@ -62,7 +62,7 @@ public class LoginPage implements Initializable {
             UserObj.userID = LoginDB.ValidateUser(usernameAttempt, passwordAttempt);
 
             if (UserObj.userID != 0) {
-                Parent parent = FXMLLoader.load(getClass().getResource("/view/appointments.fxml"));
+                Parent parent = FXMLLoader.load(getClass().getResource("/klein/view/appointments.fxml"));
                 Scene scene = new Scene(parent);
                 Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
                 stage.setTitle("Appointment View");

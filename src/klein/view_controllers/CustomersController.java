@@ -22,7 +22,7 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class CustomersPage implements Initializable {
+public class CustomersController implements Initializable {
     private static CustomerObj selectedCustomer;
     public static ObservableList<CustomerObj> customerList = FXCollections.observableArrayList();
     public static ObservableList<CustomerObj> selectedCustomers = FXCollections.observableArrayList();
@@ -162,7 +162,7 @@ public class CustomersPage implements Initializable {
     }
 
     public static void setSelectedCustomer(CustomerObj selectedCustomer) {
-        CustomersPage.selectedCustomer = selectedCustomer;
+        CustomersController.selectedCustomer = selectedCustomer;
     }
 
     public void closeApplication(ActionEvent actionEvent) {

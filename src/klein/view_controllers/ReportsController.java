@@ -17,7 +17,7 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class ReportsPage implements Initializable {
+public class ReportsController implements Initializable {
     public ComboBox<String> monthlyMonth;
 
     public void generateContactReport(ActionEvent actionEvent) {

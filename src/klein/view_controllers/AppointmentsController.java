@@ -24,7 +24,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class AppointmentsPage implements Initializable {
+public class AppointmentsController implements Initializable {
     private static AppointmentObj selectedAppointment;
     public static ObservableList<AppointmentObj> allAppointments = FXCollections.observableArrayList();
     public static ObservableList<AppointmentObj> selectedAppointments = FXCollections.observableArrayList();
@@ -231,7 +231,7 @@ public class AppointmentsPage implements Initializable {
     }
 
     public static void setSelectedAppointment(AppointmentObj selectedAppointment) {
-        AppointmentsPage.selectedAppointment = selectedAppointment;
+        AppointmentsController.selectedAppointment = selectedAppointment;
     }
 }
 

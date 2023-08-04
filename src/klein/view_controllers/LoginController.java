@@ -20,7 +20,7 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class LoginPage implements Initializable {
+public class LoginController implements Initializable {
     public TextField usernameText;
     public TextField passwordText;
     public Label usernameLabel;

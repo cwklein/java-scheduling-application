@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="441.0" prefWidth="833.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="klein.view_controllers.CustomersPage">
+<AnchorPane prefHeight="441.0" prefWidth="833.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="klein.view_controllers.CustomersController">
     <children>
         <TableView fx:id="custTableView" onMouseClicked="#selectCustomer" layoutX="8.0" layoutY="70.0" prefHeight="311.0" prefWidth="812.0">
             <columns>

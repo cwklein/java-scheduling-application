@@ -10,42 +10,34 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import klein.helper_controllers.AppointmentObj;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ModifyAppointmentPage implements Initializable {
-    private AppointmentObj selectedAppointment;
+public class AddAppointmentController implements Initializable {
     public TextField appointmentID;
     public TextField title;
     public TextField description;
-    public TextField location;
+    public TextField locationInput;
     public TextField type;
     public TextField customerID;
     public TextField userID;
     public ComboBox contactCB;
     public DatePicker startDate;
-    public DatePicker endDate;
     public ComboBox startTime;
+    public DatePicker endDate;
     public ComboBox endTime;
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        selectedAppointment = AppointmentsPage.getSelectedAppointment();
+    public void addAppointment(ActionEvent actionEvent) {
+        String appointmentIDText = appointmentID.getText();
+        String titleText = title.getText();
+        String descriptionText = description.getText();
+        String locationText = locationInput.getText();
+        String typeText = type.getText();
+        String customerIDText = customerID.getText();
+        String userIDText = userID.getText();
 
-        appointmentID.setText(String.valueOf(selectedAppointment.getAppointmentID()));
-        title.setText(String.valueOf(selectedAppointment.getTitle()));
-        description.setText(String.valueOf(selectedAppointment.getDescription()));
-        location.setText(String.valueOf(selectedAppointment.getLocation()));
-        type.setText(String.valueOf(selectedAppointment.getType()));
-        customerID.setText(String.valueOf(selectedAppointment.getCustomerID()));
-        userID.setText(String.valueOf(selectedAppointment.getUserID()));
-        //POPULATE CB'S AND DATE PICKER
-    }
-
-    public void modifyAppointment(ActionEvent actionEvent) {
     }
 
     public void returnToAppointments(ActionEvent actionEvent) throws IOException {
@@ -56,4 +48,10 @@ public class ModifyAppointmentPage implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
 }
+

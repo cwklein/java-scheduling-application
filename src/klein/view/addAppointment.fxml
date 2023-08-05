@@ -69,10 +69,18 @@
         <TextField fx:id="titleField" layoutX="175.0" layoutY="103.0" />
         <TextField fx:id="descriptionField" layoutX="175.0" layoutY="133.0" />
         <TextField fx:id="locationField" layoutX="175.0" layoutY="163.0" />
+        <ComboBox fx:id="contactField" layoutX="175.0" layoutY="193.0" prefWidth="150.0" />
         <TextField fx:id="typeField" layoutX="175.0" layoutY="223.0" />
+        <DatePicker fx:id="startDateField" layoutX="175.0" layoutY="253.0" prefHeight="25.0" prefWidth="149.0" />
+        <ComboBox fx:id="startTimeField" layoutX="175.0" layoutY="283.0" prefWidth="150.0" />
+        <DatePicker fx:id="endDateField" layoutX="175.0" layoutY="313.0" prefHeight="25.0" prefWidth="150.0" />
+        <ComboBox fx:id="endTimeField" layoutX="175.0" layoutY="343.0" prefWidth="150.0" />
         <TextField fx:id="customerIDField" layoutX="175.0" layoutY="373.0" />
         <TextField fx:id="userIDField" layoutX="175.0" layoutY="403.0" />
-        <ComboBox fx:id="contactCB" layoutX="175.0" layoutY="193.0" prefWidth="150.0" />
+        <Button layoutX="270.0" layoutY="433.0" mnemonicParsing="false" onAction="#addAppointment" text="Submit" />
+        <Button layoutX="271.0" layoutY="463.0" mnemonicParsing="false" onAction="#returnToAppointments" text="Cancel" />
+
+
         <Label layoutX="87.0" layoutY="255.0" text="Date">
             <font>
                 <Font name="System Bold" size="14.0" />
@@ -93,11 +101,5 @@
                 <Font name="System Bold" size="14.0" />
             </font>
         </Label>
-        <Button layoutX="270.0" layoutY="433.0" mnemonicParsing="false" onAction="#addAppointment" text="Submit" />
-        <Button layoutX="271.0" layoutY="463.0" mnemonicParsing="false" onAction="#returnToAppointments" text="Cancel" />
-        <DatePicker fx:id="startDate" layoutX="175.0" layoutY="253.0" prefHeight="25.0" prefWidth="149.0" />
-        <DatePicker fx:id="endDate" layoutX="175.0" layoutY="313.0" prefHeight="25.0" prefWidth="150.0" />
-        <ComboBox fx:id="startTime" layoutX="175.0" layoutY="283.0" prefWidth="150.0" />
-        <ComboBox fx:id="endTime" layoutX="175.0" layoutY="343.0" prefWidth="150.0" />
-    </children>
+        </children>
 </AnchorPane>

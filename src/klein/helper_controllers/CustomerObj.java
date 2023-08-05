@@ -1,106 +1,106 @@
 package klein.helper_controllers;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public class CustomerObj {
     private final int customerID;
-    private String customerName;
-    private String customerAddress;
-    private String customerPostalCode;
-    private String customerPhone;
-    private Timestamp customerDateCreated;
-    private String customerCreatedBy;
-    private Timestamp customerDateUpdated;
-    private String customerUpdatedBy ;
-    private int customerDivisionID;
+    private String name;
+    private String address;
+    private String postalCode;
+    private String phone;
+    private LocalDateTime dateCreated;
+    private String createdBy;
+    private LocalDateTime dateUpdated;
+    private String updatedBy;
+    private int divisionID;
 
-    public CustomerObj(int customerID, String customerName, String customerAddress, String customerPostalCode, String customerPhone, Timestamp customerDateCreated, String customerCreatedBy, Timestamp customerDateUpdated, String customerUpdatedBy, int customerDivisionID) {
+    public CustomerObj(int customerID, String name, String address, String postalCode, String phone, LocalDateTime dateCreated, String createdBy, LocalDateTime dateUpdated, String updatedBy, int divisionID) {
         this.customerID = customerID;
-        this.customerName = customerName;
-        this.customerAddress = customerAddress;
-        this.customerPostalCode = customerPostalCode;
-        this.customerPhone = customerPhone;
-        this.customerDateCreated = customerDateCreated;
-        this.customerCreatedBy = customerCreatedBy;
-        this.customerDateUpdated = customerDateUpdated;
-        this.customerUpdatedBy = customerUpdatedBy;
-        this.customerDivisionID = customerDivisionID;
+        this.name = name;
+        this.address = address;
+        this.postalCode = postalCode;
+        this.phone = phone;
+        this.dateCreated = dateCreated;
+        this.createdBy = createdBy;
+        this.dateUpdated = dateUpdated;
+        this.updatedBy = updatedBy;
+        this.divisionID = divisionID;
     }
 
     public int getCustomerID() {
         return customerID;
     }
 
-    public String getCustomerName() {
-        return customerName;
+    public String getName() {
+        return name;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getCustomerAddress() {
-        return customerAddress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setCustomerAddress(String customerAddress) {
-        this.customerAddress = customerAddress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String getCustomerPostalCode() {
-        return customerPostalCode;
+    public String getPostalCode() {
+        return postalCode;
     }
 
-    public void setCustomerPostalCode(String customerPostalCode) {
-        this.customerPostalCode = customerPostalCode;
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
     }
 
-    public String getCustomerPhone() {
-        return customerPhone;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setCustomerPhone(String customerPhone) {
-        this.customerPhone = customerPhone;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public Timestamp getCustomerDateCreated() {
-        return customerDateCreated;
+    public LocalDateTime getDateCreated() {
+        return dateCreated;
     }
 
-    public void setCustomerDateCreated(Timestamp customerDateCreated) {
-        this.customerDateCreated = customerDateCreated;
+    public void setDateCreated(LocalDateTime dateCreated) {
+        this.dateCreated = dateCreated;
     }
 
-    public String getCustomerCreatedBy() {
-        return customerCreatedBy;
+    public String getCreatedBy() {
+        return createdBy;
     }
 
-    public void setCustomerCreatedBy(String customerCreatedBy) {
-        this.customerCreatedBy = customerCreatedBy;
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 
-    public Timestamp getCustomerDateUpdated() {
-        return customerDateUpdated;
+    public LocalDateTime getDateUpdated() {
+        return dateUpdated;
     }
 
-    public void setCustomerDateUpdated(Timestamp customerDateUpdated) {
-        this.customerDateUpdated = customerDateUpdated;
+    public void setDateUpdated(LocalDateTime dateUpdated) {
+        this.dateUpdated = dateUpdated;
     }
 
-    public String getCustomerUpdatedBy() {
-        return customerUpdatedBy;
+    public String getUpdatedBy() {
+        return updatedBy;
     }
 
-    public void setCustomerUpdatedBy(String customerUpdatedBy) {
-        this.customerUpdatedBy = customerUpdatedBy;
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
     }
 
-    public int getCustomerDivisionID() {
-        return customerDivisionID;
+    public int getDivisionID() {
+        return divisionID;
     }
 
-    public void setCustomerDivisionID(int customerDivisionID) {
-        this.customerDivisionID = customerDivisionID;
+    public void setDivisionID(int divisionID) {
+        this.divisionID = divisionID;
     }
 }
 

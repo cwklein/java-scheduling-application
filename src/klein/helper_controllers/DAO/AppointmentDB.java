@@ -2,12 +2,7 @@ package klein.helper_controllers.DAO;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.stage.Stage;
 import klein.helper_controllers.JDBC;
 import klein.helper_controllers.AppointmentObj;
 import klein.helper_controllers.UserObj;
@@ -53,21 +48,21 @@ public class AppointmentDB {
         return userAppointments;
     }
 
-    public static void addAppointment(AppointmentObj newAppt) throws SQLException {
-        Integer appointmentID = newAppt.getAppointmentID();
-        String title = newAppt.getTitle();
-        String description = newAppt.getDescription();
-        String location = newAppt.getLocation();
-        String appointmentType = newAppt.getType();
-        LocalDateTime startTime = newAppt.getStart();
-        LocalDateTime endTime = newAppt.getEnd();
-        LocalDateTime createDate = newAppt.getCreateDate();
-        String createUser = newAppt.getCreateUser();
-        LocalDateTime updateDate = newAppt.getUpdateDate();
-        String updateUser = newAppt.getUpdateUser();
-        Integer customerID = newAppt.getCustomerID();
-        Integer userID = newAppt.getUserID();
-        Integer contactID = newAppt.getContactID();
+    public static void addAppointment(AppointmentObj newAppointment) throws SQLException {
+        Integer appointmentID = newAppointment.getAppointmentID();
+        String title = newAppointment.getTitle();
+        String description = newAppointment.getDescription();
+        String location = newAppointment.getLocation();
+        String appointmentType = newAppointment.getType();
+        LocalDateTime startTime = newAppointment.getStart();
+        LocalDateTime endTime = newAppointment.getEnd();
+        LocalDateTime createDate = newAppointment.getCreateDate();
+        String createUser = newAppointment.getCreatedBy();
+        LocalDateTime updateDate = newAppointment.getUpdateDate();
+        String updateUser = newAppointment.getUpdatedBy();
+        Integer customerID = newAppointment.getCustomerID();
+        Integer userID = newAppointment.getUserID();
+        Integer contactID = newAppointment.getContactID();
 
         String sqlQuery = "INSERT INTO appointments (Appointment_ID, Title, Description, Location, " +
                 "Type, Start, End, Create_Date, Created_By, Last_Update, Last_Updated_By,Customer_ID," +
@@ -111,9 +106,7 @@ public class AppointmentDB {
             ps.setInt(1, i);
 
             ResultSet rs = ps.executeQuery();
-            System.out.println(i + " " + rs);
             if (!rs.next()) {
-                System.out.println("Boop");
                 nextID = i;
                 break;
             }

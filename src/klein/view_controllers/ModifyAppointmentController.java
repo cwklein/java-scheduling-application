@@ -10,7 +10,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import klein.helper_controllers.DAO.UserDB;
 import klein.helper_controllers.AppointmentObj;
 import klein.helper_controllers.DAO.AppointmentDB;
 import klein.helper_controllers.UserObj;
@@ -74,7 +73,7 @@ public class ModifyAppointmentController implements Initializable {
         start = selectedAppointment.getStart(); //TEMP -- W/ CB
         end = selectedAppointment.getEnd(); //TEMP -- W/ CB
         createDate = selectedAppointment.getCreateDate();
-        createUser =selectedAppointment.getCreateUser();
+        createUser =selectedAppointment.getCreatedBy();
         updateDate = LocalDateTime.now();
         updateUser = UserObj.getUserName();
         customerID = Integer.parseInt(customerIDField.getText());

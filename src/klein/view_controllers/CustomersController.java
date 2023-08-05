@@ -44,15 +44,15 @@ public class CustomersController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         custTableView.setItems(customerList);
         custIDColumn.setCellValueFactory(new PropertyValueFactory<>("customerID"));
-        custNameColumn.setCellValueFactory(new PropertyValueFactory<>("customerName"));
-        custAddressColumn.setCellValueFactory(new PropertyValueFactory<>("customerAddress"));
-        custPostalCodeColumn.setCellValueFactory(new PropertyValueFactory<>("customerPostalCode"));
-        custPhoneColumn.setCellValueFactory(new PropertyValueFactory<>("customerPhone"));
-        custDateCreatedColumn.setCellValueFactory(new PropertyValueFactory<>("customerDateCreated"));
-        custCreatedByColumn.setCellValueFactory(new PropertyValueFactory<>("customerCreatedBy"));
-        custDateUpdatedColumn.setCellValueFactory(new PropertyValueFactory<>("customerDateUpdated"));
-        custUpdatedByColumn.setCellValueFactory(new PropertyValueFactory<>("customerUpdatedBy"));
-        custDivisionIDColumn.setCellValueFactory(new PropertyValueFactory<>("customerDivisionID"));
+        custNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        custAddressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
+        custPostalCodeColumn.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
+        custPhoneColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        custDateCreatedColumn.setCellValueFactory(new PropertyValueFactory<>("dateCreated"));
+        custCreatedByColumn.setCellValueFactory(new PropertyValueFactory<>("createdBy"));
+        custDateUpdatedColumn.setCellValueFactory(new PropertyValueFactory<>("dateUpdated"));
+        custUpdatedByColumn.setCellValueFactory(new PropertyValueFactory<>("updatedBy"));
+        custDivisionIDColumn.setCellValueFactory(new PropertyValueFactory<>("divisionID"));
 
         try {
             updateCustomerList();
@@ -94,13 +94,14 @@ public class CustomersController implements Initializable {
         try {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirm Delete");
-            alert.setContentText("Are you sure you want to delete customer: " + selectedCustomer.getCustomerID() + "? "
+            alert.setContentText("Are you sure you want to delete customer: " + selectedCustomer.getName() + "? "
                     + "This will delete all appointments associated with this customer as well.");
 
             Optional<ButtonType> result = alert.showAndWait();
 
             if (result.isPresent() && result.get() == ButtonType.OK) {
-                //DELETE FROM DB
+                CustomerDB.deleteCustomer(selectedCustomer.getCustomerID());
+                refreshView(actionEvent);
             }
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -109,6 +110,15 @@ public class CustomersController implements Initializable {
             alert.setContentText("You must first select a customer in order to delete it");
             alert.showAndWait();
         }
+    }
+
+    private void refreshView(ActionEvent actionEvent) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource("/klein/view/customers.fxml"));
+        Scene scene = new Scene(parent);
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        stage.setTitle("Customer View");
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void searchCustomers(ActionEvent actionEvent) throws SQLException {
@@ -125,9 +135,9 @@ public class CustomersController implements Initializable {
             alert.showAndWait();
         } else {
             customerList.forEach(customerObj -> {
-                if (customerObj.getCustomerName().contains(searchBarText)
-                        || customerObj.getCustomerPhone().contains(searchBarText)
-                        || customerObj.getCustomerAddress().contains(searchBarText)) {
+                if (customerObj.getName().contains(searchBarText)
+                        || customerObj.getPhone().contains(searchBarText)
+                        || customerObj.getAddress().contains(searchBarText)) {
                     selectedCustomers.add(customerObj);
                 }
                 custTableView.setItems(selectedCustomers);

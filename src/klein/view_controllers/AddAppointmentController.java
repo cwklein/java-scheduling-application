@@ -26,13 +26,13 @@ public class AddAppointmentController implements Initializable {
     public TextField descriptionField;
     public TextField locationField;
     public TextField typeField;
-    public DatePicker startDate;
-    public ComboBox startTime;
-    public DatePicker endDate;
-    public ComboBox endTime;
+    public DatePicker startDateField;
+    public ComboBox startTimeField;
+    public DatePicker endDateField;
+    public ComboBox endTimeField;
     public TextField customerIDField;
     public TextField userIDField;
-    public ComboBox contactCB;
+    public ComboBox contactField;
     private Integer appointmentID;
     private String title;
     private String description;
@@ -41,9 +41,9 @@ public class AddAppointmentController implements Initializable {
     private LocalDateTime start;
     private LocalDateTime end;
     private LocalDateTime createDate;
-    private String createUser;
+    private String createdBy;
     private LocalDateTime updateDate;
-    private String updateUser;
+    private String updatedBy;
     private Integer customerID;
     private Integer userID;
     private Integer contactID;
@@ -66,16 +66,16 @@ public class AddAppointmentController implements Initializable {
         start = LocalDateTime.now(); //TEMP -- W/ CB
         end = LocalDateTime.now(); //TEMP -- W/ CB
         createDate = LocalDateTime.now();
-        createUser = UserObj.getUserName();
+        createdBy = UserObj.getUserName();
         updateDate = LocalDateTime.now();
-        updateUser = UserObj.getUserName();
+        updatedBy = UserObj.getUserName();
         customerID = Integer.parseInt(customerIDField.getText());
         userID = Integer.parseInt(userIDField.getText());
         contactID = userID; // TEMP -- W/ CB
 
-        AppointmentObj newAppt = new AppointmentObj(appointmentID, title, description, location, type, start, end, createDate, createUser, updateDate, updateUser, customerID, userID, contactID);
+        AppointmentObj newAppointment = new AppointmentObj(appointmentID, title, description, location, type, start, end, createDate, createdBy, updateDate, updatedBy, customerID, userID, contactID);
 
-        AppointmentDB.addAppointment(newAppt);
+        AppointmentDB.addAppointment(newAppointment);
 
         returnToAppointments(actionEvent);
         return;

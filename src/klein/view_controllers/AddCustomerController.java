@@ -9,28 +9,66 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import klein.helper_controllers.CustomerObj;
+import klein.helper_controllers.DAO.CustomerDB;
+import klein.helper_controllers.UserObj;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 public class AddCustomerController implements Initializable {
-    public TextField customerID;
-    public TextField name;
-    public TextField address;
-    public TextField postalCode;
-    public ComboBox countryCB;
-    public ComboBox regionCB;
-    public TextField phone;
+    public TextField customerIDField;
+    public TextField nameField;
+    public TextField addressField;
+    public TextField postalCodeField;
+    public ComboBox localeCountryField;
+    public ComboBox localeFirstLevelField;
+    public TextField phoneField;
+    private Integer customerID;
+    private String name;
+    private String address;
+    private String postalCode;
+    private String phone;
+    private LocalDateTime createDate;
+    private String createdBy;
+    private LocalDateTime updateDate;
+    private String updatedBy;
+    private String country;
+    private String region;
+    private Integer divisionID;
 
-    public void addCustomer(ActionEvent actionEvent) {
-        String customerIDText = customerID.getText();
-        String nameText = name.getText();
-        String addressText = address.getText();
-        String postalCodeText = postalCode.getText();
-        String countryText = countryCB.getAccessibleText();
-        String regionText = regionCB.getAccessibleText();
-        String phoneText = phone.getText();
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            customerIDField.setText(String.valueOf(CustomerDB.nextCustomerID()));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public void addCustomer(ActionEvent actionEvent) throws SQLException, IOException {
+        customerID = Integer.parseInt(customerIDField.getText());
+        name = nameField.getText();
+        address = addressField.getText();
+        postalCode = postalCodeField.getText();
+        phone = phoneField.getText();
+        createDate = LocalDateTime.now();
+        createdBy = UserObj.getUserName();
+        updateDate = LocalDateTime.now();
+        updatedBy = UserObj.getUserName();
+        country = localeCountryField.getAccessibleText();
+        region = localeFirstLevelField.getAccessibleText();
+        divisionID = 1; // TEMP - W/ CB
+
+        CustomerObj newCustomer = new CustomerObj(customerID, name, address, postalCode, phone, createDate, createdBy, updateDate, updatedBy,divisionID);
+
+        CustomerDB.addCustomer(newCustomer);
+
+        returnToCustomers(actionEvent);
+        return;
     }
 
     public void returnToCustomers(ActionEvent actionEvent) throws IOException {
@@ -40,10 +78,5 @@ public class AddCustomerController implements Initializable {
         stage.setTitle("Customer View");
         stage.setScene(scene);
         stage.show();
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
     }
 }

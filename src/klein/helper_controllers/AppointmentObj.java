@@ -1,7 +1,5 @@
 package klein.helper_controllers;
 
-import java.awt.*;
-import javafx.scene.control.TextField;
 import java.time.LocalDateTime;
 
 public class AppointmentObj {
@@ -13,14 +11,14 @@ public class AppointmentObj {
     private LocalDateTime start;
     private LocalDateTime end;
     private final LocalDateTime createDate;
-    private final String createUser;
+    private final String createdBy;
     private LocalDateTime updateDate;
-    private String updateUser;
+    private String updatedBy;
     private int customerID;
     private int userID;
     private int contactID;
 
-    public AppointmentObj(Integer appointmentID, String title, String description, String location, String type, LocalDateTime start, LocalDateTime end, LocalDateTime createDate, String createUser, LocalDateTime updateDate, String updateUser, int customerID, int userID, int contactID) {
+    public AppointmentObj(Integer appointmentID, String title, String description, String location, String type, LocalDateTime start, LocalDateTime end, LocalDateTime createDate, String createdBy, LocalDateTime updateDate, String updatedBy, int customerID, int userID, int contactID) {
         this.appointmentID = appointmentID;
         this.title = title;
         this.description = description;
@@ -29,9 +27,9 @@ public class AppointmentObj {
         this.start = start;
         this.end = end;
         this.createDate = createDate;
-        this.createUser = createUser;
+        this.createdBy = createdBy;
         this.updateDate = updateDate;
-        this.updateUser = updateUser;
+        this.updatedBy = updatedBy;
         this.customerID = customerID;
         this.userID = userID;
         this.contactID = contactID;
@@ -97,8 +95,8 @@ public class AppointmentObj {
         return createDate;
     }
 
-    public String getCreateUser() {
-        return createUser;
+    public String getCreatedBy() {
+        return createdBy;
     }
 
     public LocalDateTime getUpdateDate() {
@@ -109,12 +107,12 @@ public class AppointmentObj {
         this.updateDate = updateDate;
     }
 
-    public String getUpdateUser() {
-        return updateUser;
+    public String getUpdatedBy() {
+        return updatedBy;
     }
 
-    public void setUpdateUser(String updateUser) {
-        this.updateUser = updateUser;
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
     }
 
     public int getCustomerID() {

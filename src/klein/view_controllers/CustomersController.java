@@ -19,6 +19,7 @@ import klein.helper_controllers.CustomerObj;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -101,7 +102,7 @@ public class CustomersController implements Initializable {
 
             if (result.isPresent() && result.get() == ButtonType.OK) {
                 CustomerDB.deleteCustomer(selectedCustomer.getCustomerID());
-                refreshView(actionEvent);
+                updateCustomerList();
             }
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -112,18 +113,9 @@ public class CustomersController implements Initializable {
         }
     }
 
-    private void refreshView(ActionEvent actionEvent) throws IOException {
-        Parent parent = FXMLLoader.load(getClass().getResource("/klein/view/customers.fxml"));
-        Scene scene = new Scene(parent);
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        stage.setTitle("Customer View");
-        stage.setScene(scene);
-        stage.show();
-    }
-
     public void searchCustomers(ActionEvent actionEvent) throws SQLException {
         customerList = CustomerDB.getAllCustomers();
-        searchBarText = searchBar.getText();
+        searchBarText = searchBar.getText().toLowerCase();
 
         selectedCustomers.clear();
 
@@ -135,9 +127,10 @@ public class CustomersController implements Initializable {
             alert.showAndWait();
         } else {
             customerList.forEach(customerObj -> {
-                if (customerObj.getName().contains(searchBarText)
-                        || customerObj.getPhone().contains(searchBarText)
-                        || customerObj.getAddress().contains(searchBarText)) {
+                if (String.valueOf(customerObj.getCustomerID()).toLowerCase().contains(searchBarText)
+                        || customerObj.getName().toLowerCase().contains(searchBarText)
+                        || customerObj.getPhone().toLowerCase().contains(searchBarText)
+                        || customerObj.getAddress().toLowerCase().contains(searchBarText)) {
                     selectedCustomers.add(customerObj);
                 }
                 custTableView.setItems(selectedCustomers);

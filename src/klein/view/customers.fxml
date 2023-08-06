@@ -35,6 +35,9 @@
         <Button fx:id="modifyButton" layoutX="422.0" layoutY="391.0" mnemonicParsing="false" onAction="#toModifyCustomer" text="Modify" />
         <Button fx:id="deleteButton" layoutX="484.0" layoutY="391.0" mnemonicParsing="false" onAction="#deleteCustomer" text="Delete" />
         <Button layoutX="8.0" layoutY="391.0" mnemonicParsing="false" onAction="#toAppointments" text="View Appointments" />
-        <TextField fx:id="customerIdentifier" layoutX="506.0" layoutY="26.0" onAction="#searchCustomers" prefHeight="25.0" prefWidth="224.0" promptText="Search for Customer by ID or Name" />
+        <TextField fx:id="searchBar" layoutX="550.0" layoutY="26.0" onAction="#searchCustomers" prefHeight="25.0" prefWidth="269.0" promptText="Search for Customer by ID, Name, Address or Phone Number">
+            <font>
+                <Font size="9.5" />
+            </font></TextField>
     </children>
 </AnchorPane>

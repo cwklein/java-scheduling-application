@@ -10,7 +10,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import klein.helper_controllers.CustomerObj;
-import klein.helper_controllers.DAO.AppointmentDB;
 import klein.helper_controllers.DAO.CustomerDB;
 import klein.helper_controllers.UserObj;
 

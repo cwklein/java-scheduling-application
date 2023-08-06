@@ -13,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import klein.helper_controllers.DAO.AppointmentDB;
+import klein.helper_controllers.DAO.CustomerDB;
 import klein.helper_controllers.JDBC;
 import klein.helper_controllers.AppointmentObj;
 
@@ -101,7 +102,7 @@ public class AppointmentsController implements Initializable {
 
             if (result.isPresent() && result.get() == ButtonType.OK) {
                 AppointmentDB.deleteAppointment(selectedAppointment.getAppointmentID());
-                refreshView(actionEvent);
+                updateAppointmentList();
             }
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -120,7 +121,7 @@ public class AppointmentsController implements Initializable {
     public void toMonthlyView(ActionEvent actionEvent) throws SQLException {
         allAppointments = AppointmentDB.getAllAppointments();
 
-        LocalDateTime startDate = LocalDateTime.now().minusMonths(1);
+        LocalDateTime startDate = LocalDateTime.now();
         LocalDateTime endDate = LocalDateTime.now().plusMonths(1);
 
         selectedAppointments.clear();
@@ -146,7 +147,7 @@ public class AppointmentsController implements Initializable {
     public void toWeeklyView(ActionEvent actionEvent) throws SQLException {
         allAppointments = AppointmentDB.getAllAppointments();
 
-        LocalDateTime startDate = LocalDateTime.now().minusWeeks(1);
+        LocalDateTime startDate = LocalDateTime.now();
         LocalDateTime endDate = LocalDateTime.now().plusWeeks(1);
 
         selectedAppointments.clear();
@@ -171,7 +172,7 @@ public class AppointmentsController implements Initializable {
 
     public void searchAppointments(ActionEvent actionEvent) throws SQLException {
         allAppointments = AppointmentDB.getAllAppointments();
-        searchBarText = searchBar.getText();
+        searchBarText = searchBar.getText().toLowerCase();
 
         selectedAppointments.clear();
 
@@ -185,10 +186,11 @@ public class AppointmentsController implements Initializable {
             alert.showAndWait();
         } else {
             allAppointments.forEach(appointmentObj -> {
-                if (appointmentObj.getTitle().contains(searchBarText)
-                        || appointmentObj.getDescription().contains(searchBarText)
-                        || appointmentObj.getLocation().contains(searchBarText)
-                        || appointmentObj.getType().contains(searchBarText) ) {
+                if (String.valueOf(appointmentObj.getAppointmentID()).toLowerCase().contains(searchBarText)
+                        || appointmentObj.getTitle().toLowerCase().contains(searchBarText)
+                        || appointmentObj.getDescription().toLowerCase().contains(searchBarText)
+                        || appointmentObj.getLocation().toLowerCase().contains(searchBarText)
+                        || appointmentObj.getType().toLowerCase().contains(searchBarText) ) {
                     selectedAppointments.add(appointmentObj);
                 }
                 appointmentTableView.setItems(selectedAppointments);
@@ -235,13 +237,9 @@ public class AppointmentsController implements Initializable {
         AppointmentsController.selectedAppointment = selectedAppointment;
     }
 
-    public void refreshView(ActionEvent actionEvent) throws IOException {
-        Parent parent = FXMLLoader.load(getClass().getResource("/klein/view/appointments.fxml"));
-        Scene scene = new Scene(parent);
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        stage.setTitle("Appointment View");
-        stage.setScene(scene);
-        stage.show();
+    public void updateAppointmentList() throws SQLException {
+        allAppointments = AppointmentDB.getAllAppointments();
+        appointmentTableView.setItems(allAppointments);
     }
 }
 

@@ -1,5 +1,6 @@
 package klein.view_controllers;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -30,9 +31,12 @@ public class AddAppointmentController implements Initializable {
     public ComboBox startTimeField;
     public DatePicker endDateField;
     public ComboBox endTimeField;
-    public TextField customerIDField;
-    public TextField userIDField;
-    public ComboBox contactField;
+    public ObservableList<String> customerList;
+    public ComboBox<String> customerIDField;
+    public ObservableList<String> userList;
+    public ComboBox<String> userIDField;
+    public ObservableList<String> contactList;
+    public ComboBox<String> contactIDField;
     private Integer appointmentID;
     private String title;
     private String description;
@@ -51,10 +55,16 @@ public class AddAppointmentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
+            contactList = AppointmentDB.getContacts();
+            userList = AppointmentDB.getUsers();
+            customerList = AppointmentDB.getCustomers();
             appointmentIDField.setText(String.valueOf(AppointmentDB.nextOpenAppointment()));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        contactIDField.setItems(contactList);
+        customerIDField.setItems(customerList);
+        userIDField.setItems(userList);
     }
 
     public void addAppointment(ActionEvent actionEvent) throws SQLException, IOException {
@@ -69,9 +79,9 @@ public class AddAppointmentController implements Initializable {
         createdBy = UserObj.getUserName();
         updateDate = LocalDateTime.now();
         updatedBy = UserObj.getUserName();
-        customerID = Integer.parseInt(customerIDField.getText());
-        userID = Integer.parseInt(userIDField.getText());
-        contactID = userID; // TEMP -- W/ CB
+        customerID = AppointmentDB.customerNameToCustomerID(customerIDField.getValue());
+        userID = AppointmentDB.userNameToUserID(userIDField.getValue());
+        contactID = AppointmentDB.contactNameToContactID(contactIDField.getValue());
 
         AppointmentObj newAppointment = new AppointmentObj(appointmentID, title, description, location, type, start, end, createDate, createdBy, updateDate, updatedBy, customerID, userID, contactID);
 

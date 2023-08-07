@@ -3,7 +3,7 @@ package klein.helper_controllers;
 import java.time.LocalDateTime;
 
 public class CustomerObj {
-    private final int customerID;
+    private int customerID;
     private String name;
     private String address;
     private String postalCode;
@@ -13,8 +13,10 @@ public class CustomerObj {
     private LocalDateTime dateUpdated;
     private String updatedBy;
     private int divisionID;
+    private String country;
+    private String region;
 
-    public CustomerObj(int customerID, String name, String address, String postalCode, String phone, LocalDateTime dateCreated, String createdBy, LocalDateTime dateUpdated, String updatedBy, int divisionID) {
+    public CustomerObj(int customerID, String name, String address, String postalCode, String phone, LocalDateTime dateCreated, String createdBy, LocalDateTime dateUpdated, String updatedBy, int divisionID, String country, String region) {
         this.customerID = customerID;
         this.name = name;
         this.address = address;
@@ -25,6 +27,8 @@ public class CustomerObj {
         this.dateUpdated = dateUpdated;
         this.updatedBy = updatedBy;
         this.divisionID = divisionID;
+        this.country = country;
+        this.region = region;
     }
 
     public int getCustomerID() {
@@ -101,6 +105,22 @@ public class CustomerObj {
 
     public void setDivisionID(int divisionID) {
         this.divisionID = divisionID;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
     }
 }
 

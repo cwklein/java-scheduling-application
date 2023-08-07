@@ -19,7 +19,6 @@ import klein.helper_controllers.CustomerObj;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -34,26 +33,23 @@ public class CustomersController implements Initializable {
     public TableColumn custAddressColumn;
     public TableColumn custPostalCodeColumn;
     public TableColumn custPhoneColumn;
-    public TableColumn custDateCreatedColumn;
-    public TableColumn custCreatedByColumn;
-    public TableColumn custDateUpdatedColumn;
-    public TableColumn custUpdatedByColumn;
     public TableColumn custDivisionIDColumn;
+    public TableColumn custCountryColumn;
+    public TableColumn custRegionColumn;
     public TableView<CustomerObj> custTableView;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        custTableView.setItems(customerList);
         custIDColumn.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         custNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         custAddressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
         custPostalCodeColumn.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
         custPhoneColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
-        custDateCreatedColumn.setCellValueFactory(new PropertyValueFactory<>("dateCreated"));
-        custCreatedByColumn.setCellValueFactory(new PropertyValueFactory<>("createdBy"));
-        custDateUpdatedColumn.setCellValueFactory(new PropertyValueFactory<>("dateUpdated"));
-        custUpdatedByColumn.setCellValueFactory(new PropertyValueFactory<>("updatedBy"));
         custDivisionIDColumn.setCellValueFactory(new PropertyValueFactory<>("divisionID"));
+        custCountryColumn.setCellValueFactory(new PropertyValueFactory<>("country"));
+        custRegionColumn.setCellValueFactory(new PropertyValueFactory<>("region"));
+        custTableView.setItems(customerList);
+        custIDColumn.setSortable(true);
 
         try {
             updateCustomerList();
@@ -96,7 +92,7 @@ public class CustomersController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirm Delete");
             alert.setContentText("Are you sure you want to delete customer: " + selectedCustomer.getName() + "? "
-                    + "This will delete all appointments associated with this customer as well.");
+                    + "This will delete all " + CustomerDB.getAssocApptCount(selectedCustomer.getCustomerID()) + " appointment(s) associated with this customer as well.");
 
             Optional<ButtonType> result = alert.showAndWait();
 

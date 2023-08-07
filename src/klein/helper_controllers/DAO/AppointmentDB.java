@@ -17,7 +17,8 @@ public class AppointmentDB {
     public static ObservableList<AppointmentObj> getAllAppointments() throws SQLException {
         ObservableList<AppointmentObj> userAppointments = FXCollections.observableArrayList();
 
-        String sqlQuery = "SELECT * FROM appointments WHERE User_ID = ?";
+        String sqlQuery = "SELECT * FROM appointments WHERE User_ID = ? " +
+                "ORDER BY appointments.Appointment_ID ASC";
 
         PreparedStatement ps = JDBC.connection.prepareStatement(sqlQuery);
         ps.setInt(1, UserObj.getUserID());
@@ -46,6 +47,177 @@ public class AppointmentDB {
             userAppointments.add(newAppt);
         }
         return userAppointments;
+    }
+
+    public static ObservableList<String> getUsers() throws SQLException {
+        ObservableList<String> userList = FXCollections.observableArrayList();
+
+        String sqlQuery = "SELECT * FROM users";
+
+        PreparedStatement ps = JDBC.connection.prepareStatement(sqlQuery);
+
+        ResultSet rs = ps.executeQuery();
+
+        while(rs.next()) {
+            String newUser = rs.getString("User_Name");
+            userList.add(newUser);
+        }
+        rs.close();
+        return userList;
+    }
+
+    public static Integer userNameToUserID(String userName) throws SQLException {
+        Integer userID;
+
+        String sqlQuery = "SELECT * FROM users WHERE User_Name = ?";
+
+        PreparedStatement ps = JDBC.connection.prepareStatement(sqlQuery);
+        ps.setString(1, userName);
+
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            userID = rs.getInt("User_ID");
+        }
+        else {
+            userID = null;
+        }
+        rs.close();
+        return userID;
+    }
+
+    public static String userIDToUserName(Integer userID) throws SQLException {
+        String userName;
+
+        String sqlQuery = "SELECT * FROM users WHERE User_ID = ?";
+
+        PreparedStatement ps = JDBC.connection.prepareStatement(sqlQuery);
+        ps.setInt(1, userID);
+
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            userName = rs.getString("User_Name");
+        }
+        else {
+            userName = null;
+        }
+        rs.close();
+        return userName;
+    }
+
+    public static ObservableList<String> getContacts() throws SQLException {
+        ObservableList<String> contactList = FXCollections.observableArrayList();
+
+        String sqlQuery = "SELECT * FROM contacts";
+
+        PreparedStatement ps = JDBC.connection.prepareStatement(sqlQuery);
+
+        ResultSet rs = ps.executeQuery();
+
+        while(rs.next()) {
+            String newContact = rs.getString("Contact_Name");
+            contactList.add(newContact);
+        }
+        rs.close();
+        return contactList;
+    }
+
+    public static Integer contactNameToContactID(String contactName) throws SQLException {
+        Integer contactID;
+
+        String sqlQuery = "SELECT * FROM contacts WHERE Contact_Name = ?";
+
+        PreparedStatement ps = JDBC.connection.prepareStatement(sqlQuery);
+        ps.setString(1, contactName);
+
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            contactID = rs.getInt("Contact_ID");
+        }
+        else {
+            contactID = null;
+        }
+        rs.close();
+        return contactID;
+    }
+
+    public static String contactIDToContactName(Integer contactID) throws SQLException {
+        String contactName;
+
+        String sqlQuery = "SELECT * FROM contacts WHERE Contact_ID = ?";
+
+        PreparedStatement ps = JDBC.connection.prepareStatement(sqlQuery);
+        ps.setInt(1, contactID);
+
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            contactName = rs.getString("Contact_Name");
+        }
+        else {
+            contactName = null;
+        }
+        rs.close();
+        return contactName;
+    }
+
+    public static ObservableList<String> getCustomers() throws SQLException {
+        ObservableList<String> customerList = FXCollections.observableArrayList();
+
+        String sqlQuery = "SELECT * FROM customers";
+
+        PreparedStatement ps = JDBC.connection.prepareStatement(sqlQuery);
+
+        ResultSet rs = ps.executeQuery();
+
+        while(rs.next()) {
+            String newCustomer = rs.getString("Customer_Name");
+            customerList.add(newCustomer);
+        }
+        rs.close();
+        return customerList;
+    }
+
+    public static Integer customerNameToCustomerID(String customerName) throws SQLException {
+        Integer customerID;
+
+        String sqlQuery = "SELECT * FROM customers WHERE Customer_Name = ?";
+
+        PreparedStatement ps = JDBC.connection.prepareStatement(sqlQuery);
+        ps.setString(1, customerName);
+
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            customerID = rs.getInt("Customer_ID");
+        }
+        else {
+            customerID = null;
+        }
+        rs.close();
+        return customerID;
+    }
+
+    public static String customerIDToCustomerName(Integer customerID) throws SQLException {
+        String customerName;
+
+        String sqlQuery = "SELECT * FROM customers WHERE Customer_ID = ?";
+
+        PreparedStatement ps = JDBC.connection.prepareStatement(sqlQuery);
+        ps.setInt(1, customerID);
+
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            customerName = rs.getString("Customer_Name");
+        }
+        else {
+            customerName = null;
+        }
+        rs.close();
+        return customerName;
     }
 
     public static void addAppointment(AppointmentObj newAppointment) throws SQLException {

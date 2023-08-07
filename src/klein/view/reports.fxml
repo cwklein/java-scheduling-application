@@ -5,12 +5,13 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="441.0" prefWidth="833.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="klein.view_controllers.ReportsController">
+<AnchorPane prefHeight="441.0" prefWidth="833.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="klein.view_controllers.ReportsController">
     <children>
-        <TableView layoutX="307.0" layoutY="70.0" prefHeight="311.0" prefWidth="513.0" style="-fx-border-color: black;">
+        <TableView fx:id="resultTable" layoutX="307.0" layoutY="121.0" prefHeight="260.0" prefWidth="513.0" style="-fx-border-color: black;">
             <columns>
                 <TableColumn prefWidth="53.0" text="Appt ID" />
                 <TableColumn prefWidth="49.333335876464844" text="Title" />
@@ -33,7 +34,7 @@
         <Button fx:id="exitButton" layoutX="785.0" layoutY="391.0" mnemonicParsing="false" onAction="#closeApplication" text="Exit" />
         <Button layoutX="8.0" layoutY="391.0" mnemonicParsing="false" onAction="#toCustomers" text="View Customer List" />
         <Button layoutX="136.0" layoutY="391.0" mnemonicParsing="false" onAction="#toAppointments" text="View Appointment List" />
-        <AnchorPane layoutX="14.0" layoutY="70.0" prefHeight="94.0" prefWidth="286.0" style="-fx-background-color: White; -fx-border-color: Black;">
+        <AnchorPane layoutX="14.0" layoutY="70.0" prefHeight="95.0" prefWidth="286.0" style="-fx-background-color: E2FFFD; -fx-border-color: Black;">
             <children>
                 <Label layoutX="76.0" layoutY="6.0" text="Monthly Totals by Type">
                     <font>
@@ -42,16 +43,16 @@
                 </Label>
                 <Label layoutX="14.0" layoutY="30.0" text="Type" />
                 <Label layoutX="14.0" layoutY="59.0" text="Month" />
-                <Button layoutX="222.0" layoutY="39.0" mnemonicParsing="false" onAction="#generateMonthlyReport" text="Submit" />
-                <ComboBox fx:id="monthlyType" layoutX="74.0" layoutY="26.0" prefHeight="25.0" prefWidth="134.0" />
-                <ComboBox fx:id="monthlyMonth" layoutX="74.0" layoutY="55.0" prefHeight="25.0" prefWidth="134.0" />
+                <Button layoutX="218.0" layoutY="39.0" mnemonicParsing="false" onAction="#generateMonthlyReport" text="Submit" />
+                <ComboBox fx:id="monthlyType" layoutX="74.0" layoutY="26.0" prefHeight="25.0" prefWidth="134.0" promptText="Select Type" />
+                <ComboBox fx:id="monthlyMonth" layoutX="74.0" layoutY="55.0" prefHeight="25.0" prefWidth="134.0" promptText="Select Month" />
             </children>
         </AnchorPane>
-        <AnchorPane layoutX="14.0" layoutY="179.0" prefHeight="64.0" prefWidth="286.0" style="-fx-background-color: White; -fx-border-color: Black;">
+        <AnchorPane layoutX="14.0" layoutY="209.0" prefHeight="64.0" prefWidth="286.0" style="-fx-background-color: E2FFFD; -fx-border-color: Black;">
             <children>
                 <Label layoutX="14.0" layoutY="30.0" text="Contact" />
                 <Button layoutX="218.0" layoutY="26.0" mnemonicParsing="false" onAction="#generateContactReport" text="Submit" />
-                <ComboBox fx:id="contactName" layoutX="74.0" layoutY="26.0" prefHeight="25.0" prefWidth="134.0" />
+                <ComboBox fx:id="contactName" layoutX="74.0" layoutY="26.0" prefHeight="25.0" prefWidth="134.0" promptText="Select Contact" />
                 <Label layoutX="92.0" layoutY="6.0" text="Contact Schedule">
                     <font>
                         <Font name="System Bold" size="12.0" />
@@ -59,21 +60,27 @@
                 </Label>
             </children>
         </AnchorPane>
-        <AnchorPane layoutX="14.0" layoutY="259.0" prefHeight="122.0" prefWidth="286.0" style="-fx-background-color: White; -fx-border-color: Black;">
+        <AnchorPane layoutX="14.0" layoutY="317.0" prefHeight="64.0" prefWidth="286.0" style="-fx-background-color: E2FFFD; -fx-border-color: Black;">
             <children>
-                <Label layoutX="14.0" layoutY="30.0" text="??" />
-                <Label layoutX="14.0" layoutY="59.0" text="??" />
-                <Button layoutX="218.0" layoutY="55.0" mnemonicParsing="false" text="Submit" />
-                <ComboBox layoutX="74.0" layoutY="26.0" prefHeight="25.0" prefWidth="134.0" />
-                <ComboBox layoutX="74.0" layoutY="55.0" prefHeight="25.0" prefWidth="134.0" />
-                <Label layoutX="112.0" layoutY="6.0" text="New Option">
+                <Label layoutX="14.0" layoutY="30.0" text="Customer" />
+                <Button layoutX="218.0" layoutY="26.0" mnemonicParsing="false" onAction="#generateCustomerReport" text="Submit" />
+                <ComboBox fx:id="customerName" layoutX="74.0" layoutY="26.0" prefHeight="25.0" prefWidth="134.0" promptText="Select Customer" />
+                <Label layoutX="87.0" layoutY="6.0" text="Customer Schedule">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font>
                 </Label>
-                <Label layoutX="14.0" layoutY="88.0" text="??" />
-                <ComboBox layoutX="74.0" layoutY="84.0" prefHeight="25.0" prefWidth="134.0" />
             </children>
         </AnchorPane>
+      <AnchorPane layoutX="307.0" layoutY="69.0" prefHeight="44.0" prefWidth="513.0" style="-fx-background-color: E6FFE2; -fx-border-color: black;">
+         <children>
+            <Label layoutX="146.0" layoutY="13.0" text="Result Count:">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="resultCount" disable="true" editable="false" layoutX="273.0" layoutY="10.0" style="-fx-border-color: black;" />
+         </children>
+      </AnchorPane>
     </children>
 </AnchorPane>

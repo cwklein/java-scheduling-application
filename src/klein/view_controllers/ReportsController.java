@@ -6,9 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import klein.helper_controllers.JDBC;
 
@@ -18,12 +16,25 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ReportsController implements Initializable {
+    public ComboBox monthlyType;
     public ComboBox<String> monthlyMonth;
+    public ComboBox contactName;
+    public ComboBox customerName;
+    public TextField resultCount;
+    public TableView resultTable;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
+
+    public void generateMonthlyReport(ActionEvent actionEvent) {
+    }
 
     public void generateContactReport(ActionEvent actionEvent) {
     }
 
-    public void generateMonthlyReport(ActionEvent actionEvent) {
+    public void generateCustomerReport(ActionEvent actionEvent) {
     }
 
     public void toAppointments(ActionEvent actionEvent) throws IOException {
@@ -55,10 +66,5 @@ public class ReportsController implements Initializable {
             JDBC.closeConnection();
             System.exit(0);
         }
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
     }
 }

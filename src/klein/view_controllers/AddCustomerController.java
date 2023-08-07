@@ -1,5 +1,6 @@
 package klein.view_controllers;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,8 +25,10 @@ public class AddCustomerController implements Initializable {
     public TextField nameField;
     public TextField addressField;
     public TextField postalCodeField;
-    public ComboBox localeCountryField;
-    public ComboBox localeFirstLevelField;
+    public ComboBox<String> countryField;
+    public ObservableList<String> countryList;
+    public ComboBox<String> regionField;
+    public ObservableList<String> regionList;
     public TextField phoneField;
     private Integer customerID;
     private String name;
@@ -44,9 +47,20 @@ public class AddCustomerController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
             customerIDField.setText(String.valueOf(CustomerDB.nextCustomerID()));
+            countryList = CustomerDB.getCountries();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
+        countryField.setItems(countryList);
+    }
+
+    public void populateRegions(ActionEvent actionEvent) throws SQLException {
+        String selectedCountry = countryField.getValue();
+
+        regionList = CustomerDB.getRegionsFromCountryName(selectedCountry);
+
+        regionField.setItems(regionList);
     }
 
     public void addCustomer(ActionEvent actionEvent) throws SQLException, IOException {
@@ -59,11 +73,11 @@ public class AddCustomerController implements Initializable {
         createdBy = UserObj.getUserName();
         updateDate = LocalDateTime.now();
         updatedBy = UserObj.getUserName();
-        country = localeCountryField.getAccessibleText();
-        region = localeFirstLevelField.getAccessibleText();
-        divisionID = 1; // TEMP - W/ CB
+        country = countryField.getValue();
+        region = regionField.getValue();
+        divisionID = CustomerDB.getDivIDFromRegion(region);
 
-        CustomerObj newCustomer = new CustomerObj(customerID, name, address, postalCode, phone, createDate, createdBy, updateDate, updatedBy,divisionID);
+        CustomerObj newCustomer = new CustomerObj(customerID, name, address, postalCode, phone, createDate, createdBy, updateDate, updatedBy,divisionID, country, region);
 
         CustomerDB.addCustomer(newCustomer);
 

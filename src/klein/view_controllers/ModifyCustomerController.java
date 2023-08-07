@@ -1,5 +1,6 @@
 package klein.view_controllers;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,8 +25,10 @@ public class ModifyCustomerController implements Initializable {
     public TextField nameField;
     public TextField addressField;
     public TextField postalCodeField;
-    public ComboBox localeCountryField;
-    public ComboBox localeFirstLevelField;
+    public ComboBox<String> countryField;
+    public ObservableList<String> countryList;
+    public ComboBox<String> regionField;
+    public ObservableList<String> regionList;
     public TextField phoneField;
     private Integer customerID;
     private String name;
@@ -50,27 +53,43 @@ public class ModifyCustomerController implements Initializable {
         nameField.setText(String.valueOf(selectedCustomer.getName()));
         addressField.setText(String.valueOf(selectedCustomer.getAddress()));
         postalCodeField.setText(String.valueOf(selectedCustomer.getPostalCode()));
+        countryField.setValue(String.valueOf(selectedCustomer.getCountry()));
+        regionField.setValue(String.valueOf(selectedCustomer.getRegion()));
         phoneField.setText(String.valueOf(selectedCustomer.getPhone()));
-        //POPULATE CB'S
+
+        try {
+            countryField.setItems(CustomerDB.getCountries());
+            regionField.setItems(CustomerDB.getRegionsFromCountryName(String.valueOf(countryField.getValue())));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
+
+    public void populateRegions(ActionEvent actionEvent) throws SQLException {
+        String selectedCountry = countryField.getValue();
+
+        regionList = CustomerDB.getRegionsFromCountryName(selectedCountry);
+
+        regionField.setItems(regionList);
+    }
+
     public void modifyCustomer(ActionEvent actionEvent) throws IOException, SQLException {
         customerID = Integer.parseInt(customerIDField.getText());
         name = nameField.getText();
         address = addressField.getText();
         postalCode = postalCodeField.getText();
         phone = phoneField.getText();
-        createDate = LocalDateTime.now();
-        createdBy = UserObj.getUserName();
+        createDate = selectedCustomer.getDateCreated();
+        createdBy = selectedCustomer.getCreatedBy();
         updateDate = LocalDateTime.now();
         updatedBy = UserObj.getUserName();
-        country = localeCountryField.getAccessibleText();
-        region = localeFirstLevelField.getAccessibleText();
-        divisionID = 1; // TEMP - W/ CB
+        country = countryField.getValue();
+        region = regionField.getValue();
+        divisionID = CustomerDB.getDivIDFromRegion(String.valueOf(region));
 
-        CustomerObj newCustomer = new CustomerObj(customerID, name, address, postalCode, phone, createDate, createdBy, updateDate, updatedBy,divisionID);
+        CustomerObj newCustomer = new CustomerObj(customerID, name, address, postalCode, phone, createDate, createdBy, updateDate, updatedBy,divisionID, country, region);
 
-        CustomerDB.deleteCustomer(selectedCustomer.getCustomerID());
-        CustomerDB.addCustomer(newCustomer);
+        CustomerDB.updateCustomer(newCustomer);
 
         returnToCustomers(actionEvent);
         return;

@@ -1,5 +1,6 @@
 package klein.view_controllers;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -30,9 +31,12 @@ public class ModifyAppointmentController implements Initializable {
     public ComboBox startTime;
     public DatePicker endDate;
     public ComboBox endTime;
-    public TextField customerIDField;
-    public TextField userIDField;
-    public ComboBox contactCB;
+    public ObservableList<String> customerList;
+    public ComboBox<String> customerIDField;
+    public ObservableList<String> userList;
+    public ComboBox<String> userIDField;
+    public ObservableList<String> contactList;
+    public ComboBox<String> contactIDField;
     private AppointmentObj selectedAppointment;
     private Integer appointmentID;
     private String title;
@@ -54,14 +58,25 @@ public class ModifyAppointmentController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         selectedAppointment = AppointmentsController.getSelectedAppointment();
 
+        try {
+            contactList = AppointmentDB.getContacts();
+            userList = AppointmentDB.getUsers();
+            customerList = AppointmentDB.getCustomers();
+            contactIDField.setValue(AppointmentDB.contactIDToContactName(selectedAppointment.getContactID()));
+            customerIDField.setValue(AppointmentDB.customerIDToCustomerName(selectedAppointment.getCustomerID()));
+            userIDField.setValue(AppointmentDB.userIDToUserName(selectedAppointment.getUserID()));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
         appointmentIDField.setText(String.valueOf(selectedAppointment.getAppointmentID()));
         titleField.setText(String.valueOf(selectedAppointment.getTitle()));
         descriptionField.setText(String.valueOf(selectedAppointment.getDescription()));
         locationField.setText(String.valueOf(selectedAppointment.getLocation()));
+        contactIDField.setItems(contactList);
         typeField.setText(String.valueOf(selectedAppointment.getType()));
-        customerIDField.setText(String.valueOf(selectedAppointment.getCustomerID()));
-        userIDField.setText(String.valueOf(selectedAppointment.getUserID()));
-        //POPULATE CB'S AND DATE PICKER
+        customerIDField.setItems(customerList);
+        userIDField.setItems(userList);
     }
 
     public void modifyAppointment(ActionEvent actionEvent) throws SQLException, IOException {
@@ -76,9 +91,9 @@ public class ModifyAppointmentController implements Initializable {
         createUser =selectedAppointment.getCreatedBy();
         updateDate = LocalDateTime.now();
         updateUser = UserObj.getUserName();
-        customerID = Integer.parseInt(customerIDField.getText());
-        userID = Integer.parseInt(userIDField.getText());
-        contactID = userID; // TEMP -- W/ CB
+        customerID = AppointmentDB.customerNameToCustomerID(customerIDField.getValue());
+        userID = AppointmentDB.userNameToUserID(userIDField.getValue());
+        contactID = AppointmentDB.contactNameToContactID(contactIDField.getValue());
 
         AppointmentObj newAppt = new AppointmentObj(appointmentID, title, description, location, type, start, end, createDate, createUser, updateDate, updateUser, customerID, userID, contactID);
 

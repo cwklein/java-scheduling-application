@@ -12,7 +12,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class AppointmentDB {
     public static ObservableList<AppointmentObj> getAllAppointments() throws SQLException {

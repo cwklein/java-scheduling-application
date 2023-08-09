@@ -3,7 +3,7 @@ package klein.helper_controllers;
 import java.time.*;
 
 public class TimeConverter {
-    private final static ZonedDateTime estOpenDateTime = ZonedDateTime.of(LocalDate.now(), LocalTime.of(8,00), ZoneId.of("America/New_York"));
+    private final static ZonedDateTime estOpenDateTime = ZonedDateTime.of(LocalDate.now(), LocalTime.of(8,0), ZoneId.of("America/New_York"));
     private final static LocalDateTime localOpenDateTime = LocalDateTime.ofInstant(Instant.from(estOpenDateTime), ZoneId.systemDefault());
     private final static LocalTime localOpenTime = localOpenDateTime.toLocalTime();
 

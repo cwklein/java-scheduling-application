@@ -4,7 +4,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.time.*;
-import java.util.Date;
 
 public class AppointmentObj {
     public static LocalDateTime openingDateTime = TimeConverter.getLocalOpenDateTime();

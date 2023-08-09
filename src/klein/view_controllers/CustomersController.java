@@ -28,14 +28,14 @@ public class CustomersController implements Initializable {
     public static ObservableList<CustomerObj> selectedCustomers = FXCollections.observableArrayList();
     public String searchBarText;
     public TextField searchBar;
-    public TableColumn custIDColumn;
-    public TableColumn custNameColumn;
-    public TableColumn custAddressColumn;
-    public TableColumn custPostalCodeColumn;
-    public TableColumn custPhoneColumn;
-    public TableColumn custDivisionIDColumn;
-    public TableColumn custCountryColumn;
-    public TableColumn custRegionColumn;
+    public TableColumn<CustomerObj, Integer> custIDColumn;
+    public TableColumn<CustomerObj, String> custNameColumn;
+    public TableColumn<CustomerObj, String> custAddressColumn;
+    public TableColumn<CustomerObj, String> custPostalCodeColumn;
+    public TableColumn<CustomerObj, String> custPhoneColumn;
+    public TableColumn<CustomerObj, Integer> custDivisionIDColumn;
+    public TableColumn<CustomerObj, String> custCountryColumn;
+    public TableColumn<CustomerObj, String> custRegionColumn;
     public TableView<CustomerObj> custTableView;
 
     @Override

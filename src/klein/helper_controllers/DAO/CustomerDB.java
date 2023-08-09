@@ -160,11 +160,9 @@ public class CustomerDB {
         PreparedStatement ps = JDBC.connection.prepareStatement(sqlQuery);
         ps.setString(1, regionName);
 
-        System.out.println(regionName);
         ResultSet rs = ps.executeQuery();
 
         if (rs.next()) {
-            System.out.println("Boop");
             divisionID = rs.getInt("Division_ID");
         }
         else {

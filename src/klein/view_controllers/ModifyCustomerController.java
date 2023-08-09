@@ -26,22 +26,9 @@ public class ModifyCustomerController implements Initializable {
     public TextField addressField;
     public TextField postalCodeField;
     public ComboBox<String> countryField;
-    public ObservableList<String> countryList;
     public ComboBox<String> regionField;
     public ObservableList<String> regionList;
     public TextField phoneField;
-    private Integer customerID;
-    private String name;
-    private String address;
-    private String postalCode;
-    private String phone;
-    private LocalDateTime createDate;
-    private String createdBy;
-    private LocalDateTime updateDate;
-    private String updatedBy;
-    private String country;
-    private String region;
-    private Integer divisionID;
 
     private CustomerObj selectedCustomer;
 
@@ -74,25 +61,24 @@ public class ModifyCustomerController implements Initializable {
     }
 
     public void modifyCustomer(ActionEvent actionEvent) throws IOException, SQLException {
-        customerID = Integer.parseInt(customerIDField.getText());
-        name = nameField.getText();
-        address = addressField.getText();
-        postalCode = postalCodeField.getText();
-        phone = phoneField.getText();
-        createDate = selectedCustomer.getDateCreated();
-        createdBy = selectedCustomer.getCreatedBy();
-        updateDate = LocalDateTime.now();
-        updatedBy = UserObj.getUserName();
-        country = countryField.getValue();
-        region = regionField.getValue();
-        divisionID = CustomerDB.getDivIDFromRegion(String.valueOf(region));
+        Integer customerID = Integer.parseInt(customerIDField.getText());
+        String name = nameField.getText();
+        String address = addressField.getText();
+        String postalCode = postalCodeField.getText();
+        String phone = phoneField.getText();
+        LocalDateTime createDate = selectedCustomer.getDateCreated();
+        String createdBy = selectedCustomer.getCreatedBy();
+        LocalDateTime updateDate = LocalDateTime.now();
+        String updatedBy = UserObj.getUserName();
+        String country = countryField.getValue();
+        String region = regionField.getValue();
+        Integer divisionID = CustomerDB.getDivIDFromRegion(String.valueOf(region));
 
-        CustomerObj newCustomer = new CustomerObj(customerID, name, address, postalCode, phone, createDate, createdBy, updateDate, updatedBy,divisionID, country, region);
+        CustomerObj newCustomer = new CustomerObj(customerID, name, address, postalCode, phone, createDate, createdBy, updateDate, updatedBy, divisionID, country, region);
 
         CustomerDB.updateCustomer(newCustomer);
 
         returnToCustomers(actionEvent);
-        return;
     }
 
     public void returnToCustomers(ActionEvent actionEvent) throws IOException {

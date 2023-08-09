@@ -26,33 +26,18 @@ public class AddCustomerController implements Initializable {
     public TextField addressField;
     public TextField postalCodeField;
     public ComboBox<String> countryField;
-    public ObservableList<String> countryList;
     public ComboBox<String> regionField;
     public ObservableList<String> regionList;
     public TextField phoneField;
-    private Integer customerID;
-    private String name;
-    private String address;
-    private String postalCode;
-    private String phone;
-    private LocalDateTime createDate;
-    private String createdBy;
-    private LocalDateTime updateDate;
-    private String updatedBy;
-    private String country;
-    private String region;
-    private Integer divisionID;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
             customerIDField.setText(String.valueOf(CustomerDB.nextCustomerID()));
-            countryList = CustomerDB.getCountries();
+            countryField.setItems(CustomerDB.getCountries());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
-        countryField.setItems(countryList);
     }
 
     public void populateRegions(ActionEvent actionEvent) throws SQLException {
@@ -64,25 +49,24 @@ public class AddCustomerController implements Initializable {
     }
 
     public void addCustomer(ActionEvent actionEvent) throws SQLException, IOException {
-        customerID = Integer.parseInt(customerIDField.getText());
-        name = nameField.getText();
-        address = addressField.getText();
-        postalCode = postalCodeField.getText();
-        phone = phoneField.getText();
-        createDate = LocalDateTime.now();
-        createdBy = UserObj.getUserName();
-        updateDate = LocalDateTime.now();
-        updatedBy = UserObj.getUserName();
-        country = countryField.getValue();
-        region = regionField.getValue();
-        divisionID = CustomerDB.getDivIDFromRegion(region);
+        Integer customerID = Integer.parseInt(customerIDField.getText());
+        String name = nameField.getText();
+        String address = addressField.getText();
+        String postalCode = postalCodeField.getText();
+        String phone = phoneField.getText();
+        LocalDateTime createDate = LocalDateTime.now();
+        String createdBy = UserObj.getUserName();
+        LocalDateTime updateDate = LocalDateTime.now();
+        String updatedBy = UserObj.getUserName();
+        String country = countryField.getValue();
+        String region = regionField.getValue();
+        Integer divisionID = CustomerDB.getDivIDFromRegion(region);
 
-        CustomerObj newCustomer = new CustomerObj(customerID, name, address, postalCode, phone, createDate, createdBy, updateDate, updatedBy,divisionID, country, region);
+        CustomerObj newCustomer = new CustomerObj(customerID, name, address, postalCode, phone, createDate, createdBy, updateDate, updatedBy, divisionID, country, region);
 
         CustomerDB.addCustomer(newCustomer);
 
         returnToCustomers(actionEvent);
-        return;
     }
 
     public void returnToCustomers(ActionEvent actionEvent) throws IOException {

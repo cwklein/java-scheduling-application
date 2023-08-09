@@ -20,7 +20,6 @@ import klein.helper_controllers.UserObj;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
@@ -136,7 +135,6 @@ public class AddAppointmentController implements Initializable {
         AppointmentDB.addAppointment(newAppointment);
 
         returnToAppointments(actionEvent);
-        return;
     }
 
     public void returnToAppointments(ActionEvent actionEvent) throws IOException {

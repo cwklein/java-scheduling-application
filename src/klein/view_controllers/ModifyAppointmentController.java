@@ -172,7 +172,6 @@ public class ModifyAppointmentController implements Initializable {
         AppointmentDB.addAppointment(newAppt);
 
         returnToAppointments(actionEvent);
-        return;
     }
 
     public void returnToAppointments(ActionEvent actionEvent) throws IOException {

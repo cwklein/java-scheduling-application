@@ -13,14 +13,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import klein.helper_controllers.DAO.AppointmentDB;
-import klein.helper_controllers.DAO.CustomerDB;
 import klein.helper_controllers.JDBC;
 import klein.helper_controllers.AppointmentObj;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.ResourceBundle;

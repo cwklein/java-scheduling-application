@@ -1,5 +1,8 @@
 package klein.helper_controllers;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.time.LocalDateTime;
 
 public class AppointmentObj {
@@ -137,5 +140,13 @@ public class AppointmentObj {
 
     public void setContactID(int contactID) {
         this.contactID = contactID;
+    }
+
+    public static ObservableList<Integer> getStartHours() {
+        return FXCollections.observableArrayList(8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21);
+    }
+
+    public static ObservableList<Integer> getStartMinutes() {
+        return FXCollections.observableArrayList(0, 15, 30, 45);
     }
 }

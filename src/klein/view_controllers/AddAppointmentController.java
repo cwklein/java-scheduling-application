@@ -1,5 +1,6 @@
 package klein.view_controllers;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -10,15 +11,18 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import klein.helper_controllers.AppointmentObj;
 import klein.helper_controllers.DAO.AppointmentDB;
 import klein.helper_controllers.UserObj;
 
+import javax.xml.crypto.NodeSetData;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 public class AddAppointmentController implements Initializable {
@@ -28,9 +32,10 @@ public class AddAppointmentController implements Initializable {
     public TextField locationField;
     public TextField typeField;
     public DatePicker startDateField;
-    public ComboBox startTimeField;
-    public DatePicker endDateField;
-    public ComboBox endTimeField;
+    public ComboBox<Integer> startHrField;
+    public ComboBox<Integer> startMinField;
+    public ComboBox<Integer> durationHrField;
+    public ComboBox<Integer> durationMinField;
     public ObservableList<String> customerList;
     public ComboBox<String> customerIDField;
     public ObservableList<String> userList;
@@ -62,9 +67,67 @@ public class AddAppointmentController implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
+        startHrField.setItems(AppointmentObj.getStartHours());
         contactIDField.setItems(contactList);
         customerIDField.setItems(customerList);
         userIDField.setItems(userList);
+    }
+
+    public void populateStartMinutes(ActionEvent actionEvent) {
+        startMinField.setItems(null);
+        startMinField.setValue(null);
+        durationHrField.setItems(null);
+        durationHrField.setValue(null);
+        durationMinField.setItems(null);
+        durationMinField.setValue(null);
+        startMinField.setItems(AppointmentObj.getStartMinutes());
+
+    }
+
+    public void populateDurationHours(ActionEvent actionEvent) {
+        durationHrField.setItems(null);
+        durationHrField.setValue(null);
+        durationHrField.getPromptText();
+        durationMinField.setItems(null);
+        durationMinField.setValue(null);
+        LocalTime endTime = LocalTime.of(22, 00);
+
+        if (startHrField.getValue() != null && startMinField.getValue() != null) {
+
+            LocalTime timeLeft = endTime.minusHours(startHrField.getValue()).minusMinutes(startMinField.getValue());
+
+            ObservableList<Integer> hoursLeft = FXCollections.observableArrayList();
+            for (int h = 0; h <= timeLeft.getHour(); h++) {
+                hoursLeft.add(h);
+            }
+            durationHrField.setItems(hoursLeft);
+        }
+    }
+
+    public void populateDurationMinutes(ActionEvent actionEvent) {
+        durationMinField.setItems(null);
+        durationMinField.setValue(null);
+        LocalTime endTime = LocalTime.of(22, 00);
+
+        if (startHrField.getValue() != null && durationHrField.getValue() != null && startMinField.getValue() != null) {
+            LocalTime timeLeft = endTime.minusHours(startHrField.getValue() + durationHrField.getValue()).minusMinutes(startMinField.getValue());
+
+            ObservableList<Integer> minutesLeft = FXCollections.observableArrayList();
+            if (durationHrField.getValue() != 0) {
+                minutesLeft.add(0);
+            }
+            if (timeLeft.getHour() == 0) {
+                for (int m = 1; m <= timeLeft.getMinute(); m++) {
+                    if (m % 15 == 0) {
+                        minutesLeft.add(m);
+                    }
+                }
+            } else {
+                minutesLeft.addAll(15, 30, 45);
+            }
+            durationMinField.setItems(minutesLeft);
+        }
     }
 
     public void addAppointment(ActionEvent actionEvent) throws SQLException, IOException {

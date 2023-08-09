@@ -12,14 +12,14 @@
     <children>
         <TableView fx:id="custTableView" layoutX="8.0" layoutY="70.0" onMouseClicked="#selectCustomer" prefHeight="311.0" prefWidth="812.0">
             <columns>
-                <TableColumn fx:id="custIDColumn" prefWidth="37.0" text="ID" />
-                <TableColumn fx:id="custNameColumn" prefWidth="139.0" text="Customer Name" />
-                <TableColumn fx:id="custAddressColumn" prefWidth="157.0" text="Address" />
-                <TableColumn fx:id="custPostalCodeColumn" minWidth="3.0" prefWidth="77.0" text="Postal Code" />
-                <TableColumn fx:id="custPhoneColumn" prefWidth="122.0" text="Phone" />
-                <TableColumn fx:id="custDivisionIDColumn" prefWidth="67.0" text="Division ID" />
-                <TableColumn fx:id="custCountryColumn" prefWidth="103.0" text="Country Name" />
-                <TableColumn fx:id="custRegionColumn" minWidth="9.0" prefWidth="109.0" text="Region Name" />
+                <TableColumn fx:id="custIDColumn" prefWidth="37.0" style="-fx-alignment: CENTER;" text="ID" />
+                <TableColumn fx:id="custNameColumn" prefWidth="139.0" style="-fx-alignment: CENTER;" text="Customer Name" />
+                <TableColumn fx:id="custAddressColumn" prefWidth="157.0" style="-fx-alignment: CENTER;" text="Address" />
+                <TableColumn fx:id="custPostalCodeColumn" minWidth="3.0" prefWidth="77.0" style="-fx-alignment: CENTER;" text="Postal Code" />
+                <TableColumn fx:id="custPhoneColumn" prefWidth="122.0" style="-fx-alignment: CENTER;" text="Phone" />
+                <TableColumn fx:id="custDivisionIDColumn" prefWidth="67.0" style="-fx-alignment: CENTER;" text="Division ID" />
+                <TableColumn fx:id="custCountryColumn" prefWidth="103.0" style="-fx-alignment: CENTER;" text="Country Name" />
+                <TableColumn fx:id="custRegionColumn" minWidth="9.0" prefWidth="109.0" style="-fx-alignment: CENTER;" text="Region Name" />
             </columns>
         </TableView>
         <Label layoutX="85.0" layoutY="21.0" text="Customers" underline="true">

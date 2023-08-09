@@ -10,19 +10,20 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="441.0" prefWidth="833.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="klein.view_controllers.AppointmentsController">
+<AnchorPane prefHeight="441.0" prefWidth="833.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="klein.view_controllers.AppointmentsController">
     <children>
-        <TableView fx:id="appointmentTableView"  onMouseClicked="#selectAppointment" layoutX="8.0" layoutY="70.0" prefHeight="311.0" prefWidth="812.0">
+        <TableView fx:id="appointmentTableView" layoutX="8.0" layoutY="70.0" onMouseClicked="#selectAppointment" prefHeight="311.0" prefWidth="812.0">
             <columns>
-                <TableColumn fx:id="appointmentIDColumn" prefWidth="53.0" text="Appt ID" />
-                <TableColumn fx:id="titleColumn" prefWidth="49.333335876464844" text="Title" />
-                <TableColumn fx:id="descriptionColumn" prefWidth="94.00001525878906" text="Description" />
-                <TableColumn fx:id="locationColumn" minWidth="3.0" prefWidth="98.33334350585938" text="Location" />
-                <TableColumn fx:id="typeColumn" prefWidth="78.0" text="Type" />
-                <TableColumn fx:id="startTimeColumn" prefWidth="148.0" text="Start Date &amp; Time" />
-                <TableColumn fx:id="endTimeColumn" prefWidth="141.0" text="End Date &amp; Time" />
-                <TableColumn fx:id="customerIDColumn" prefWidth="75.0" text="Customer ID" />
-                <TableColumn fx:id="userIDColumn" prefWidth="72.0" text="User ID" />
+                <TableColumn fx:id="appointmentIDColumn" prefWidth="53.0" style="-fx-alignment: CENTER;" text="Appt ID" />
+                <TableColumn fx:id="titleColumn" prefWidth="49.333335876464844" style="-fx-alignment: CENTER;" text="Title" />
+                <TableColumn fx:id="descriptionColumn" prefWidth="94.00001525878906" style="-fx-alignment: CENTER;" text="Description" />
+                <TableColumn fx:id="locationColumn" minWidth="3.0" prefWidth="98.33334350585938" style="-fx-alignment: CENTER;" text="Location" />
+                <TableColumn fx:id="typeColumn" prefWidth="78.0" style="-fx-alignment: CENTER;" text="Type" />
+                <TableColumn fx:id="contactIDColumn" prefWidth="64.0" style="-fx-alignment: CENTER;" text="Contact ID" />
+                <TableColumn fx:id="startTimeColumn" prefWidth="115.0" style="-fx-alignment: CENTER;" text="Start Date &amp; Time" />
+                <TableColumn fx:id="endTimeColumn" prefWidth="115.0" style="-fx-alignment: CENTER;" text="End Date &amp; Time" />
+                <TableColumn fx:id="customerIDColumn" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Customer ID" />
+                <TableColumn fx:id="userIDColumn" prefWidth="67.0" style="-fx-alignment: CENTER;" text="User ID" />
             </columns>
         </TableView>
         <Label layoutX="85.0" layoutY="21.0" text="Appointments" underline="true">

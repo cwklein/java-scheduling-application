@@ -1,5 +1,6 @@
 package klein.view_controllers;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +20,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.Period;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 
 public class ModifyAppointmentController implements Initializable {
     public TextField appointmentIDField;
@@ -28,9 +32,10 @@ public class ModifyAppointmentController implements Initializable {
     public TextField locationField;
     public TextField typeField;
     public DatePicker startDate;
-    public ComboBox startTime;
-    public DatePicker endDate;
-    public ComboBox endTime;
+    public ComboBox<Integer> startHrField;
+    public ComboBox<Integer> startMinField;
+    public ComboBox<Integer> durationHrField;
+    public ComboBox<Integer> durationMinField;
     public ObservableList<String> customerList;
     public ComboBox<String> customerIDField;
     public ObservableList<String> userList;
@@ -75,8 +80,65 @@ public class ModifyAppointmentController implements Initializable {
         locationField.setText(String.valueOf(selectedAppointment.getLocation()));
         contactIDField.setItems(contactList);
         typeField.setText(String.valueOf(selectedAppointment.getType()));
+        startHrField.setItems(AppointmentObj.getStartHours());
         customerIDField.setItems(customerList);
         userIDField.setItems(userList);
+    }
+
+    public void populateStartMinutes(ActionEvent actionEvent) {
+        startMinField.setItems(null);
+        startMinField.setValue(null);
+        durationHrField.setItems(null);
+        durationHrField.setValue(null);
+        durationMinField.setItems(null);
+        durationMinField.setValue(null);
+        startMinField.setItems(AppointmentObj.getStartMinutes());
+
+    }
+
+    public void populateDurationHours(ActionEvent actionEvent) {
+        durationHrField.setItems(null);
+        durationHrField.setValue(null);
+        durationHrField.getPromptText();
+        durationMinField.setItems(null);
+        durationMinField.setValue(null);
+        LocalTime endTime = LocalTime.of(22, 00);
+
+        if (startHrField.getValue() != null && startMinField.getValue() != null) {
+
+            LocalTime timeLeft = endTime.minusHours(startHrField.getValue()).minusMinutes(startMinField.getValue());
+
+            ObservableList<Integer> hoursLeft = FXCollections.observableArrayList();
+            for (int h = 0; h <= timeLeft.getHour(); h++) {
+                hoursLeft.add(h);
+            }
+            durationHrField.setItems(hoursLeft);
+        }
+    }
+
+    public void populateDurationMinutes(ActionEvent actionEvent) {
+        durationMinField.setItems(null);
+        durationMinField.setValue(null);
+        LocalTime endTime = LocalTime.of(22, 00);
+
+        if (startHrField.getValue() != null && durationHrField.getValue() != null && startMinField.getValue() != null) {
+            LocalTime timeLeft = endTime.minusHours(startHrField.getValue() + durationHrField.getValue()).minusMinutes(startMinField.getValue());
+
+            ObservableList<Integer> minutesLeft = FXCollections.observableArrayList();
+            if (durationHrField.getValue() != 0) {
+                minutesLeft.add(0);
+            }
+            if (timeLeft.getHour() == 0) {
+                for (int m = 1; m <= timeLeft.getMinute(); m++) {
+                    if (m % 15 == 0) {
+                        minutesLeft.add(m);
+                    }
+                }
+            } else {
+                minutesLeft.addAll(15, 30, 45);
+            }
+            durationMinField.setItems(minutesLeft);
+        }
     }
 
     public void modifyAppointment(ActionEvent actionEvent) throws SQLException, IOException {

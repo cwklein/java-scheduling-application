@@ -8,8 +8,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="510.0" prefWidth="350.0" snapToPixel="false" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="klein.view_controllers.AddAppointmentController">
+<AnchorPane prefHeight="510.0" prefWidth="350.0" snapToPixel="false" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="klein.view_controllers.AddAppointmentController">
     <children>
+      <AnchorPane layoutY="250.0" opacity="0.05" prefHeight="90.0" prefWidth="350.0" style="-fx-background-color: blue;" />
         <Label layoutX="82.0" layoutY="14.0" text="Add Appointment" underline="true">
             <font>
                 <Font name="System Bold" size="25.0" />
@@ -35,7 +36,7 @@
                 <Font name="System Bold" size="14.0" />
             </font>
         </Label>
-        <Label layoutX="30.0" layoutY="195.0" text="Contact">
+        <Label layoutX="30.0" layoutY="195.0" text="Contact Name">
             <font>
                 <Font name="System Bold" size="14.0" />
             </font>
@@ -50,33 +51,29 @@
                 <Font name="System Bold" size="14.0" />
             </font>
         </Label>
-        <Label layoutX="30.0" layoutY="315.0" text="End:">
+        <Label layoutX="30.0" layoutY="375.0" text="Customer Name">
             <font>
                 <Font name="System Bold" size="14.0" />
             </font>
         </Label>
-        <Label layoutX="30.0" layoutY="375.0" text="Customer ID">
+        <Label layoutX="30.0" layoutY="405.0" text="User Name">
             <font>
                 <Font name="System Bold" size="14.0" />
             </font>
         </Label>
-        <Label layoutX="30.0" layoutY="405.0" text="User ID">
-            <font>
-                <Font name="System Bold" size="14.0" />
-            </font>
-        </Label>
-        <TextField fx:id="appointmentIDField" disable="true" editable="false" layoutX="175.0" layoutY="73.0" prefHeight="12.0" prefWidth="149.0" />
-        <TextField fx:id="titleField" layoutX="175.0" layoutY="103.0" />
-        <TextField fx:id="descriptionField" layoutX="175.0" layoutY="133.0" />
-        <TextField fx:id="locationField" layoutX="175.0" layoutY="163.0" />
-        <ComboBox fx:id="contactIDField" layoutX="175.0" layoutY="193.0" prefWidth="150.0" />
-        <TextField fx:id="typeField" layoutX="175.0" layoutY="223.0" />
-        <DatePicker fx:id="startDateField" layoutX="175.0" layoutY="253.0" prefHeight="25.0" prefWidth="149.0" />
-        <ComboBox fx:id="startTimeField" layoutX="175.0" layoutY="283.0" prefWidth="150.0" />
-        <DatePicker fx:id="endDateField" layoutX="175.0" layoutY="313.0" prefHeight="25.0" prefWidth="150.0" />
-        <ComboBox fx:id="endTimeField" layoutX="175.0" layoutY="343.0" prefWidth="150.0" />
-        <ComboBox fx:id="customerIDField" layoutX="175.0" layoutY="373.0" prefWidth="150.0" />
-        <ComboBox fx:id="userIDField" layoutX="175.0" layoutY="403.0" prefWidth="150.0" />
+        <TextField fx:id="appointmentIDField" disable="true" editable="false" layoutX="160.0" layoutY="73.0" prefHeight="12.0" prefWidth="165.0" />
+        <TextField fx:id="titleField" layoutX="160.0" layoutY="103.0" prefWidth="165.0" />
+        <TextField fx:id="descriptionField" layoutX="160.0" layoutY="133.0" prefWidth="165.0" />
+        <TextField fx:id="locationField" layoutX="160.0" layoutY="163.0" prefWidth="165.0" />
+        <ComboBox fx:id="contactIDField" layoutX="160.0" layoutY="193.0" prefWidth="165.0" />
+        <TextField fx:id="typeField" layoutX="160.0" layoutY="223.0" prefHeight="25.0" prefWidth="165.0" />
+        <DatePicker fx:id="startDateField" layoutX="160.0" layoutY="253.0" prefHeight="25.0" prefWidth="165.0" />
+        <ComboBox fx:id="startHrField" layoutX="160.0" layoutY="283.0" onAction="#populateStartMinutes" prefHeight="25.0" prefWidth="55.0" />
+        <ComboBox fx:id="startMinField" layoutX="245.0" layoutY="283.0" onAction="#populateDurationHours" prefHeight="25.0" prefWidth="55.0" />
+        <ComboBox fx:id="durationHrField" layoutX="160.0" layoutY="343.0" onAction="#populateDurationMinutes" prefHeight="25.0" prefWidth="55.0" />
+        <ComboBox fx:id="durationMinField" layoutX="245.0" layoutY="343.0" prefHeight="25.0" prefWidth="55.0" />
+        <ComboBox fx:id="customerIDField" layoutX="160.0" layoutY="373.0" prefWidth="165.0" />
+        <ComboBox fx:id="userIDField" layoutX="160.0" layoutY="403.0" prefWidth="165.0" />
         <Button layoutX="270.0" layoutY="433.0" mnemonicParsing="false" onAction="#addAppointment" text="Submit" />
         <Button layoutX="271.0" layoutY="463.0" mnemonicParsing="false" onAction="#returnToAppointments" text="Cancel" />
 
@@ -91,15 +88,19 @@
                 <Font name="System Bold" size="14.0" />
             </font>
         </Label>
-        <Label layoutX="87.0" layoutY="315.0" text="Date">
+        <Label layoutX="30.0" layoutY="345.0" text="Duration">
             <font>
                 <Font name="System Bold" size="14.0" />
             </font>
         </Label>
-        <Label layoutX="87.0" layoutY="345.0" text="Time">
-            <font>
-                <Font name="System Bold" size="14.0" />
-            </font>
-        </Label>
+      <Label layoutX="218.0" layoutY="287.0" text="Hr" />
+      <Label layoutX="218.0" layoutY="347.0" text="Hr" />
+      <Label layoutX="303.0" layoutY="287.0" text="Min" />
+      <Label layoutX="303.0" layoutY="347.0" text="Min" />
+      <Label layoutX="160.0" layoutY="308.0" prefHeight="36.0" prefWidth="165.0" text="Appointment Times displayed in your current Time Zone" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font name="System Italic" size="10.0" />
+         </font>
+      </Label>
         </children>
 </AnchorPane>

@@ -36,8 +36,9 @@ public class AppointmentsController implements Initializable {
     public TableColumn<AppointmentObj, String> descriptionColumn;
     public TableColumn<AppointmentObj, String> locationColumn;
     public TableColumn<AppointmentObj, String> typeColumn;
-    public TableColumn<AppointmentObj, Timestamp> startTimeColumn;
-    public TableColumn<AppointmentObj, Timestamp> endTimeColumn;
+    public TableColumn<AppointmentObj, Integer> contactIDColumn;
+    public TableColumn<AppointmentObj, LocalDateTime> startTimeColumn;
+    public TableColumn<AppointmentObj, LocalDateTime> endTimeColumn;
     public TableColumn<AppointmentObj, Integer> customerIDColumn;
     public TableColumn<AppointmentObj, Integer> userIDColumn;
     public RadioButton toViewAllButton;
@@ -50,6 +51,7 @@ public class AppointmentsController implements Initializable {
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
         locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+        contactIDColumn.setCellValueFactory(new PropertyValueFactory<>("contactID"));
         startTimeColumn.setCellValueFactory(new PropertyValueFactory<>("start"));
         endTimeColumn.setCellValueFactory(new PropertyValueFactory<>("end"));
         customerIDColumn.setCellValueFactory(new PropertyValueFactory<>("customerID"));

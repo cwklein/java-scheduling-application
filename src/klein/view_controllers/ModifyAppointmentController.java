@@ -150,7 +150,6 @@ public class ModifyAppointmentController implements Initializable {
 
     public void modifyAppointment(ActionEvent actionEvent) throws SQLException, IOException {
         LocalTime startTime = LocalTime.of(startHrField.getValue(), startMinField.getValue());
-        LocalTime endTime = startTime.plusHours(durationHrField.getValue()).plusMinutes(durationMinField.getValue());
 
         Integer appointmentID = Integer.parseInt(appointmentIDField.getText());
         String title = titleField.getText();
@@ -158,7 +157,7 @@ public class ModifyAppointmentController implements Initializable {
         String location = locationField.getText();
         String type = typeField.getText();
         LocalDateTime start = LocalDateTime.of(appointmentDateField.getValue(), startTime);
-        LocalDateTime end = LocalDateTime.of(appointmentDateField.getValue(), endTime);
+        LocalDateTime end = start.plusHours(durationHrField.getValue()).plusMinutes(durationMinField.getValue());
         LocalDateTime createDate = selectedAppointment.getCreateDate();
         String createUser = selectedAppointment.getCreatedBy();
         LocalDateTime updateDate = LocalDateTime.now();

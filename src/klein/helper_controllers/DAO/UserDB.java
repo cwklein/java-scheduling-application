@@ -24,10 +24,10 @@ public class UserDB {
             UserObj.setUserID(userID);
             UserObj.setUserName(userName);
             System.out.println("User ID: " + userID + ", User Name: " + userName);
-            System.out.println("Open at EST: " + TimeConverter.getEstOpenDateTime().getHour() + ":00" );
-            System.out.println("Open at Local: " + TimeConverter.getLocalOpenDateTime().getHour() + ":00" );
-            System.out.println("Close at EST: " + TimeConverter.getEstCloseDateTime().getHour() + ":00" );
-            System.out.println("Close at Local: " + TimeConverter.getLocalCloseDateTime().getHour() + ":00");
+            System.out.println("Open at EST: " + TimeConverter.getEstOpenDateTime());
+            System.out.println("Open at Local: " + TimeConverter.getLocalOpenDateTime());
+            System.out.println("Close at EST: " + TimeConverter.getEstCloseDateTime());
+            System.out.println("Close at Local: " + TimeConverter.getLocalCloseDateTime());
             return userID;
         }
         return 0;

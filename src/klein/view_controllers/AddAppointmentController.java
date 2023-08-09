@@ -20,6 +20,7 @@ import klein.helper_controllers.UserObj;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
@@ -57,6 +58,7 @@ public class AddAppointmentController implements Initializable {
         contactIDField.setItems(contactList);
         customerIDField.setItems(customerList);
         userIDField.setItems(userList);
+
     }
 
     public void populateStartMinutes(ActionEvent actionEvent) {
@@ -67,7 +69,6 @@ public class AddAppointmentController implements Initializable {
         durationMinField.setItems(null);
         durationMinField.setValue(null);
         startMinField.setItems(AppointmentObj.getStartMinutes());
-
     }
 
     public void populateDurationHours(ActionEvent actionEvent) {
@@ -114,7 +115,6 @@ public class AddAppointmentController implements Initializable {
 
     public void addAppointment(ActionEvent actionEvent) throws SQLException, IOException {
         LocalTime startTime = LocalTime.of(startHrField.getValue(), startMinField.getValue());
-        LocalTime endTime = startTime.plusHours(durationHrField.getValue()).plusMinutes(durationMinField.getValue());
 
         Integer appointmentID = Integer.parseInt(appointmentIDField.getText());
         String title = titleField.getText();
@@ -122,7 +122,7 @@ public class AddAppointmentController implements Initializable {
         String location = locationField.getText();
         String type = typeField.getText();
         LocalDateTime start = LocalDateTime.of(appointmentDateField.getValue(), startTime);
-        LocalDateTime end = LocalDateTime.of(appointmentDateField.getValue(), endTime);
+        LocalDateTime end = start.plusHours(durationHrField.getValue()).plusMinutes(durationMinField.getValue());
         LocalDateTime createDate = LocalDateTime.now();
         String createdBy = UserObj.getUserName();
         LocalDateTime updateDate = LocalDateTime.now();

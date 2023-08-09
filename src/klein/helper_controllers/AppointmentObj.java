@@ -4,10 +4,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.time.*;
+import java.util.Date;
 
 public class AppointmentObj {
-    public static LocalTime openingTime = TimeConverter.getLocalOpenTime();
-    public static LocalTime closingTime = TimeConverter.getLocalCloseTime();
+    public static LocalDateTime openingDateTime = TimeConverter.getLocalOpenDateTime();
+    public static LocalDateTime closingDateTime = TimeConverter.getLocalCloseDateTime();
 
     private int appointmentID;
     private String title;
@@ -147,8 +148,18 @@ public class AppointmentObj {
 
     public static ObservableList<Integer> getStartHours() {
         ObservableList<Integer> startHours = FXCollections.observableArrayList();
-        for (int i = openingTime.getHour(); i < closingTime.getHour(); i++) {
-            startHours.add(i);
+
+        if (closingDateTime.getDayOfMonth() != openingDateTime.getDayOfMonth()) {
+            for (int i = 0; i < closingDateTime.getHour(); i++){
+                startHours.add(i);
+            }
+            for (int i = openingDateTime.getHour(); i < 24; i++) {
+                startHours.add(i);
+            }
+        } else {
+            for (int i = openingDateTime.getHour(); i < closingDateTime.getHour(); i++) {
+                startHours.add(i);
+            }
         }
         return startHours;
     }

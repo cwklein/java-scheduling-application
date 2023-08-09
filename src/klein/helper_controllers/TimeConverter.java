@@ -7,7 +7,7 @@ public class TimeConverter {
     private final static LocalDateTime localOpenDateTime = LocalDateTime.ofInstant(Instant.from(estOpenDateTime), ZoneId.systemDefault());
     private final static LocalTime localOpenTime = localOpenDateTime.toLocalTime();
 
-    private final static ZonedDateTime estCloseDateTime = ZonedDateTime.of(LocalDate.now(), LocalTime.of(22,00), ZoneId.of("America/New_York"));
+    private final static ZonedDateTime estCloseDateTime = estOpenDateTime.plusHours(14);
     private final static LocalDateTime localCloseDateTime = LocalDateTime.ofInstant(Instant.from(estCloseDateTime), ZoneId.systemDefault());
     private final static LocalTime localCloseTime = localCloseDateTime.toLocalTime();
 

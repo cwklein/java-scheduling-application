@@ -3,9 +3,12 @@ package klein.helper_controllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.time.LocalDateTime;
+import java.time.*;
 
 public class AppointmentObj {
+    public static LocalTime openingTime = TimeConverter.getLocalOpenTime();
+    public static LocalTime closingTime = TimeConverter.getLocalCloseTime();
+
     private int appointmentID;
     private String title;
     private String description;
@@ -143,7 +146,11 @@ public class AppointmentObj {
     }
 
     public static ObservableList<Integer> getStartHours() {
-        return FXCollections.observableArrayList(8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21);
+        ObservableList<Integer> startHours = FXCollections.observableArrayList();
+        for (int i = openingTime.getHour(); i < closingTime.getHour(); i++) {
+            startHours.add(i);
+        }
+        return startHours;
     }
 
     public static ObservableList<Integer> getStartMinutes() {

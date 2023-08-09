@@ -72,7 +72,7 @@
         <TextField fx:id="locationField" layoutX="160.0" layoutY="163.0" prefWidth="165.0" />
         <ComboBox fx:id="contactIDField" layoutX="160.0" layoutY="193.0" prefWidth="165.0" />
         <TextField fx:id="typeField" layoutX="160.0" layoutY="223.0" prefWidth="165.0" />
-        <DatePicker fx:id="startDate" layoutX="160.0" layoutY="253.0" prefHeight="25.0" prefWidth="165.0" />
+        <DatePicker fx:id="appointmentDateField" layoutX="160.0" layoutY="253.0" prefHeight="25.0" prefWidth="165.0" />
         <ComboBox fx:id="startHrField" layoutX="160.0" layoutY="283.0" onAction="#populateStartMinutes" prefHeight="25.0" prefWidth="55.0" />
         <ComboBox fx:id="startMinField" layoutX="245.0" layoutY="283.0" onAction="#populateDurationHours" prefHeight="25.0" prefWidth="55.0" />
         <ComboBox fx:id="durationHrField" layoutX="160.0" layoutY="343.0" onAction="#populateDurationMinutes" prefHeight="25.0" prefWidth="55.0" />

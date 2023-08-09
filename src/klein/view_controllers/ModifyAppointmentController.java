@@ -14,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import klein.helper_controllers.AppointmentObj;
 import klein.helper_controllers.DAO.AppointmentDB;
+import klein.helper_controllers.TimeConverter;
 import klein.helper_controllers.UserObj;
 
 import java.io.IOException;
@@ -21,9 +22,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.Period;
 import java.util.ResourceBundle;
-import java.util.concurrent.TimeUnit;
 
 public class ModifyAppointmentController implements Initializable {
     public TextField appointmentIDField;
@@ -31,7 +30,7 @@ public class ModifyAppointmentController implements Initializable {
     public TextField descriptionField;
     public TextField locationField;
     public TextField typeField;
-    public DatePicker startDate;
+    public DatePicker appointmentDateField;
     public ComboBox<Integer> startHrField;
     public ComboBox<Integer> startMinField;
     public ComboBox<Integer> durationHrField;
@@ -43,25 +42,17 @@ public class ModifyAppointmentController implements Initializable {
     public ObservableList<String> contactList;
     public ComboBox<String> contactIDField;
     private AppointmentObj selectedAppointment;
-    private Integer appointmentID;
-    private String title;
-    private String description;
-    private String location;
-    private String type;
-    private LocalDateTime start;
-    private LocalDateTime end;
-    private LocalDateTime createDate;
-    private String createUser;
-    private LocalDateTime updateDate;
-    private String updateUser;
-    private Integer customerID;
-    private Integer userID;
-    private Integer contactID;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         selectedAppointment = AppointmentsController.getSelectedAppointment();
+
+        LocalDateTime duration = selectedAppointment.getEnd()
+                .minusHours(selectedAppointment.getStart().getHour())
+                .minusMinutes(selectedAppointment.getStart().getMinute());
+        Integer durationHr = duration.getHour();
+        Integer durationMin = duration.getMinute();
 
         try {
             contactList = AppointmentDB.getContacts();
@@ -80,12 +71,24 @@ public class ModifyAppointmentController implements Initializable {
         locationField.setText(String.valueOf(selectedAppointment.getLocation()));
         contactIDField.setItems(contactList);
         typeField.setText(String.valueOf(selectedAppointment.getType()));
+        appointmentDateField.setValue(selectedAppointment.getStart().toLocalDate());
         startHrField.setItems(AppointmentObj.getStartHours());
+        startHrField.setValue(selectedAppointment.getStart().getHour());
+        findStartMinutes();
+        startMinField.setValue(selectedAppointment.getStart().getMinute());
+        findDurationHours();
+        durationHrField.setValue(durationHr);
+        findDurationMinutes();
+        durationMinField.setValue(durationMin);
         customerIDField.setItems(customerList);
         userIDField.setItems(userList);
     }
 
     public void populateStartMinutes(ActionEvent actionEvent) {
+        findStartMinutes();
+    }
+
+    private void findStartMinutes() {
         startMinField.setItems(null);
         startMinField.setValue(null);
         durationHrField.setItems(null);
@@ -93,20 +96,21 @@ public class ModifyAppointmentController implements Initializable {
         durationMinField.setItems(null);
         durationMinField.setValue(null);
         startMinField.setItems(AppointmentObj.getStartMinutes());
-
     }
 
     public void populateDurationHours(ActionEvent actionEvent) {
+        findDurationHours();
+    }
+
+    private void findDurationHours() {
         durationHrField.setItems(null);
         durationHrField.setValue(null);
         durationHrField.getPromptText();
         durationMinField.setItems(null);
         durationMinField.setValue(null);
-        LocalTime endTime = LocalTime.of(22, 00);
 
         if (startHrField.getValue() != null && startMinField.getValue() != null) {
-
-            LocalTime timeLeft = endTime.minusHours(startHrField.getValue()).minusMinutes(startMinField.getValue());
+            LocalTime timeLeft = TimeConverter.getLocalCloseTime().minusHours(startHrField.getValue()).minusMinutes(startMinField.getValue());
 
             ObservableList<Integer> hoursLeft = FXCollections.observableArrayList();
             for (int h = 0; h <= timeLeft.getHour(); h++) {
@@ -117,12 +121,15 @@ public class ModifyAppointmentController implements Initializable {
     }
 
     public void populateDurationMinutes(ActionEvent actionEvent) {
+        findDurationMinutes();
+    }
+
+    private void findDurationMinutes() {
         durationMinField.setItems(null);
         durationMinField.setValue(null);
-        LocalTime endTime = LocalTime.of(22, 00);
 
         if (startHrField.getValue() != null && durationHrField.getValue() != null && startMinField.getValue() != null) {
-            LocalTime timeLeft = endTime.minusHours(startHrField.getValue() + durationHrField.getValue()).minusMinutes(startMinField.getValue());
+            LocalTime timeLeft = TimeConverter.getLocalCloseTime().minusHours(startHrField.getValue() + durationHrField.getValue()).minusMinutes(startMinField.getValue());
 
             ObservableList<Integer> minutesLeft = FXCollections.observableArrayList();
             if (durationHrField.getValue() != 0) {
@@ -142,20 +149,23 @@ public class ModifyAppointmentController implements Initializable {
     }
 
     public void modifyAppointment(ActionEvent actionEvent) throws SQLException, IOException {
-        appointmentID = Integer.parseInt(appointmentIDField.getText());
-        title = titleField.getText();
-        description = descriptionField.getText();
-        location = locationField.getText();
-        type = typeField.getText();
-        start = selectedAppointment.getStart(); //TEMP -- W/ CB
-        end = selectedAppointment.getEnd(); //TEMP -- W/ CB
-        createDate = selectedAppointment.getCreateDate();
-        createUser =selectedAppointment.getCreatedBy();
-        updateDate = LocalDateTime.now();
-        updateUser = UserObj.getUserName();
-        customerID = AppointmentDB.customerNameToCustomerID(customerIDField.getValue());
-        userID = AppointmentDB.userNameToUserID(userIDField.getValue());
-        contactID = AppointmentDB.contactNameToContactID(contactIDField.getValue());
+        LocalTime startTime = LocalTime.of(startHrField.getValue(), startMinField.getValue());
+        LocalTime endTime = startTime.plusHours(durationHrField.getValue()).plusMinutes(durationMinField.getValue());
+
+        Integer appointmentID = Integer.parseInt(appointmentIDField.getText());
+        String title = titleField.getText();
+        String description = descriptionField.getText();
+        String location = locationField.getText();
+        String type = typeField.getText();
+        LocalDateTime start = LocalDateTime.of(appointmentDateField.getValue(), startTime);
+        LocalDateTime end = LocalDateTime.of(appointmentDateField.getValue(), endTime);
+        LocalDateTime createDate = selectedAppointment.getCreateDate();
+        String createUser = selectedAppointment.getCreatedBy();
+        LocalDateTime updateDate = LocalDateTime.now();
+        String updateUser = UserObj.getUserName();
+        Integer customerID = AppointmentDB.customerNameToCustomerID(customerIDField.getValue());
+        Integer userID = AppointmentDB.userNameToUserID(userIDField.getValue());
+        Integer contactID = AppointmentDB.contactNameToContactID(contactIDField.getValue());
 
         AppointmentObj newAppt = new AppointmentObj(appointmentID, title, description, location, type, start, end, createDate, createUser, updateDate, updateUser, customerID, userID, contactID);
 

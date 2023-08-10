@@ -99,7 +99,7 @@ public class AppointmentsController implements Initializable {
         try {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirm Delete");
-            alert.setContentText("Are you sure you want to delete appointment: " + selectedAppointment.getAppointmentID() + "?");
+            alert.setContentText("Are you sure you want to delete: \n    Appointment ID: " + selectedAppointment.getAppointmentID() + "\n    Type: " + selectedAppointment.getType() + "?");
 
             Optional<ButtonType> result = alert.showAndWait();
 

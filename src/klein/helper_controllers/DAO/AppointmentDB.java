@@ -14,7 +14,8 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class AppointmentDB {
-    public static ObservableList<AppointmentObj> getAllAppointments() throws SQLException {
+
+    public static ObservableList<AppointmentObj> getUserAppointments() throws SQLException {
         ObservableList<AppointmentObj> userAppointments = FXCollections.observableArrayList();
 
         String sqlQuery = "SELECT * FROM appointments WHERE User_ID = ? " +
@@ -25,7 +26,37 @@ public class AppointmentDB {
 
         ResultSet rs = ps.executeQuery();
 
-        userAppointments.clear();
+        while(rs.next()) {
+            AppointmentObj newAppt = new AppointmentObj(
+                    rs.getInt("Appointment_ID"),
+                    rs.getString("Title"),
+                    rs.getString("Description"),
+                    rs.getString("Location"),
+                    rs.getString("Type"),
+                    rs.getTimestamp("Start").toLocalDateTime(),
+                    rs.getTimestamp("End").toLocalDateTime(),
+                    rs.getTimestamp("Create_Date").toLocalDateTime(),
+                    rs.getString("Created_By"),
+                    rs.getTimestamp("Last_Update").toLocalDateTime(),
+                    rs.getString("Last_Updated_By"),
+                    rs.getInt("Customer_ID"),
+                    rs.getInt("User_ID"),
+                    rs.getInt("Contact_ID")
+            );
+            userAppointments.add(newAppt);
+        }
+        return userAppointments;
+    }
+
+    public static ObservableList<AppointmentObj> getAllAppointments() throws SQLException {
+        ObservableList<AppointmentObj> userAppointments = FXCollections.observableArrayList();
+
+        String sqlQuery = "SELECT * FROM appointments " +
+                "ORDER BY appointments.Appointment_ID ASC";
+
+        PreparedStatement ps = JDBC.connection.prepareStatement(sqlQuery);
+
+        ResultSet rs = ps.executeQuery();
 
         while(rs.next()) {
             AppointmentObj newAppt = new AppointmentObj(
@@ -295,5 +326,54 @@ public class AppointmentDB {
         else {
             return nextID;
         }
+    }
+
+    public static ObservableList<AppointmentObj> getAppointmentsByMonth(String type, Integer month) throws SQLException {
+        ObservableList<AppointmentObj> monthAppointments = FXCollections.observableArrayList();
+
+        String sqlQuery = "SELECT * FROM appointments WHERE Type = ? " +
+                "AND MONTH(Start) = ? " +
+                "ORDER BY appointments.Appointment_ID ASC";
+
+        PreparedStatement ps = JDBC.connection.prepareStatement(sqlQuery);
+        ps.setString(1, type);
+        ps.setInt(2, month);
+
+        ResultSet rs = ps.executeQuery();
+
+        while(rs.next()) {
+            AppointmentObj newAppt = new AppointmentObj(
+                    rs.getInt("Appointment_ID"),
+                    rs.getString("Title"),
+                    rs.getString("Description"),
+                    rs.getString("Location"),
+                    rs.getString("Type"),
+                    rs.getTimestamp("Start").toLocalDateTime(),
+                    rs.getTimestamp("End").toLocalDateTime(),
+                    rs.getTimestamp("Create_Date").toLocalDateTime(),
+                    rs.getString("Created_By"),
+                    rs.getTimestamp("Last_Update").toLocalDateTime(),
+                    rs.getString("Last_Updated_By"),
+                    rs.getInt("Customer_ID"),
+                    rs.getInt("User_ID"),
+                    rs.getInt("Contact_ID")
+            );
+            monthAppointments.add(newAppt);
+        }
+        return monthAppointments;
+    }
+
+    public static ObservableList<String> getAllTypes() throws SQLException {
+        ObservableList<String> typeList = FXCollections.observableArrayList();
+
+        for (AppointmentObj currentAppointment : getAllAppointments()) {
+            if (typeList.contains(currentAppointment.getType())) {
+                continue;
+            } else {
+                typeList.add(currentAppointment.getType());
+            }
+        }
+
+        return typeList;
     }
 }

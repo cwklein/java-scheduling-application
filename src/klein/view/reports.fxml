@@ -13,17 +13,16 @@
     <children>
         <TableView fx:id="resultTable" layoutX="307.0" layoutY="121.0" prefHeight="260.0" prefWidth="513.0" style="-fx-border-color: black;">
             <columns>
-                <TableColumn prefWidth="53.0" text="Appt ID" />
-                <TableColumn prefWidth="49.333335876464844" text="Title" />
-                <TableColumn prefWidth="94.00001525878906" text="Description" />
-                <TableColumn minWidth="3.0" prefWidth="98.33334350585938" text="Location" />
-                <TableColumn prefWidth="72.66668701171875" text="Contact" />
-                <TableColumn prefWidth="61.33331298828125" text="Type" />
-                <TableColumn prefWidth="70.0" text="Start Time" />
-                <TableColumn prefWidth="67.0" text="End Time" />
-                <TableColumn prefWidth="87.66668701171875" text="Customer ID" />
-                <TableColumn prefWidth="55.33331298828125" text="User ID" />
-                <TableColumn prefWidth="116.66668701171875" text="Contact ID" />
+                <TableColumn fx:id="appointmentIDColumn" prefWidth="53.0" style="-fx-alignment: CENTER;" text="Appt ID" />
+                <TableColumn fx:id="titleColumn" prefWidth="49.333335876464844" style="-fx-alignment: CENTER;" text="Title" />
+                <TableColumn fx:id="descriptionColumn" prefWidth="94.00001525878906" style="-fx-alignment: CENTER;" text="Description" />
+                <TableColumn fx:id="locationColumn" minWidth="3.0" prefWidth="98.33334350585938" style="-fx-alignment: CENTER;" text="Location" />
+                <TableColumn fx:id="typeColumn" prefWidth="78.0" style="-fx-alignment: CENTER;" text="Type" />
+                <TableColumn fx:id="contactIDColumn" prefWidth="64.0" style="-fx-alignment: CENTER;" text="Contact ID" />
+                <TableColumn fx:id="startTimeColumn" prefWidth="115.0" style="-fx-alignment: CENTER;" text="Start Date &amp; Time" />
+                <TableColumn fx:id="endTimeColumn" prefWidth="115.0" style="-fx-alignment: CENTER;" text="End Date &amp; Time" />
+                <TableColumn fx:id="customerIDColumn" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Customer ID" />
+                <TableColumn fx:id="userIDColumn" prefWidth="67.0" style="-fx-alignment: CENTER;" text="User ID" />
             </columns>
         </TableView>
         <Label layoutX="373.0" layoutY="14.0" text="Reports" underline="true">
@@ -44,15 +43,15 @@
                 <Label layoutX="14.0" layoutY="30.0" text="Type" />
                 <Label layoutX="14.0" layoutY="59.0" text="Month" />
                 <Button layoutX="218.0" layoutY="39.0" mnemonicParsing="false" onAction="#generateMonthlyReport" text="Submit" />
-                <ComboBox fx:id="monthlyType" layoutX="74.0" layoutY="26.0" prefHeight="25.0" prefWidth="134.0" promptText="Select Type" />
-                <ComboBox fx:id="monthlyMonth" layoutX="74.0" layoutY="55.0" prefHeight="25.0" prefWidth="134.0" promptText="Select Month" />
+                <ComboBox fx:id="typeField" layoutX="74.0" layoutY="26.0" prefHeight="25.0" prefWidth="134.0" promptText="Select Type" />
+                <ComboBox fx:id="monthField" layoutX="74.0" layoutY="55.0" prefHeight="25.0" prefWidth="134.0" promptText="Select Month" />
             </children>
         </AnchorPane>
         <AnchorPane layoutX="14.0" layoutY="209.0" prefHeight="64.0" prefWidth="286.0" style="-fx-background-color: E2FFFD; -fx-border-color: Black;">
             <children>
                 <Label layoutX="14.0" layoutY="30.0" text="Contact" />
                 <Button layoutX="218.0" layoutY="26.0" mnemonicParsing="false" onAction="#generateContactReport" text="Submit" />
-                <ComboBox fx:id="contactName" layoutX="74.0" layoutY="26.0" prefHeight="25.0" prefWidth="134.0" promptText="Select Contact" />
+                <ComboBox fx:id="contactNameField" layoutX="74.0" layoutY="26.0" prefHeight="25.0" prefWidth="134.0" promptText="Select Contact" />
                 <Label layoutX="92.0" layoutY="6.0" text="Contact Schedule">
                     <font>
                         <Font name="System Bold" size="12.0" />
@@ -64,7 +63,7 @@
             <children>
                 <Label layoutX="14.0" layoutY="30.0" text="Customer" />
                 <Button layoutX="218.0" layoutY="26.0" mnemonicParsing="false" onAction="#generateCustomerReport" text="Submit" />
-                <ComboBox fx:id="customerName" layoutX="74.0" layoutY="26.0" prefHeight="25.0" prefWidth="134.0" promptText="Select Customer" />
+                <ComboBox fx:id="customerNameField" layoutX="74.0" layoutY="26.0" prefHeight="25.0" prefWidth="134.0" promptText="Select Customer" />
                 <Label layoutX="87.0" layoutY="6.0" text="Customer Schedule">
                     <font>
                         <Font name="System Bold" size="12.0" />
@@ -79,7 +78,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="resultCount" disable="true" editable="false" layoutX="273.0" layoutY="10.0" style="-fx-border-color: black;" />
+            <TextField fx:id="resultCountField" disable="true" editable="false" layoutX="273.0" layoutY="10.0" style="-fx-border-color: black;" />
          </children>
       </AnchorPane>
     </children>

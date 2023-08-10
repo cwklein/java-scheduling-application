@@ -17,6 +17,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.ZoneId;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -62,7 +63,7 @@ public class LoginController implements Initializable {
             UserObj.setUserID(UserDB.ValidateUser(usernameAttempt, passwordAttempt));
 
             if (UserObj.getUserID() != 0) {
-                Parent parent = FXMLLoader.load(getClass().getResource("/klein/view/appointments.fxml"));
+                Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/klein/view/appointments.fxml")));
                 Scene scene = new Scene(parent);
                 Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
                 stage.setTitle("Appointment View");

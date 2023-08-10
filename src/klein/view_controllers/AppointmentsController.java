@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -67,7 +68,7 @@ public class AppointmentsController implements Initializable {
     }
 
     public void toAddAppointment(ActionEvent actionEvent) throws IOException {
-        Parent parent = FXMLLoader.load(getClass().getResource("/klein/view/addAppointment.fxml"));
+        Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/klein/view/addAppointment.fxml")));
         Scene scene = new Scene(parent);
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.setTitle("Add Appointment");
@@ -77,7 +78,7 @@ public class AppointmentsController implements Initializable {
 
     public void toModifyAppointment(ActionEvent actionEvent) {
         try {
-            Parent parent = FXMLLoader.load(getClass().getResource("/klein/view/modifyAppointment.fxml"));
+            Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/klein/view/modifyAppointment.fxml")));
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             Scene scene = new Scene(parent);
             stage.setTitle("Update Appointment #" + selectedAppointment.getAppointmentID());
@@ -114,12 +115,12 @@ public class AppointmentsController implements Initializable {
     }
 
     public void toViewAll(ActionEvent actionEvent) throws SQLException {
-        allAppointments = AppointmentDB.getAllAppointments();
+        allAppointments = AppointmentDB.getUserAppointments();
         appointmentTableView.setItems(allAppointments);
     }
 
     public void toMonthlyView(ActionEvent actionEvent) throws SQLException {
-        allAppointments = AppointmentDB.getAllAppointments();
+        allAppointments = AppointmentDB.getUserAppointments();
 
         LocalDateTime startDate = LocalDateTime.now();
         LocalDateTime endDate = LocalDateTime.now().plusMonths(1);
@@ -145,7 +146,7 @@ public class AppointmentsController implements Initializable {
     }
 
     public void toWeeklyView(ActionEvent actionEvent) throws SQLException {
-        allAppointments = AppointmentDB.getAllAppointments();
+        allAppointments = AppointmentDB.getUserAppointments();
 
         LocalDateTime startDate = LocalDateTime.now();
         LocalDateTime endDate = LocalDateTime.now().plusWeeks(1);
@@ -171,7 +172,7 @@ public class AppointmentsController implements Initializable {
     }
 
     public void searchAppointments(ActionEvent actionEvent) throws SQLException {
-        allAppointments = AppointmentDB.getAllAppointments();
+        allAppointments = AppointmentDB.getUserAppointments();
         searchBarText = searchBar.getText().toLowerCase();
 
         selectedAppointments.clear();
@@ -199,7 +200,7 @@ public class AppointmentsController implements Initializable {
     }
 
     public void toReports(ActionEvent actionEvent) throws IOException {
-        Parent parent = FXMLLoader.load(getClass().getResource("/klein/view/reports.fxml"));
+        Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/klein/view/reports.fxml")));
         Scene scene = new Scene(parent);
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.setTitle("Report View");
@@ -208,7 +209,7 @@ public class AppointmentsController implements Initializable {
     }
 
     public void toCustomers(ActionEvent actionEvent) throws IOException {
-        Parent parent = FXMLLoader.load(getClass().getResource("/klein/view/customers.fxml"));
+        Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/klein/view/customers.fxml")));
         Scene scene = new Scene(parent);
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.setTitle("Customer View");
@@ -238,7 +239,7 @@ public class AppointmentsController implements Initializable {
     }
 
     public void updateAppointmentList() throws SQLException {
-        allAppointments = AppointmentDB.getAllAppointments();
+        allAppointments = AppointmentDB.getUserAppointments();
         appointmentTableView.setItems(allAppointments);
     }
 }

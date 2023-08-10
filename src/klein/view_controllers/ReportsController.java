@@ -1,5 +1,7 @@
 package klein.view_controllers;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -7,28 +9,89 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import klein.helper_controllers.AppointmentObj;
+import klein.helper_controllers.DAO.AppointmentDB;
 import klein.helper_controllers.JDBC;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ReportsController implements Initializable {
-    public ComboBox monthlyType;
-    public ComboBox<String> monthlyMonth;
-    public ComboBox contactName;
-    public ComboBox customerName;
-    public TextField resultCount;
-    public TableView resultTable;
+    public ComboBox<String> typeField;
+    public ComboBox<String> monthField;
+    public ComboBox<String> contactNameField;
+    public ComboBox<String> customerNameField;
+    public TextField resultCountField;
+    public TableView<AppointmentObj> resultTable;
+    public TableColumn<AppointmentObj, Integer> appointmentIDColumn;
+    public TableColumn<AppointmentObj, String> titleColumn;
+    public TableColumn<AppointmentObj, String> descriptionColumn;
+    public TableColumn<AppointmentObj, String> locationColumn;
+    public TableColumn<AppointmentObj, String> typeColumn;
+    public TableColumn<AppointmentObj, Integer> contactIDColumn;
+    public TableColumn<AppointmentObj, LocalDateTime> startTimeColumn;
+    public TableColumn<AppointmentObj, LocalDateTime> endTimeColumn;
+    public TableColumn<AppointmentObj, Integer> customerIDColumn;
+    public TableColumn<AppointmentObj, Integer> userIDColumn;
+    private ObservableList<String> typeList;
+    private ObservableList<String> monthList;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            typeList = AppointmentDB.getAllTypes();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        monthList = FXCollections.observableArrayList("January","February","March","April","May","June","July","August", "September", "October", "November", "December");
+        monthField.setItems(monthList);
+        typeField.setItems(typeList);
 
+        appointmentIDColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
+        titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
+        descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+        locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
+        typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+        contactIDColumn.setCellValueFactory(new PropertyValueFactory<>("contactID"));
+        startTimeColumn.setCellValueFactory(new PropertyValueFactory<>("start"));
+        endTimeColumn.setCellValueFactory(new PropertyValueFactory<>("end"));
+        customerIDColumn.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+        userIDColumn.setCellValueFactory(new PropertyValueFactory<>("userID"));
     }
 
-    public void generateMonthlyReport(ActionEvent actionEvent) {
+    public void generateMonthlyReport(ActionEvent actionEvent) throws SQLException {
+        Integer month = getMonthInteger(monthField.getValue());
+        ObservableList<AppointmentObj> resultList = AppointmentDB.getAppointmentsByMonth(typeField.getValue(), month);
+        Integer resultCount = resultList.size();
+
+        resultTable.setItems(resultList);
+        resultCountField.setText(String.valueOf(resultCount));
+    }
+
+    private Integer getMonthInteger(String month) {
+
+        return switch (month) {
+            case "January" -> 1;
+            case "February" -> 2;
+            case "March" -> 3;
+            case "April" -> 4;
+            case "May" -> 5;
+            case "June" -> 6;
+            case "July" -> 7;
+            case "August" -> 8;
+            case "September" -> 9;
+            case "October" -> 10;
+            case "November" -> 11;
+            case "December" -> 12;
+            default -> 0;
+        };
     }
 
     public void generateContactReport(ActionEvent actionEvent) {
@@ -38,7 +101,7 @@ public class ReportsController implements Initializable {
     }
 
     public void toAppointments(ActionEvent actionEvent) throws IOException {
-        Parent parent = FXMLLoader.load(getClass().getResource("/klein/view/appointments.fxml"));
+        Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/klein/view/appointments.fxml")));
         Scene scene = new Scene(parent);
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.setTitle("Appointment View");
@@ -47,7 +110,7 @@ public class ReportsController implements Initializable {
     }
 
     public void toCustomers(ActionEvent actionEvent) throws IOException{
-        Parent parent = FXMLLoader.load(getClass().getResource("/klein/view/customers.fxml"));
+        Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/klein/view/customers.fxml")));
         Scene scene = new Scene(parent);
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.setTitle("Customer View");

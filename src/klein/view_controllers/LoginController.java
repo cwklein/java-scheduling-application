@@ -37,6 +37,7 @@ public class LoginController implements Initializable {
     public Label locationText;
     public Label languageLabel;
     public Label languageText;
+    public Label loginLabel;
 
 
     ResourceBundle rb = ResourceBundle.getBundle("klein/language", Locale.getDefault());
@@ -50,6 +51,7 @@ public class LoginController implements Initializable {
         languageText.setText(Locale.getDefault().toString());
         exitButton.setText(rb.getString("exit"));
         loginButton.setText(rb.getString("login"));
+        loginLabel.setText(rb.getString("login"));
         usernameLabel.setText(rb.getString("username"));
         passwordLabel.setText(rb.getString("password"));
     }

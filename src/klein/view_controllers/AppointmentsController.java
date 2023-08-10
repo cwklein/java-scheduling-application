@@ -73,6 +73,7 @@ public class AppointmentsController implements Initializable {
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.setTitle("Add Appointment");
         stage.setScene(scene);
+        stage.centerOnScreen();
         stage.show();
     }
 
@@ -83,6 +84,7 @@ public class AppointmentsController implements Initializable {
             Scene scene = new Scene(parent);
             stage.setTitle("Update Appointment #" + selectedAppointment.getAppointmentID());
             stage.setScene(scene);
+            stage.centerOnScreen();
             stage.show();
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);

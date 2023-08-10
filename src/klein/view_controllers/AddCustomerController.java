@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -50,24 +51,41 @@ public class AddCustomerController implements Initializable {
     }
 
     public void addCustomer(ActionEvent actionEvent) throws SQLException, IOException {
-        Integer customerID = Integer.parseInt(customerIDField.getText());
-        String name = nameField.getText();
-        String address = addressField.getText();
-        String postalCode = postalCodeField.getText();
-        String phone = phoneField.getText();
-        LocalDateTime createDate = LocalDateTime.now();
-        String createdBy = UserObj.getUserName();
-        LocalDateTime updateDate = LocalDateTime.now();
-        String updatedBy = UserObj.getUserName();
-        String country = countryField.getValue();
-        String region = regionField.getValue();
-        Integer divisionID = CustomerDB.getDivIDFromRegion(region);
+        if (nameField.getText().isBlank() || addressField.getText().isBlank() ||
+                postalCodeField.getText().isBlank() || phoneField.getText().isBlank()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error - Missing Field");
+            alert.setContentText("You are missing one or more required fields\nAll fields must be filled out to continue.");
+            alert.showAndWait();
+        } else {
+            try {
+                Integer customerID = Integer.parseInt(customerIDField.getText());
+                String name = nameField.getText();
+                String address = addressField.getText();
+                String postalCode = postalCodeField.getText();
+                String phone = phoneField.getText();
+                LocalDateTime createDate = LocalDateTime.now();
+                String createdBy = UserObj.getUserName();
+                LocalDateTime updateDate = LocalDateTime.now();
+                String updatedBy = UserObj.getUserName();
+                String country = countryField.getValue();
+                String region = regionField.getValue();
+                Integer divisionID = CustomerDB.getDivIDFromRegion(region);
 
-        CustomerObj newCustomer = new CustomerObj(customerID, name, address, postalCode, phone, createDate, createdBy, updateDate, updatedBy, divisionID, country, region);
+                CustomerObj newCustomer = new CustomerObj(customerID, name, address, postalCode, phone, createDate, createdBy, updateDate, updatedBy, divisionID, country, region);
 
-        CustomerDB.addCustomer(newCustomer);
+                CustomerDB.addCustomer(newCustomer);
 
-        returnToCustomers(actionEvent);
+                returnToCustomers(actionEvent);
+            } catch (NullPointerException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Error - Missing Field");
+                alert.setContentText("You are missing one or more required fields\nAll fields must be filled out to continue.");
+                alert.showAndWait();
+            }
+        }
     }
 
     public void returnToCustomers(ActionEvent actionEvent) throws IOException {
@@ -76,6 +94,7 @@ public class AddCustomerController implements Initializable {
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.setTitle("Customer View");
         stage.setScene(scene);
+        stage.centerOnScreen();
         stage.show();
     }
 }

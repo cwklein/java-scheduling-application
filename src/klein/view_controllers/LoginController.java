@@ -1,5 +1,6 @@
 package klein.view_controllers;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -8,14 +9,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import klein.helper_controllers.AppointmentObj;
+import klein.helper_controllers.DAO.AppointmentDB;
 import klein.helper_controllers.DAO.UserDB;
 import klein.helper_controllers.JDBC;
+import klein.helper_controllers.TimeConverter;
 import klein.helper_controllers.UserObj;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
@@ -68,7 +73,22 @@ public class LoginController implements Initializable {
                 Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
                 stage.setTitle("Appointment View");
                 stage.setScene(scene);
+                stage.centerOnScreen();
                 stage.show();
+
+                ObservableList<AppointmentObj> soonAppointments = AppointmentDB.getSoonAppointments(UserObj.getUserID());
+                String upcomingAppointmentText = "You have " + soonAppointments.size() + " Appointment(s) in the next 15 minutes: \n"
+                        + getSoonAppointmentDetail(soonAppointments);
+
+                if (soonAppointments.size() != 0) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Appointment Alert");
+                    alert.setHeaderText("Upcoming Appointment");
+                    alert.setContentText(upcomingAppointmentText);
+                    alert.setResizable(true);
+                    alert.getDialogPane().setPrefHeight(145 + soonAppointments.size() * 55);
+                    alert.showAndWait();
+                }
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle(rb.getString("errorTitle"));
@@ -77,6 +97,17 @@ public class LoginController implements Initializable {
                 alert.showAndWait();
             }
         }
+    }
+
+    private String getSoonAppointmentDetail(ObservableList<AppointmentObj> soonAppointments) throws SQLException {
+        String appointmentDetail = "";
+        for (AppointmentObj currAppointment : soonAppointments) {
+            appointmentDetail = appointmentDetail + "    " + "Appointment " + currAppointment.getAppointmentID()
+                    + " is at " + currAppointment.getStart().format(DateTimeFormatter.ofPattern("HH:mm 'on' MM-dd-yyyy")) + "\n" + "        "
+                    + " Customer: " + AppointmentDB.customerIDToCustomerName(currAppointment.getCustomerID()) + "\n" + "        "
+                    + " Contact: " + AppointmentDB.contactIDToContactName(currAppointment.getContactID()) + "\n";
+        }
+        return appointmentDetail;
     }
 
     public void closeApplication(ActionEvent actionEvent) {

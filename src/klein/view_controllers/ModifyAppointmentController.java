@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -150,29 +151,46 @@ public class ModifyAppointmentController implements Initializable {
     }
 
     public void modifyAppointment(ActionEvent actionEvent) throws SQLException, IOException {
-        LocalTime startTime = LocalTime.of(startHrField.getValue(), startMinField.getValue());
+        if (titleField.getText().isBlank() || descriptionField.getText().isBlank() ||
+                locationField.getText().isBlank() || typeField.getText().isBlank()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error - Missing Field");
+            alert.setContentText("You are missing one or more required fields\nAll fields must be filled out to continue.");
+            alert.showAndWait();
+        } else {
+            try {
+                LocalTime startTime = LocalTime.of(startHrField.getValue(), startMinField.getValue());
 
-        Integer appointmentID = Integer.parseInt(appointmentIDField.getText());
-        String title = titleField.getText();
-        String description = descriptionField.getText();
-        String location = locationField.getText();
-        String type = typeField.getText();
-        LocalDateTime start = LocalDateTime.of(appointmentDateField.getValue(), startTime);
-        LocalDateTime end = start.plusHours(durationHrField.getValue()).plusMinutes(durationMinField.getValue());
-        LocalDateTime createDate = selectedAppointment.getCreateDate();
-        String createUser = selectedAppointment.getCreatedBy();
-        LocalDateTime updateDate = LocalDateTime.now();
-        String updateUser = UserObj.getUserName();
-        Integer customerID = AppointmentDB.customerNameToCustomerID(customerIDField.getValue());
-        Integer userID = AppointmentDB.userNameToUserID(userIDField.getValue());
-        Integer contactID = AppointmentDB.contactNameToContactID(contactIDField.getValue());
+                Integer appointmentID = Integer.parseInt(appointmentIDField.getText());
+                String title = titleField.getText();
+                String description = descriptionField.getText();
+                String location = locationField.getText();
+                String type = typeField.getText();
+                LocalDateTime start = LocalDateTime.of(appointmentDateField.getValue(), startTime);
+                LocalDateTime end = start.plusHours(durationHrField.getValue()).plusMinutes(durationMinField.getValue());
+                LocalDateTime createDate = selectedAppointment.getCreateDate();
+                String createUser = selectedAppointment.getCreatedBy();
+                LocalDateTime updateDate = LocalDateTime.now();
+                String updateUser = UserObj.getUserName();
+                Integer customerID = AppointmentDB.customerNameToCustomerID(customerIDField.getValue());
+                Integer userID = AppointmentDB.userNameToUserID(userIDField.getValue());
+                Integer contactID = AppointmentDB.contactNameToContactID(contactIDField.getValue());
 
-        AppointmentObj newAppt = new AppointmentObj(appointmentID, title, description, location, type, start, end, createDate, createUser, updateDate, updateUser, customerID, userID, contactID);
+                AppointmentObj newAppt = new AppointmentObj(appointmentID, title, description, location, type, start, end, createDate, createUser, updateDate, updateUser, customerID, userID, contactID);
 
-        AppointmentDB.deleteAppointment(appointmentID);
-        AppointmentDB.addAppointment(newAppt);
+                AppointmentDB.deleteAppointment(appointmentID);
+                AppointmentDB.addAppointment(newAppt);
 
-        returnToAppointments(actionEvent);
+                returnToAppointments(actionEvent);
+            } catch (NullPointerException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Error - Missing Field");
+                alert.setContentText("You are missing one or more required fields\nAll fields must be filled out to continue.");
+                alert.showAndWait();
+            }
+        }
     }
 
     public void returnToAppointments(ActionEvent actionEvent) throws IOException {
@@ -181,6 +199,7 @@ public class ModifyAppointmentController implements Initializable {
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.setTitle("Appointment View");
         stage.setScene(scene);
+        stage.centerOnScreen();
         stage.show();
     }
 }

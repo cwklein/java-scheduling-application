@@ -146,6 +146,40 @@ public class AppointmentDB {
         return customerAppointments;
     }
 
+    public static ObservableList<AppointmentObj> getSoonAppointments(Integer userID) throws SQLException {
+        ObservableList<AppointmentObj> soonAppointments = FXCollections.observableArrayList();
+
+        String sqlQuery = "SELECT * FROM appointments WHERE User_ID = ? " +
+                "AND Start BETWEEN localtimestamp() AND DATE_ADD(localtimestamp(), INTERVAL 15 minute) " +
+                "ORDER BY appointments.Start ASC";
+
+        PreparedStatement ps = JDBC.connection.prepareStatement(sqlQuery);
+        ps.setInt(1, userID);
+
+        ResultSet rs = ps.executeQuery();
+
+        while(rs.next()) {
+            AppointmentObj newAppt = new AppointmentObj(
+                    rs.getInt("Appointment_ID"),
+                    rs.getString("Title"),
+                    rs.getString("Description"),
+                    rs.getString("Location"),
+                    rs.getString("Type"),
+                    rs.getTimestamp("Start").toLocalDateTime(),
+                    rs.getTimestamp("End").toLocalDateTime(),
+                    rs.getTimestamp("Create_Date").toLocalDateTime(),
+                    rs.getString("Created_By"),
+                    rs.getTimestamp("Last_Update").toLocalDateTime(),
+                    rs.getString("Last_Updated_By"),
+                    rs.getInt("Customer_ID"),
+                    rs.getInt("User_ID"),
+                    rs.getInt("Contact_ID")
+            );
+            soonAppointments.add(newAppt);
+        }
+        return soonAppointments;
+    }
+
     public static ObservableList<String> getUsers() throws SQLException {
         ObservableList<String> userList = FXCollections.observableArrayList();
 
@@ -433,9 +467,7 @@ public class AppointmentDB {
         ObservableList<String> typeList = FXCollections.observableArrayList();
 
         for (AppointmentObj currentAppointment : getAllAppointments()) {
-            if (typeList.contains(currentAppointment.getType())) {
-                continue;
-            } else {
+            if (!typeList.contains(currentAppointment.getType())) {
                 typeList.add(currentAppointment.getType());
             }
         }

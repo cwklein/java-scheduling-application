@@ -68,6 +68,7 @@ public class CustomersController implements Initializable {
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.setTitle("Add Customer");
         stage.setScene(scene);
+        stage.centerOnScreen();
         stage.show();
     }
 
@@ -78,6 +79,7 @@ public class CustomersController implements Initializable {
             Scene scene = new Scene(parent);
             stage.setTitle("Update Customer #" + selectedCustomer.getCustomerID());
             stage.setScene(scene);
+            stage.centerOnScreen();
             stage.show();
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);

@@ -7,6 +7,8 @@ import klein.helper_controllers.UserObj;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.format.DateTimeFormatter;
+import java.util.TimeZone;
 
 public class UserDB {
     public static int ValidateUser(String username, String password) throws SQLException {
@@ -24,10 +26,10 @@ public class UserDB {
             UserObj.setUserID(userID);
             UserObj.setUserName(userName);
             System.out.println("User ID: " + userID + ", User Name: " + userName);
-            System.out.println("Open at EST: " + TimeConverter.getEstOpenDateTime());
-            System.out.println("Open at Local: " + TimeConverter.getLocalOpenDateTime());
-            System.out.println("Close at EST: " + TimeConverter.getEstCloseDateTime());
-            System.out.println("Close at Local: " + TimeConverter.getLocalCloseDateTime());
+            System.out.println("Open at EST: " + TimeConverter.getEstOpenDateTime().format(DateTimeFormatter.ofPattern("HH:mm")) + " " + TimeZone.getTimeZone("America/New_York").getDisplayName());
+            System.out.println("Open at Local: " + TimeConverter.getLocalOpenDateTime().format(DateTimeFormatter.ofPattern("HH:mm")) + " " + TimeZone.getDefault().getDisplayName());
+            System.out.println("Close at EST: " + TimeConverter.getEstCloseDateTime().format(DateTimeFormatter.ofPattern("HH:mm")) + " " + TimeZone.getTimeZone("America/New_York").getDisplayName());
+            System.out.println("Close at Local: " + TimeConverter.getLocalCloseDateTime().format(DateTimeFormatter.ofPattern("HH:mm")) + " " + TimeZone.getDefault().getDisplayName());
             return userID;
         }
         return 0;

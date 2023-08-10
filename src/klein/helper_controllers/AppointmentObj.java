@@ -9,7 +9,7 @@ public class AppointmentObj {
     public static LocalDateTime openingDateTime = TimeConverter.getLocalOpenDateTime();
     public static LocalDateTime closingDateTime = TimeConverter.getLocalCloseDateTime();
 
-    private int appointmentID;
+    private Integer appointmentID;
     private String title;
     private String description;
     private String location;
@@ -45,7 +45,7 @@ public class AppointmentObj {
         return appointmentID;
     }
 
-    public void setAppointmentID(int appointmentID) {
+    public void setAppointmentID(Integer appointmentID) {
         this.appointmentID = appointmentID;
     }
 

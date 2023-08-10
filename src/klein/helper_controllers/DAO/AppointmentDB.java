@@ -49,7 +49,7 @@ public class AppointmentDB {
     }
 
     public static ObservableList<AppointmentObj> getAllAppointments() throws SQLException {
-        ObservableList<AppointmentObj> userAppointments = FXCollections.observableArrayList();
+        ObservableList<AppointmentObj> allAppointments = FXCollections.observableArrayList();
 
         String sqlQuery = "SELECT * FROM appointments " +
                 "ORDER BY appointments.Appointment_ID ASC";
@@ -75,9 +75,75 @@ public class AppointmentDB {
                     rs.getInt("User_ID"),
                     rs.getInt("Contact_ID")
             );
-            userAppointments.add(newAppt);
+            allAppointments.add(newAppt);
         }
-        return userAppointments;
+        return allAppointments;
+    }
+
+    public static ObservableList<AppointmentObj> getAppointmentsByContact(Integer contact) throws SQLException {
+        ObservableList<AppointmentObj> contactAppointments = FXCollections.observableArrayList();
+
+        String sqlQuery = "SELECT * FROM appointments WHERE Contact_ID = ? " +
+                "ORDER BY appointments.Appointment_ID ASC";
+
+        PreparedStatement ps = JDBC.connection.prepareStatement(sqlQuery);
+        ps.setInt(1, contact);
+
+        ResultSet rs = ps.executeQuery();
+
+        while(rs.next()) {
+            AppointmentObj newAppt = new AppointmentObj(
+                    rs.getInt("Appointment_ID"),
+                    rs.getString("Title"),
+                    rs.getString("Description"),
+                    rs.getString("Location"),
+                    rs.getString("Type"),
+                    rs.getTimestamp("Start").toLocalDateTime(),
+                    rs.getTimestamp("End").toLocalDateTime(),
+                    rs.getTimestamp("Create_Date").toLocalDateTime(),
+                    rs.getString("Created_By"),
+                    rs.getTimestamp("Last_Update").toLocalDateTime(),
+                    rs.getString("Last_Updated_By"),
+                    rs.getInt("Customer_ID"),
+                    rs.getInt("User_ID"),
+                    rs.getInt("Contact_ID")
+            );
+            contactAppointments.add(newAppt);
+        }
+        return contactAppointments;
+    }
+
+    public static ObservableList<AppointmentObj> getAppointmentsByCustomer(Integer customer) throws SQLException {
+        ObservableList<AppointmentObj> customerAppointments = FXCollections.observableArrayList();
+
+        String sqlQuery = "SELECT * FROM appointments WHERE Customer_ID = ? " +
+                "ORDER BY appointments.Appointment_ID ASC";
+
+        PreparedStatement ps = JDBC.connection.prepareStatement(sqlQuery);
+        ps.setInt(1, customer);
+
+        ResultSet rs = ps.executeQuery();
+
+        while(rs.next()) {
+            AppointmentObj newAppt = new AppointmentObj(
+                    rs.getInt("Appointment_ID"),
+                    rs.getString("Title"),
+                    rs.getString("Description"),
+                    rs.getString("Location"),
+                    rs.getString("Type"),
+                    rs.getTimestamp("Start").toLocalDateTime(),
+                    rs.getTimestamp("End").toLocalDateTime(),
+                    rs.getTimestamp("Create_Date").toLocalDateTime(),
+                    rs.getString("Created_By"),
+                    rs.getTimestamp("Last_Update").toLocalDateTime(),
+                    rs.getString("Last_Updated_By"),
+                    rs.getInt("Customer_ID"),
+                    rs.getInt("User_ID"),
+                    rs.getInt("Contact_ID")
+            );
+            customerAppointments.add(newAppt);
+        }
+        return customerAppointments;
     }
 
     public static ObservableList<String> getUsers() throws SQLException {

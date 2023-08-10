@@ -42,10 +42,14 @@ public class ReportsController implements Initializable {
     public TableColumn<AppointmentObj, Integer> userIDColumn;
     private ObservableList<String> typeList;
     private ObservableList<String> monthList;
+    private ObservableList<String> contactList;
+    private ObservableList<String> customerList;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
+            contactList = AppointmentDB.getContacts();
+            customerList = AppointmentDB.getCustomers();
             typeList = AppointmentDB.getAllTypes();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -53,6 +57,8 @@ public class ReportsController implements Initializable {
         monthList = FXCollections.observableArrayList("January","February","March","April","May","June","July","August", "September", "October", "November", "December");
         monthField.setItems(monthList);
         typeField.setItems(typeList);
+        contactNameField.setItems(contactList);
+        customerNameField.setItems(customerList);
 
         appointmentIDColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -94,10 +100,22 @@ public class ReportsController implements Initializable {
         };
     }
 
-    public void generateContactReport(ActionEvent actionEvent) {
+    public void generateContactReport(ActionEvent actionEvent) throws SQLException {
+        Integer contact = AppointmentDB.contactNameToContactID(contactNameField.getValue());
+        ObservableList<AppointmentObj> resultList = AppointmentDB.getAppointmentsByContact(contact);
+        Integer resultCount = resultList.size();
+
+        resultTable.setItems(resultList);
+        resultCountField.setText(String.valueOf(resultCount));
     }
 
-    public void generateCustomerReport(ActionEvent actionEvent) {
+    public void generateCustomerReport(ActionEvent actionEvent) throws SQLException {
+        Integer customer = AppointmentDB.customerNameToCustomerID(customerNameField.getValue());
+        ObservableList<AppointmentObj> resultList = AppointmentDB.getAppointmentsByCustomer(customer);
+        Integer resultCount = resultList.size();
+
+        resultTable.setItems(resultList);
+        resultCountField.setText(String.valueOf(resultCount));
     }
 
     public void toAppointments(ActionEvent actionEvent) throws IOException {

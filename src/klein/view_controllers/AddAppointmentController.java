@@ -143,9 +143,18 @@ public class AddAppointmentController implements Initializable {
 
                 AppointmentObj newAppointment = new AppointmentObj(appointmentID, title, description, location, type, start, end, createDate, createdBy, updateDate, updatedBy, customerID, userID, contactID);
 
-                AppointmentDB.addAppointment(newAppointment);
+                 if (true) {//AppointmentDB.checkIfOpen(newAppointment)) {
+                     AppointmentDB.addAppointment(newAppointment);
 
-                returnToAppointments(actionEvent);
+                     returnToAppointments(actionEvent);
+                 } else {
+                     Alert alert = new Alert(Alert.AlertType.ERROR);
+                     alert.setTitle("Error");
+                     alert.setHeaderText("Error - Scheduling Conflict");
+                     alert.setContentText("The associated Contact and/or Customer is busy at this time");
+                     alert.showAndWait();
+                 }
+
             } catch (NullPointerException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");

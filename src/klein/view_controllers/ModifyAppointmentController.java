@@ -177,12 +177,19 @@ public class ModifyAppointmentController implements Initializable {
                 Integer userID = AppointmentDB.userNameToUserID(userIDField.getValue());
                 Integer contactID = AppointmentDB.contactNameToContactID(contactIDField.getValue());
 
-                AppointmentObj newAppt = new AppointmentObj(appointmentID, title, description, location, type, start, end, createDate, createUser, updateDate, updateUser, customerID, userID, contactID);
+                AppointmentObj newAppointment = new AppointmentObj(appointmentID, title, description, location, type, start, end, createDate, createUser, updateDate, updateUser, customerID, userID, contactID);
 
-                AppointmentDB.deleteAppointment(appointmentID);
-                AppointmentDB.addAppointment(newAppt);
+                if (true) {//AppointmentDB.checkIfOpen(newAppointment)) {
+                    AppointmentDB.updateAppointment(newAppointment);
 
-                returnToAppointments(actionEvent);
+                    returnToAppointments(actionEvent);
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText("Error - Scheduling Conflict");
+                    alert.setContentText("The associated Contact and/or Customer is busy at this time");
+                    alert.showAndWait();
+                }
             } catch (NullPointerException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");

@@ -474,4 +474,51 @@ public class AppointmentDB {
 
         return typeList;
     }
+
+    public static void updateAppointment(AppointmentObj newAppointment) throws SQLException {
+        Integer appointmentID = newAppointment.getAppointmentID();
+        String title = newAppointment.getTitle();
+        String description = newAppointment.getDescription();
+        String location = newAppointment.getLocation();
+        String appointmentType = newAppointment.getType();
+        LocalDateTime startTime = newAppointment.getStart();
+        LocalDateTime endTime = newAppointment.getEnd();
+        LocalDateTime createDate = newAppointment.getCreateDate();
+        String createUser = newAppointment.getCreatedBy();
+        LocalDateTime updateDate = newAppointment.getUpdateDate();
+        String updateUser = newAppointment.getUpdatedBy();
+        Integer customerID = newAppointment.getCustomerID();
+        Integer userID = newAppointment.getUserID();
+        Integer contactID = newAppointment.getContactID();
+
+        String sqlQuery = "UPDATE appointments " +
+                "SET Appointment_ID = ?, Title = ?, Description = ?, Location = ?, " +
+                "Type = ?, Start = ?, End = ?, Create_Date = ?, Created_By = ?, Last_Update = ?, " +
+                "Last_Updated_By = ?, Customer_ID = ?, User_ID = ?, Contact_ID = ? " +
+                "WHERE Appointment_ID = ?";
+
+        PreparedStatement ps = JDBC.accessDB().prepareStatement(sqlQuery);
+        ps.setInt(1, appointmentID);
+        ps.setString(2, title);
+        ps.setString(3, description);
+        ps.setString(4, location);
+        ps.setString(5, appointmentType);
+        ps.setTimestamp(6, Timestamp.valueOf(startTime));
+        ps.setTimestamp(7, Timestamp.valueOf(endTime));
+        ps.setTimestamp(8, Timestamp.valueOf(createDate));
+        ps.setString(9, createUser);
+        ps.setTimestamp(10, Timestamp.valueOf(updateDate));
+        ps.setString(11, updateUser);
+        ps.setInt(12, customerID);
+        ps.setInt(13, userID);
+        ps.setInt(14, contactID);
+        ps.setInt(15, appointmentID);
+
+        ps.executeUpdate();
+        ps.close();
+    }
+
+//    public static boolean checkIfOpen(AppointmentObj newAppointment) {
+//        ///// DO NEXT!!
+//    }
 }

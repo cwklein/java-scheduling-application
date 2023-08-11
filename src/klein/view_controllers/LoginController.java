@@ -15,10 +15,12 @@ import klein.helper_controllers.DAO.UserDB;
 import klein.helper_controllers.JDBC;
 import klein.helper_controllers.UserObj;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Objects;
@@ -66,7 +68,11 @@ public class LoginController implements Initializable {
             String usernameAttempt = usernameText.getText();
             String passwordAttempt = passwordText.getText();
 
-            UserObj.setUserID(UserDB.ValidateUser(usernameAttempt, passwordAttempt));
+            int userID = UserDB.ValidateUser(usernameAttempt, passwordAttempt);
+
+            populateLoginRecord(usernameAttempt, passwordAttempt, userID);
+
+            UserObj.setUserID(userID);
 
             if (UserObj.getUserID() != 0) {
                 Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/klein/view/appointments.fxml")));
@@ -89,6 +95,12 @@ public class LoginController implements Initializable {
                     alert.setResizable(true);
                     alert.getDialogPane().setPrefHeight(145 + soonAppointments.size() * 55);
                     alert.showAndWait();
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Appointment Alert");
+                    alert.setHeaderText("No Upcoming Appointments");
+                    alert.setContentText("You have no appointments starting in the next 15 minutes.");
+                    alert.showAndWait();
                 }
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -97,6 +109,25 @@ public class LoginController implements Initializable {
                 alert.setContentText(rb.getString("incorrectText"));
                 alert.showAndWait();
             }
+        }
+    }
+
+    private void populateLoginRecord(String usernameAttempt, String passwordAttempt, int userID) {
+        String result = "Unsuccessful Attempt: ";
+        if (userID != 0) {
+            result = "Successful Attempt: ";
+        }
+        try {
+            FileWriter loginRecord = new FileWriter("login_activity.txt", true);
+            loginRecord.write("\n " + result +
+                    "\n  Date: " + ZonedDateTime.now(ZoneId.of("UTC")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd 'at' HH:mm")) + " UTC" +
+                    ", Username Attempted: " + usernameAttempt.toUpperCase(Locale.ROOT) +
+                    ", Password Attempted: " + passwordAttempt.toUpperCase(Locale.ROOT));
+            loginRecord.close();
+            System.out.println("Login Record updated");
+        } catch (IOException e) {
+            System.out.println("An error occurred when writing to login record.");
+            e.printStackTrace();
         }
     }
 

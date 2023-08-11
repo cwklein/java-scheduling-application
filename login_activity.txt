@@ -1,0 +1,7 @@
+Login Record:
+ Unsuccessful Attempt: 
+  Date: 2023-08-11 at 19:33 UTC, Username Attempted: ADMIN, Password Attempted: TEST
+ Successful Attempt: 
+  Date: 2023-08-11 at 19:33 UTC, Username Attempted: ADMIN, Password Attempted: ADMIN
+ Successful Attempt: 
+  Date: 2023-08-11 at 19:35 UTC, Username Attempted: ADMIN, Password Attempted: ADMIN

@@ -150,11 +150,13 @@ public class AppointmentDB {
         ObservableList<AppointmentObj> soonAppointments = FXCollections.observableArrayList();
 
         String sqlQuery = "SELECT * FROM appointments WHERE User_ID = ? " +
-                "AND Start BETWEEN localtimestamp() AND DATE_ADD(localtimestamp(), INTERVAL 15 minute) " +
+                "AND Start BETWEEN ? AND DATE_ADD(?, INTERVAL 15 minute) " +
                 "ORDER BY appointments.Start ASC";
 
         PreparedStatement ps = JDBC.connection.prepareStatement(sqlQuery);
         ps.setInt(1, userID);
+        ps.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
+        ps.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
 
         ResultSet rs = ps.executeQuery();
 

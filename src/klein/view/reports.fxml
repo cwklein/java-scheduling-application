@@ -5,13 +5,12 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="441.0" prefWidth="833.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="klein.view_controllers.ReportsController">
     <children>
-        <TableView fx:id="resultTable" layoutX="307.0" layoutY="121.0" prefHeight="260.0" prefWidth="513.0" style="-fx-border-color: black;">
+        <TableView fx:id="resultTable" layoutX="307.0" layoutY="165.0" prefHeight="222.0" prefWidth="515.0" style="-fx-border-color: black;">
             <columns>
                 <TableColumn fx:id="appointmentIDColumn" prefWidth="53.0" style="-fx-alignment: CENTER;" text="Appt ID" />
                 <TableColumn fx:id="titleColumn" prefWidth="49.333335876464844" style="-fx-alignment: CENTER;" text="Title" />
@@ -71,14 +70,27 @@
                 </Label>
             </children>
         </AnchorPane>
-      <AnchorPane layoutX="307.0" layoutY="69.0" prefHeight="44.0" prefWidth="513.0" style="-fx-background-color: E6FFE2; -fx-border-color: black;">
+      <AnchorPane layoutX="307.0" layoutY="119.0" prefHeight="45.0" prefWidth="515.0" style="-fx-background-color: E6FFE2; -fx-border-color: black;">
          <children>
-            <Label layoutX="146.0" layoutY="13.0" text="Result Count:">
+            <Label fx:id="resultCountField" alignment="CENTER" layoutY="13.0" prefWidth="513.0" text="Result Count:  0">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="resultCountField" disable="true" editable="false" layoutX="273.0" layoutY="10.0" style="-fx-border-color: black;" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="307.0" layoutY="70.0" prefHeight="317.0" prefWidth="513.0" style="-fx-border-color: black;">
+         <children>
+            <Label fx:id="reportTypeLabel" alignment="CENTER" layoutY="2.0" prefWidth="513.0" text="No Report Currently Generated">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="reportDetailLabel" alignment="CENTER" layoutY="27.0" prefWidth="513.0">
+               <font>
+                  <Font name="System Italic" size="14.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
     </children>

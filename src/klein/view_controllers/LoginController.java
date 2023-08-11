@@ -13,7 +13,6 @@ import klein.helper_controllers.AppointmentObj;
 import klein.helper_controllers.DAO.AppointmentDB;
 import klein.helper_controllers.DAO.UserDB;
 import klein.helper_controllers.JDBC;
-import klein.helper_controllers.TimeConverter;
 import klein.helper_controllers.UserObj;
 
 import java.io.IOException;

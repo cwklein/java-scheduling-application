@@ -20,11 +20,11 @@ public class AppointmentObj {
     private final String createdBy;
     private LocalDateTime updateDate;
     private String updatedBy;
-    private int customerID;
-    private int userID;
-    private int contactID;
+    private Integer customerID;
+    private Integer userID;
+    private Integer contactID;
 
-    public AppointmentObj(Integer appointmentID, String title, String description, String location, String type, LocalDateTime start, LocalDateTime end, LocalDateTime createDate, String createdBy, LocalDateTime updateDate, String updatedBy, int customerID, int userID, int contactID) {
+    public AppointmentObj(Integer appointmentID, String title, String description, String location, String type, LocalDateTime start, LocalDateTime end, LocalDateTime createDate, String createdBy, LocalDateTime updateDate, String updatedBy, Integer customerID, Integer userID, Integer contactID) {
         this.appointmentID = appointmentID;
         this.title = title;
         this.description = description;

@@ -10,16 +10,16 @@
 
 <AnchorPane prefHeight="441.0" prefWidth="833.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="klein.view_controllers.CustomersController">
     <children>
-        <TableView fx:id="custTableView" layoutX="8.0" layoutY="70.0" onMouseClicked="#selectCustomer" prefHeight="311.0" prefWidth="812.0">
+        <TableView fx:id="customerTableView" layoutX="8.0" layoutY="70.0" onMouseClicked="#selectCustomer" prefHeight="311.0" prefWidth="812.0">
             <columns>
-                <TableColumn fx:id="custIDColumn" prefWidth="37.0" style="-fx-alignment: CENTER;" text="ID" />
-                <TableColumn fx:id="custNameColumn" prefWidth="139.0" style="-fx-alignment: CENTER;" text="Customer Name" />
-                <TableColumn fx:id="custAddressColumn" prefWidth="157.0" style="-fx-alignment: CENTER;" text="Address" />
-                <TableColumn fx:id="custPostalCodeColumn" minWidth="3.0" prefWidth="77.0" style="-fx-alignment: CENTER;" text="Postal Code" />
-                <TableColumn fx:id="custPhoneColumn" prefWidth="122.0" style="-fx-alignment: CENTER;" text="Phone" />
-                <TableColumn fx:id="custDivisionIDColumn" prefWidth="67.0" style="-fx-alignment: CENTER;" text="Division ID" />
-                <TableColumn fx:id="custCountryColumn" prefWidth="103.0" style="-fx-alignment: CENTER;" text="Country Name" />
-                <TableColumn fx:id="custRegionColumn" minWidth="9.0" prefWidth="109.0" style="-fx-alignment: CENTER;" text="Region Name" />
+                <TableColumn fx:id="customerIDColumn" prefWidth="37.0" style="-fx-alignment: CENTER;" text="ID" />
+                <TableColumn fx:id="nameColumn" prefWidth="139.0" style="-fx-alignment: CENTER;" text="Customer Name" />
+                <TableColumn fx:id="addressColumn" prefWidth="157.0" style="-fx-alignment: CENTER;" text="Address" />
+                <TableColumn fx:id="postalCodeColumn" minWidth="3.0" prefWidth="77.0" style="-fx-alignment: CENTER;" text="Postal Code" />
+                <TableColumn fx:id="phoneColumn" prefWidth="122.0" style="-fx-alignment: CENTER;" text="Phone" />
+                <TableColumn fx:id="divisionIDColumn" prefWidth="67.0" style="-fx-alignment: CENTER;" text="Division ID" />
+                <TableColumn fx:id="countryColumn" prefWidth="103.0" style="-fx-alignment: CENTER;" text="Country Name" />
+                <TableColumn fx:id="regionColumn" minWidth="9.0" prefWidth="109.0" style="-fx-alignment: CENTER;" text="Region Name" />
             </columns>
         </TableView>
         <Label layoutX="85.0" layoutY="21.0" text="Customers" underline="true">

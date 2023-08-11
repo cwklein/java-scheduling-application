@@ -3,7 +3,7 @@ package klein.helper_controllers;
 import java.time.LocalDateTime;
 
 public class CustomerObj {
-    private Integer customerID;
+    private final int customerID;
     private String name;
     private String address;
     private String postalCode;

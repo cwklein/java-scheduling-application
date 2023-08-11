@@ -12,6 +12,8 @@ import java.util.TimeZone;
 
 public class UserDB {
     public static int ValidateUser(String username, String password) throws SQLException {
+        int userID = 0;
+
         String sqlQuery = "SELECT * FROM users WHERE User_Name = ? AND Password = ? ";
 
         PreparedStatement ps = JDBC.connection.prepareStatement(sqlQuery);
@@ -20,8 +22,8 @@ public class UserDB {
 
         ResultSet rs = ps.executeQuery();
 
-        while(rs.next()) {
-            int userID = rs.getInt("User_ID");
+        if(rs.next()) {
+            userID = rs.getInt("User_ID");
             String userName = rs.getString("User_Name");
             UserObj.setUserID(userID);
             UserObj.setUserName(userName);
@@ -30,9 +32,8 @@ public class UserDB {
             System.out.println("Open at Local: " + TimeConverter.getLocalOpenDateTime().format(DateTimeFormatter.ofPattern("HH:mm")) + " " + TimeZone.getDefault().getDisplayName());
             System.out.println("Close at EST: " + TimeConverter.getEstCloseDateTime().format(DateTimeFormatter.ofPattern("HH:mm")) + " " + TimeZone.getTimeZone("America/New_York").getDisplayName());
             System.out.println("Close at Local: " + TimeConverter.getLocalCloseDateTime().format(DateTimeFormatter.ofPattern("HH:mm")) + " " + TimeZone.getDefault().getDisplayName());
-            return userID;
         }
-        return 0;
+        return userID;
     }
 }
 

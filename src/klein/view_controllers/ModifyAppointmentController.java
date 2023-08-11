@@ -179,7 +179,7 @@ public class ModifyAppointmentController implements Initializable {
 
                 AppointmentObj newAppointment = new AppointmentObj(appointmentID, title, description, location, type, start, end, createDate, createUser, updateDate, updateUser, customerID, userID, contactID);
 
-                if (true) {//AppointmentDB.checkIfOpen(newAppointment)) {
+                if (AppointmentDB.checkIfOpen(newAppointment)) {
                     AppointmentDB.updateAppointment(newAppointment);
 
                     returnToAppointments(actionEvent);

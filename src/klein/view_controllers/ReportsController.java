@@ -28,7 +28,9 @@ public class ReportsController implements Initializable {
     public ComboBox<String> monthField;
     public ComboBox<String> contactNameField;
     public ComboBox<String> customerNameField;
-    public TextField resultCountField;
+    public Label reportTypeLabel;
+    public Label reportDetailLabel;
+    public Label resultCountField;
     public TableView<AppointmentObj> resultTable;
     public TableColumn<AppointmentObj, Integer> appointmentIDColumn;
     public TableColumn<AppointmentObj, String> titleColumn;
@@ -75,10 +77,12 @@ public class ReportsController implements Initializable {
     public void generateMonthlyReport(ActionEvent actionEvent) throws SQLException {
         Integer month = getMonthInteger(monthField.getValue());
         ObservableList<AppointmentObj> resultList = AppointmentDB.getAppointmentsByMonth(typeField.getValue(), month);
-        Integer resultCount = resultList.size();
+        int resultCount = resultList.size();
 
+        reportTypeLabel.setText("Monthly Report");
+        reportDetailLabel.setText("Month: " + monthField.getValue() + " -- Type: " + typeField.getValue());
         resultTable.setItems(resultList);
-        resultCountField.setText(String.valueOf(resultCount));
+        resultCountField.setText("Result Count:  " + resultCount);
     }
 
     private Integer getMonthInteger(String month) {
@@ -103,19 +107,23 @@ public class ReportsController implements Initializable {
     public void generateContactReport(ActionEvent actionEvent) throws SQLException {
         Integer contact = AppointmentDB.contactNameToContactID(contactNameField.getValue());
         ObservableList<AppointmentObj> resultList = AppointmentDB.getAppointmentsByContact(contact);
-        Integer resultCount = resultList.size();
+        int resultCount = resultList.size();
 
+        reportTypeLabel.setText("Full Contact Schedule");
+        reportDetailLabel.setText("Selected Contact: " + contactNameField.getValue());
         resultTable.setItems(resultList);
-        resultCountField.setText(String.valueOf(resultCount));
+        resultCountField.setText("Result Count:  " + resultCount);
     }
 
     public void generateCustomerReport(ActionEvent actionEvent) throws SQLException {
         Integer customer = AppointmentDB.customerNameToCustomerID(customerNameField.getValue());
         ObservableList<AppointmentObj> resultList = AppointmentDB.getAppointmentsByCustomer(customer);
-        Integer resultCount = resultList.size();
+        int resultCount = resultList.size();
 
+        reportTypeLabel.setText("Full Customer Schedule");
+        reportDetailLabel.setText("Selected Customer: " + customerNameField.getValue());
         resultTable.setItems(resultList);
-        resultCountField.setText(String.valueOf(resultCount));
+        resultCountField.setText("Result Count:  " + resultCount);
     }
 
     public void toAppointments(ActionEvent actionEvent) throws IOException {

@@ -29,28 +29,28 @@ public class CustomersController implements Initializable {
     public static ObservableList<CustomerObj> selectedCustomers = FXCollections.observableArrayList();
     public String searchBarText;
     public TextField searchBar;
-    public TableColumn<CustomerObj, Integer> custIDColumn;
-    public TableColumn<CustomerObj, String> custNameColumn;
-    public TableColumn<CustomerObj, String> custAddressColumn;
-    public TableColumn<CustomerObj, String> custPostalCodeColumn;
-    public TableColumn<CustomerObj, String> custPhoneColumn;
-    public TableColumn<CustomerObj, Integer> custDivisionIDColumn;
-    public TableColumn<CustomerObj, String> custCountryColumn;
-    public TableColumn<CustomerObj, String> custRegionColumn;
-    public TableView<CustomerObj> custTableView;
+    public TableView<CustomerObj> customerTableView;
+    public TableColumn<CustomerObj, Integer> customerIDColumn;
+    public TableColumn<CustomerObj, String> nameColumn;
+    public TableColumn<CustomerObj, String> addressColumn;
+    public TableColumn<CustomerObj, String> postalCodeColumn;
+    public TableColumn<CustomerObj, String> phoneColumn;
+    public TableColumn<CustomerObj, Integer> divisionIDColumn;
+    public TableColumn<CustomerObj, String> countryColumn;
+    public TableColumn<CustomerObj, String> regionColumn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        custIDColumn.setCellValueFactory(new PropertyValueFactory<>("customerID"));
-        custNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        custAddressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
-        custPostalCodeColumn.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
-        custPhoneColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
-        custDivisionIDColumn.setCellValueFactory(new PropertyValueFactory<>("divisionID"));
-        custCountryColumn.setCellValueFactory(new PropertyValueFactory<>("country"));
-        custRegionColumn.setCellValueFactory(new PropertyValueFactory<>("region"));
-        custTableView.setItems(customerList);
-        custIDColumn.setSortable(true);
+        customerIDColumn.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        addressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
+        postalCodeColumn.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
+        phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        divisionIDColumn.setCellValueFactory(new PropertyValueFactory<>("divisionID"));
+        countryColumn.setCellValueFactory(new PropertyValueFactory<>("country"));
+        regionColumn.setCellValueFactory(new PropertyValueFactory<>("region"));
+        customerTableView.setItems(customerList);
+        customerIDColumn.setSortable(true);
 
         try {
             updateCustomerList();
@@ -59,7 +59,7 @@ public class CustomersController implements Initializable {
         }
     }
     public void selectCustomer(MouseEvent mouseEvent) {
-        selectedCustomer = custTableView.getSelectionModel().getSelectedItem();
+        selectedCustomer = customerTableView.getSelectionModel().getSelectedItem();
     }
 
     public void toAddCustomer(ActionEvent actionEvent) throws IOException {
@@ -95,7 +95,7 @@ public class CustomersController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirm Delete");
             alert.setContentText("Are you sure you want to delete customer: " + selectedCustomer.getName() + "? "
-                    + "This will delete all " + CustomerDB.getAssocApptCount(selectedCustomer.getCustomerID()) + " appointment(s) associated with this customer as well.");
+                    + "This will delete all " + CustomerDB.getAssocAppointmentCount(selectedCustomer.getCustomerID()) + " appointment(s) associated with this customer as well.");
 
             Optional<ButtonType> result = alert.showAndWait();
 
@@ -132,14 +132,14 @@ public class CustomersController implements Initializable {
                         || customerObj.getAddress().toLowerCase().contains(searchBarText)) {
                     selectedCustomers.add(customerObj);
                 }
-                custTableView.setItems(selectedCustomers);
+                customerTableView.setItems(selectedCustomers);
             });
         }
     }
 
     public void updateCustomerList() throws SQLException {
         customerList = CustomerDB.getAllCustomers();
-        custTableView.setItems(customerList);
+        customerTableView.setItems(customerList);
     }
     public void toReports(ActionEvent actionEvent) throws IOException {
         Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/klein/view/reports.fxml")));
@@ -161,10 +161,6 @@ public class CustomersController implements Initializable {
 
     public static CustomerObj getSelectedCustomer() {
         return selectedCustomer;
-    }
-
-    public static void setSelectedCustomer(CustomerObj selectedCustomer) {
-        CustomersController.selectedCustomer = selectedCustomer;
     }
 
     public void closeApplication(ActionEvent actionEvent) {

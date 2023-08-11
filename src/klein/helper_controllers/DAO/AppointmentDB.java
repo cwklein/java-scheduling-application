@@ -3,8 +3,8 @@ package klein.helper_controllers.DAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
-import klein.helper_controllers.JDBC;
 import klein.helper_controllers.AppointmentObj;
+import klein.helper_controllers.JDBC;
 import klein.helper_controllers.UserObj;
 
 import java.sql.PreparedStatement;
@@ -27,7 +27,7 @@ public class AppointmentDB {
         ResultSet rs = ps.executeQuery();
 
         while(rs.next()) {
-            AppointmentObj newAppt = new AppointmentObj(
+            AppointmentObj newAppointment = new AppointmentObj(
                     rs.getInt("Appointment_ID"),
                     rs.getString("Title"),
                     rs.getString("Description"),
@@ -43,7 +43,7 @@ public class AppointmentDB {
                     rs.getInt("User_ID"),
                     rs.getInt("Contact_ID")
             );
-            userAppointments.add(newAppt);
+            userAppointments.add(newAppointment);
         }
         return userAppointments;
     }
@@ -59,7 +59,7 @@ public class AppointmentDB {
         ResultSet rs = ps.executeQuery();
 
         while(rs.next()) {
-            AppointmentObj newAppt = new AppointmentObj(
+            AppointmentObj newAppointment = new AppointmentObj(
                     rs.getInt("Appointment_ID"),
                     rs.getString("Title"),
                     rs.getString("Description"),
@@ -75,7 +75,7 @@ public class AppointmentDB {
                     rs.getInt("User_ID"),
                     rs.getInt("Contact_ID")
             );
-            allAppointments.add(newAppt);
+            allAppointments.add(newAppointment);
         }
         return allAppointments;
     }
@@ -92,7 +92,7 @@ public class AppointmentDB {
         ResultSet rs = ps.executeQuery();
 
         while(rs.next()) {
-            AppointmentObj newAppt = new AppointmentObj(
+            AppointmentObj newAppointment = new AppointmentObj(
                     rs.getInt("Appointment_ID"),
                     rs.getString("Title"),
                     rs.getString("Description"),
@@ -108,7 +108,7 @@ public class AppointmentDB {
                     rs.getInt("User_ID"),
                     rs.getInt("Contact_ID")
             );
-            contactAppointments.add(newAppt);
+            contactAppointments.add(newAppointment);
         }
         return contactAppointments;
     }
@@ -125,7 +125,7 @@ public class AppointmentDB {
         ResultSet rs = ps.executeQuery();
 
         while(rs.next()) {
-            AppointmentObj newAppt = new AppointmentObj(
+            AppointmentObj newAppointment = new AppointmentObj(
                     rs.getInt("Appointment_ID"),
                     rs.getString("Title"),
                     rs.getString("Description"),
@@ -141,7 +141,7 @@ public class AppointmentDB {
                     rs.getInt("User_ID"),
                     rs.getInt("Contact_ID")
             );
-            customerAppointments.add(newAppt);
+            customerAppointments.add(newAppointment);
         }
         return customerAppointments;
     }
@@ -159,7 +159,7 @@ public class AppointmentDB {
         ResultSet rs = ps.executeQuery();
 
         while(rs.next()) {
-            AppointmentObj newAppt = new AppointmentObj(
+            AppointmentObj newAppointment = new AppointmentObj(
                     rs.getInt("Appointment_ID"),
                     rs.getString("Title"),
                     rs.getString("Description"),
@@ -175,7 +175,7 @@ public class AppointmentDB {
                     rs.getInt("User_ID"),
                     rs.getInt("Contact_ID")
             );
-            soonAppointments.add(newAppt);
+            soonAppointments.add(newAppointment);
         }
         return soonAppointments;
     }
@@ -352,7 +352,7 @@ public class AppointmentDB {
     }
 
     public static void addAppointment(AppointmentObj newAppointment) throws SQLException {
-        Integer appointmentID = newAppointment.getAppointmentID();
+        int appointmentID = newAppointment.getAppointmentID();
         String title = newAppointment.getTitle();
         String description = newAppointment.getDescription();
         String location = newAppointment.getLocation();
@@ -363,9 +363,9 @@ public class AppointmentDB {
         String createUser = newAppointment.getCreatedBy();
         LocalDateTime updateDate = newAppointment.getUpdateDate();
         String updateUser = newAppointment.getUpdatedBy();
-        Integer customerID = newAppointment.getCustomerID();
-        Integer userID = newAppointment.getUserID();
-        Integer contactID = newAppointment.getContactID();
+        int customerID = newAppointment.getCustomerID();
+        int userID = newAppointment.getUserID();
+        int contactID = newAppointment.getContactID();
 
         String sqlQuery = "INSERT INTO appointments (Appointment_ID, Title, Description, Location, " +
                 "Type, Start, End, Create_Date, Created_By, Last_Update, Last_Updated_By,Customer_ID," +
@@ -402,7 +402,7 @@ public class AppointmentDB {
     }
 
     public static Integer nextOpenAppointment() throws SQLException {
-        Integer nextID = 0;
+        int nextID = 0;
         for (int i = 1; i < 100; i++) {
             String sqlQuery = "SELECT * FROM appointments WHERE Appointment_ID = ?";
             PreparedStatement ps = JDBC.accessDB().prepareStatement(sqlQuery);
@@ -442,7 +442,7 @@ public class AppointmentDB {
         ResultSet rs = ps.executeQuery();
 
         while(rs.next()) {
-            AppointmentObj newAppt = new AppointmentObj(
+            AppointmentObj newAppointment = new AppointmentObj(
                     rs.getInt("Appointment_ID"),
                     rs.getString("Title"),
                     rs.getString("Description"),
@@ -458,7 +458,7 @@ public class AppointmentDB {
                     rs.getInt("User_ID"),
                     rs.getInt("Contact_ID")
             );
-            monthAppointments.add(newAppt);
+            monthAppointments.add(newAppointment);
         }
         return monthAppointments;
     }
@@ -476,7 +476,7 @@ public class AppointmentDB {
     }
 
     public static void updateAppointment(AppointmentObj newAppointment) throws SQLException {
-        Integer appointmentID = newAppointment.getAppointmentID();
+        int appointmentID = newAppointment.getAppointmentID();
         String title = newAppointment.getTitle();
         String description = newAppointment.getDescription();
         String location = newAppointment.getLocation();
@@ -487,9 +487,9 @@ public class AppointmentDB {
         String createUser = newAppointment.getCreatedBy();
         LocalDateTime updateDate = newAppointment.getUpdateDate();
         String updateUser = newAppointment.getUpdatedBy();
-        Integer customerID = newAppointment.getCustomerID();
-        Integer userID = newAppointment.getUserID();
-        Integer contactID = newAppointment.getContactID();
+        int customerID = newAppointment.getCustomerID();
+        int userID = newAppointment.getUserID();
+        int contactID = newAppointment.getContactID();
 
         String sqlQuery = "UPDATE appointments " +
                 "SET Appointment_ID = ?, Title = ?, Description = ?, Location = ?, " +
@@ -518,7 +518,48 @@ public class AppointmentDB {
         ps.close();
     }
 
-//    public static boolean checkIfOpen(AppointmentObj newAppointment) {
-//        ///// DO NEXT!!
-//    }
+    public static boolean checkIfOpen(AppointmentObj potentialAppointment) throws SQLException {
+        boolean isOpen = true;
+
+        ObservableList<AppointmentObj> matchingAppointments = FXCollections.observableArrayList();
+
+        String sqlQuery = "SELECT * FROM appointments WHERE Appointment_ID != ? AND (Contact_ID = ? " +
+                "OR Customer_ID = ?)";
+
+        PreparedStatement ps = JDBC.connection.prepareStatement(sqlQuery);
+        ps.setInt(1, potentialAppointment.getAppointmentID());
+        ps.setInt(2, potentialAppointment.getContactID());
+        ps.setInt(3, potentialAppointment.getCustomerID());
+
+        ResultSet rs = ps.executeQuery();
+
+        while(rs.next()) {
+            AppointmentObj newAppointment = new AppointmentObj(
+                    rs.getInt("Appointment_ID"),
+                    rs.getString("Title"),
+                    rs.getString("Description"),
+                    rs.getString("Location"),
+                    rs.getString("Type"),
+                    rs.getTimestamp("Start").toLocalDateTime(),
+                    rs.getTimestamp("End").toLocalDateTime(),
+                    rs.getTimestamp("Create_Date").toLocalDateTime(),
+                    rs.getString("Created_By"),
+                    rs.getTimestamp("Last_Update").toLocalDateTime(),
+                    rs.getString("Last_Updated_By"),
+                    rs.getInt("Customer_ID"),
+                    rs.getInt("User_ID"),
+                    rs.getInt("Contact_ID")
+            );
+            matchingAppointments.add(newAppointment);
+        }
+
+        for (AppointmentObj matchingAppointment : matchingAppointments) {
+            if ((potentialAppointment.getStart().isBefore(matchingAppointment.getEnd()) && potentialAppointment.getEnd().isAfter(matchingAppointment.getStart()))
+                || (potentialAppointment.getStart().isBefore(matchingAppointment.getStart()) && potentialAppointment.getEnd().isAfter(matchingAppointment.getStart()))) {
+                isOpen = false;
+            }
+        }
+
+        return isOpen;
+    }
 }

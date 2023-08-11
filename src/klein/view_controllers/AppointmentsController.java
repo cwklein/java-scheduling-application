@@ -12,9 +12,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import klein.helper_controllers.AppointmentObj;
 import klein.helper_controllers.DAO.AppointmentDB;
 import klein.helper_controllers.JDBC;
-import klein.helper_controllers.AppointmentObj;
 
 import java.io.IOException;
 import java.net.URL;
@@ -234,10 +234,6 @@ public class AppointmentsController implements Initializable {
 
     public static AppointmentObj getSelectedAppointment() {
         return selectedAppointment;
-    }
-
-    public static void setSelectedAppointment(AppointmentObj selectedAppointment) {
-        AppointmentsController.selectedAppointment = selectedAppointment;
     }
 
     public void updateAppointmentList() throws SQLException {

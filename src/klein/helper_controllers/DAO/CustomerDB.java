@@ -32,7 +32,7 @@ public class CustomerDB {
         customerList.clear();
 
         while(rs.next()) {
-            CustomerObj newCust = new CustomerObj(
+            CustomerObj newCustomer = new CustomerObj(
                     rs.getInt("Customer_ID"),
                     rs.getString("Customer_Name"),
                     rs.getString("Address"),
@@ -46,7 +46,7 @@ public class CustomerDB {
                     rs.getString("Country"),
                     rs.getString("Division")
             );
-            customerList.add(newCust);
+            customerList.add(newCustomer);
         }
         rs.close();
         return customerList;
@@ -72,7 +72,7 @@ public class CustomerDB {
     }
 
     public static void addCustomer(CustomerObj newCustomer) throws SQLException {
-        Integer customerID = newCustomer.getCustomerID();
+        int customerID = newCustomer.getCustomerID();
         String name = newCustomer.getName();
         String address = newCustomer.getAddress();
         String postalCode = newCustomer.getPostalCode();
@@ -81,7 +81,7 @@ public class CustomerDB {
         String createdBy = newCustomer.getCreatedBy();
         LocalDateTime dateUpdated = newCustomer.getDateUpdated();
         String updatedBy = newCustomer.getUpdatedBy();
-        Integer divisionID = newCustomer.getDivisionID();
+        int divisionID = newCustomer.getDivisionID();
 
         String sqlQuery = "INSERT INTO customers (Customer_ID, Customer_Name, Address, Postal_Code, " +
                 "Phone, Create_Date, Created_By, Last_Update, Last_Updated_By, Division_ID) " +
@@ -104,7 +104,7 @@ public class CustomerDB {
     }
 
     public static void updateCustomer(CustomerObj newCustomer) throws SQLException {
-        Integer customerID = newCustomer.getCustomerID();
+        int customerID = newCustomer.getCustomerID();
         String name = newCustomer.getName();
         String address = newCustomer.getAddress();
         String postalCode = newCustomer.getPostalCode();
@@ -113,7 +113,7 @@ public class CustomerDB {
         String createdBy = newCustomer.getCreatedBy();
         LocalDateTime dateUpdated = newCustomer.getDateUpdated();
         String updatedBy = newCustomer.getUpdatedBy();
-        Integer divisionID = newCustomer.getDivisionID();
+        int divisionID = newCustomer.getDivisionID();
 
         String sqlQuery = "UPDATE customers " +
                 "SET Customer_ID = ?, Customer_Name = ?, Address = ?, Postal_Code = ?, " +
@@ -215,7 +215,7 @@ public class CustomerDB {
     }
 
     public static Integer nextCustomerID() throws SQLException {
-        Integer nextID = 0;
+        int nextID = 0;
         for (int i = 1; i < 100; i++) {
             String sqlQuery = "SELECT * FROM customers WHERE Customer_ID = ?";
             PreparedStatement ps = JDBC.accessDB().prepareStatement(sqlQuery);
@@ -241,8 +241,8 @@ public class CustomerDB {
         }
     }
 
-    public static Integer getAssocApptCount(Integer customerID) throws SQLException {
-        Integer apptCount;
+    public static Integer getAssocAppointmentCount(Integer customerID) throws SQLException {
+        int appointmentCount;
 
         String sqlQuery = "SELECT COUNT(Appointment_ID) FROM appointments WHERE Customer_ID = ?";
 
@@ -252,12 +252,12 @@ public class CustomerDB {
         ResultSet rs = ps.executeQuery();
 
         if (rs.next()) {
-            apptCount = rs.getInt("COUNT(Appointment_ID)");
+            appointmentCount = rs.getInt("COUNT(Appointment_ID)");
         }
         else {
-            apptCount = 0;
+            appointmentCount = 0;
         }
         rs.close();
-        return apptCount;
+        return appointmentCount;
     }
 }

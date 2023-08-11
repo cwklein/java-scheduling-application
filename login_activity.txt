@@ -1,7 +1,22 @@
 Login Record:
- Unsuccessful Attempt: 
-  Date: 2023-08-11 at 19:33 UTC, Username Attempted: ADMIN, Password Attempted: TEST
+
  Successful Attempt: 
-  Date: 2023-08-11 at 19:33 UTC, Username Attempted: ADMIN, Password Attempted: ADMIN
+  Date: 2023-08-11 at 20:33 UTC, Username Attempted: ADMIN, Password Attempted: ADMIN
  Successful Attempt: 
-  Date: 2023-08-11 at 19:35 UTC, Username Attempted: ADMIN, Password Attempted: ADMIN
+  Date: 2023-08-11 at 21:04 UTC, Username Attempted: ADMIN, Password Attempted: ADMIN
+ Successful Attempt: 
+  Date: 2023-08-11 at 21:11 UTC, Username Attempted: ADMIN, Password Attempted: ADMIN
+ Successful Attempt: 
+  Date: 2023-08-11 at 21:12 UTC, Username Attempted: ADMIN, Password Attempted: ADMIN
+ Successful Attempt: 
+  Date: 2023-08-11 at 21:14 UTC, Username Attempted: ADMIN, Password Attempted: ADMIN
+ Successful Attempt: 
+  Date: 2023-08-11 at 21:17 UTC, Username Attempted: ADMIN, Password Attempted: ADMIN
+ Successful Attempt: 
+  Date: 2023-08-11 at 21:25 UTC, Username Attempted: ADMIN, Password Attempted: ADMIN
+ Successful Attempt: 
+  Date: 2023-08-11 at 21:48 UTC, Username Attempted: ADMIN, Password Attempted: ADMIN
+ Successful Attempt: 
+  Date: 2023-08-11 at 21:56 UTC, Username Attempted: ADMIN, Password Attempted: ADMIN
+ Successful Attempt: 
+  Date: 2023-08-11 at 22:08 UTC, Username Attempted: ADMIN, Password Attempted: ADMIN

@@ -2,11 +2,9 @@ package klein;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import klein.helper_controllers.JDBC;
-
 import java.io.IOException;
 import java.time.ZoneId;
 
@@ -19,7 +17,6 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.centerOnScreen();
         stage.show();
-
     }
 
     public static void main(String[] args) {

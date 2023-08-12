@@ -2,7 +2,7 @@ package klein.helper_controllers;
 
 import java.time.LocalDateTime;
 
-public class CustomerObj {
+public class CustomerObject {
     private final int customerID;
     private String name;
     private String address;
@@ -16,7 +16,7 @@ public class CustomerObj {
     private String country;
     private String region;
 
-    public CustomerObj(Integer customerID, String name, String address, String postalCode, String phone, LocalDateTime dateCreated, String createdBy, LocalDateTime dateUpdated, String updatedBy, int divisionID, String country, String region) {
+    public CustomerObject(Integer customerID, String name, String address, String postalCode, String phone, LocalDateTime dateCreated, String createdBy, LocalDateTime dateUpdated, String updatedBy, int divisionID, String country, String region) {
         this.customerID = customerID;
         this.name = name;
         this.address = address;

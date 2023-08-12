@@ -11,7 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import klein.helper_controllers.AppointmentObj;
+import klein.helper_controllers.AppointmentObject;
 import klein.helper_controllers.DAO.AppointmentDB;
 import klein.helper_controllers.JDBC;
 import klein.helper_controllers.interfaces.ComboInterface;
@@ -33,18 +33,18 @@ public class ReportsController implements Initializable {
     public Label reportTypeLabel;
     public Label reportDetailLabel;
     public Label resultCountField;
-    public TableView<AppointmentObj> resultTable;
-    public TableColumn<AppointmentObj, Integer> appointmentIDColumn;
-    public TableColumn<AppointmentObj, String> titleColumn;
-    public TableColumn<AppointmentObj, String> descriptionColumn;
-    public TableColumn<AppointmentObj, String> locationColumn;
-    public TableColumn<AppointmentObj, String> typeColumn;
-    public TableColumn<AppointmentObj, Integer> contactIDColumn;
-    public TableColumn<AppointmentObj, LocalDateTime> startTimeColumn;
-    public TableColumn<AppointmentObj, LocalDateTime> endTimeColumn;
-    public TableColumn<AppointmentObj, Integer> customerIDColumn;
-    public TableColumn<AppointmentObj, Integer> userIDColumn;
-    private ObservableList<AppointmentObj> resultList;
+    public TableView<AppointmentObject> resultTable;
+    public TableColumn<AppointmentObject, Integer> appointmentIDColumn;
+    public TableColumn<AppointmentObject, String> titleColumn;
+    public TableColumn<AppointmentObject, String> descriptionColumn;
+    public TableColumn<AppointmentObject, String> locationColumn;
+    public TableColumn<AppointmentObject, String> typeColumn;
+    public TableColumn<AppointmentObject, Integer> contactIDColumn;
+    public TableColumn<AppointmentObject, LocalDateTime> startTimeColumn;
+    public TableColumn<AppointmentObject, LocalDateTime> endTimeColumn;
+    public TableColumn<AppointmentObject, Integer> customerIDColumn;
+    public TableColumn<AppointmentObject, Integer> userIDColumn;
+    private ObservableList<AppointmentObject> resultList;
     private ObservableList<String> typeList;
     private ObservableList<String> monthList;
     private ObservableList<String> contactList;
@@ -55,7 +55,7 @@ public class ReportsController implements Initializable {
         try {
             contactList = AppointmentDB.getContacts();
             customerList = AppointmentDB.getCustomers();
-            typeList = AppointmentDB.getAllTypes();
+            typeList = AppointmentDB.getTypes();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -80,7 +80,7 @@ public class ReportsController implements Initializable {
 
     ComboInterface findIndexPlusOne = (ObservableList<String> monthList, String selectedMonth) -> monthList.indexOf(selectedMonth)+1;
 
-    ResultInterface resultFill = (TableView<AppointmentObj> tableToSet, Label labelToSet, ObservableList<AppointmentObj> resultList) -> {
+    ResultInterface resultFill = (TableView<AppointmentObject> tableToSet, Label labelToSet, ObservableList<AppointmentObject> resultList) -> {
         tableToSet.setItems(resultList);
         labelToSet.setText("Result Count:  " + resultList.size());
     };
@@ -96,7 +96,7 @@ public class ReportsController implements Initializable {
 
     public void generateContactReport(ActionEvent actionEvent) throws SQLException {
         Integer contact = AppointmentDB.contactNameToContactID(contactNameField.getValue());
-        resultList = AppointmentDB.getAppointmentsByContact(contact);
+        resultList = AppointmentDB.getAppointmentsByContactID(contact);
 
         reportTypeLabel.setText("Full Contact Schedule");
         reportDetailLabel.setText("Selected Contact: " + contactNameField.getValue());
@@ -105,7 +105,7 @@ public class ReportsController implements Initializable {
 
     public void generateCustomerReport(ActionEvent actionEvent) throws SQLException {
         Integer customer = AppointmentDB.customerNameToCustomerID(customerNameField.getValue());
-        resultList = AppointmentDB.getAppointmentsByCustomer(customer);
+        resultList = AppointmentDB.getAppointmentsByCustomerID(customer);
 
         reportTypeLabel.setText("Full Customer Schedule");
         reportDetailLabel.setText("Selected Customer: " + customerNameField.getValue());

@@ -3,7 +3,7 @@ package klein.helper_controllers.DAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
-import klein.helper_controllers.CustomerObj;
+import klein.helper_controllers.CustomerObject;
 import klein.helper_controllers.JDBC;
 
 import java.sql.PreparedStatement;
@@ -14,8 +14,8 @@ import java.time.LocalDateTime;
 
 public class CustomerDB {
 
-    public static ObservableList<CustomerObj> getAllCustomers() throws SQLException {
-        ObservableList<CustomerObj> customerList = FXCollections.observableArrayList();
+    public static ObservableList<CustomerObject> getAllCustomers() throws SQLException {
+        ObservableList<CustomerObject> customerList = FXCollections.observableArrayList();
 
         String sqlQuery = "SELECT customers.*, first_level_divisions.Division, countries.Country " +
                 "FROM customers " +
@@ -32,7 +32,7 @@ public class CustomerDB {
         customerList.clear();
 
         while(rs.next()) {
-            CustomerObj newCustomer = new CustomerObj(
+            CustomerObject newCustomer = new CustomerObject(
                     rs.getInt("Customer_ID"),
                     rs.getString("Customer_Name"),
                     rs.getString("Address"),
@@ -71,7 +71,7 @@ public class CustomerDB {
         return countryList;
     }
 
-    public static void addCustomer(CustomerObj newCustomer) throws SQLException {
+    public static void addCustomer(CustomerObject newCustomer) throws SQLException {
         int customerID = newCustomer.getCustomerID();
         String name = newCustomer.getName();
         String address = newCustomer.getAddress();
@@ -103,7 +103,7 @@ public class CustomerDB {
         ps.close();
     }
 
-    public static void updateCustomer(CustomerObj newCustomer) throws SQLException {
+    public static void updateCustomer(CustomerObject newCustomer) throws SQLException {
         int customerID = newCustomer.getCustomerID();
         String name = newCustomer.getName();
         String address = newCustomer.getAddress();

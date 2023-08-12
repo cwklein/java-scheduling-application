@@ -2,7 +2,7 @@ package klein.helper_controllers.DAO;
 
 import klein.helper_controllers.JDBC;
 import klein.helper_controllers.TimeConverter;
-import klein.helper_controllers.UserObj;
+import klein.helper_controllers.UserObject;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,8 +25,8 @@ public class UserDB {
         if(rs.next()) {
             userID = rs.getInt("User_ID");
             String userName = rs.getString("User_Name");
-            UserObj.setUserID(userID);
-            UserObj.setUserName(userName);
+            UserObject.setUserID(userID);
+            UserObject.setUserName(userName);
             System.out.println("User ID: " + userID + ", User Name: " + userName);
             System.out.println("Open at EST: " + TimeConverter.getEstOpenDateTime().format(DateTimeFormatter.ofPattern("HH:mm")) + " " + TimeZone.getTimeZone("America/New_York").getDisplayName());
             System.out.println("Open at Local: " + TimeConverter.getLocalOpenDateTime().format(DateTimeFormatter.ofPattern("HH:mm")) + " " + TimeZone.getDefault().getDisplayName());

@@ -13,10 +13,10 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import klein.helper_controllers.AppointmentObj;
+import klein.helper_controllers.AppointmentObject;
 import klein.helper_controllers.DAO.AppointmentDB;
 import klein.helper_controllers.TimeConverter;
-import klein.helper_controllers.UserObj;
+import klein.helper_controllers.UserObject;
 
 import java.io.IOException;
 import java.net.URL;
@@ -43,7 +43,7 @@ public class ModifyAppointmentController implements Initializable {
     public ComboBox<String> userIDField;
     public ObservableList<String> contactList;
     public ComboBox<String> contactIDField;
-    private AppointmentObj selectedAppointment;
+    private AppointmentObject selectedAppointment;
 
 
     @Override
@@ -74,7 +74,7 @@ public class ModifyAppointmentController implements Initializable {
         contactIDField.setItems(contactList);
         typeField.setText(String.valueOf(selectedAppointment.getType()));
         appointmentDateField.setValue(selectedAppointment.getStart().toLocalDate());
-        startHrField.setItems(AppointmentObj.getStartHours());
+        startHrField.setItems(AppointmentObject.getStartHours());
         startHrField.setValue(selectedAppointment.getStart().getHour());
         findStartMinutes();
         startMinField.setValue(selectedAppointment.getStart().getMinute());
@@ -97,7 +97,7 @@ public class ModifyAppointmentController implements Initializable {
         durationHrField.setValue(null);
         durationMinField.setItems(null);
         durationMinField.setValue(null);
-        startMinField.setItems(AppointmentObj.getStartMinutes());
+        startMinField.setItems(AppointmentObject.getStartMinutes());
     }
 
     public void populateDurationHours(ActionEvent actionEvent) {
@@ -172,12 +172,12 @@ public class ModifyAppointmentController implements Initializable {
                 LocalDateTime createDate = selectedAppointment.getCreateDate();
                 String createUser = selectedAppointment.getCreatedBy();
                 LocalDateTime updateDate = LocalDateTime.now();
-                String updateUser = UserObj.getUserName();
+                String updateUser = UserObject.getUserName();
                 Integer customerID = AppointmentDB.customerNameToCustomerID(customerIDField.getValue());
                 Integer userID = AppointmentDB.userNameToUserID(userIDField.getValue());
                 Integer contactID = AppointmentDB.contactNameToContactID(contactIDField.getValue());
 
-                AppointmentObj newAppointment = new AppointmentObj(appointmentID, title, description, location, type, start, end, createDate, createUser, updateDate, updateUser, customerID, userID, contactID);
+                AppointmentObject newAppointment = new AppointmentObject(appointmentID, title, description, location, type, start, end, createDate, createUser, updateDate, updateUser, customerID, userID, contactID);
 
                 if (AppointmentDB.checkIfOpen(newAppointment)) {
                     AppointmentDB.updateAppointment(newAppointment);

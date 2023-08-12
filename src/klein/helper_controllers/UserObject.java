@@ -1,6 +1,6 @@
 package klein.helper_controllers;
 
-public class UserObj {
+public class UserObject {
     private static String userName;
     private static int userID;
 
@@ -9,7 +9,7 @@ public class UserObj {
     }
 
     public static void setUserName(String userName) {
-        UserObj.userName = userName;
+        UserObject.userName = userName;
     }
 
     public static int getUserID() {
@@ -17,7 +17,7 @@ public class UserObj {
     }
 
     public static void setUserID(int userID) {
-        UserObj.userID = userID;
+        UserObject.userID = userID;
     }
 
 }

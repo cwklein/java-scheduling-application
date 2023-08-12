@@ -13,10 +13,10 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import klein.helper_controllers.AppointmentObj;
+import klein.helper_controllers.AppointmentObject;
 import klein.helper_controllers.DAO.AppointmentDB;
 import klein.helper_controllers.TimeConverter;
-import klein.helper_controllers.UserObj;
+import klein.helper_controllers.UserObject;
 
 import java.io.IOException;
 import java.net.URL;
@@ -55,7 +55,7 @@ public class AddAppointmentController implements Initializable {
             throwables.printStackTrace();
         }
 
-        startHrField.setItems(AppointmentObj.getStartHours());
+        startHrField.setItems(AppointmentObject.getStartHours());
         contactIDField.setItems(contactList);
         customerIDField.setItems(customerList);
         userIDField.setItems(userList);
@@ -69,7 +69,7 @@ public class AddAppointmentController implements Initializable {
         durationHrField.setValue(null);
         durationMinField.setItems(null);
         durationMinField.setValue(null);
-        startMinField.setItems(AppointmentObj.getStartMinutes());
+        startMinField.setItems(AppointmentObject.getStartMinutes());
     }
 
     public void populateDurationHours(ActionEvent actionEvent) {
@@ -134,14 +134,14 @@ public class AddAppointmentController implements Initializable {
                 LocalDateTime start = LocalDateTime.of(appointmentDateField.getValue(), startTime);
                 LocalDateTime end = start.plusHours(durationHrField.getValue()).plusMinutes(durationMinField.getValue());
                 LocalDateTime createDate = LocalDateTime.now();
-                String createdBy = UserObj.getUserName();
+                String createdBy = UserObject.getUserName();
                 LocalDateTime updateDate = LocalDateTime.now();
-                String updatedBy = UserObj.getUserName();
+                String updatedBy = UserObject.getUserName();
                 Integer customerID = AppointmentDB.customerNameToCustomerID(customerIDField.getValue());
                 Integer userID = AppointmentDB.userNameToUserID(userIDField.getValue());
                 Integer contactID = AppointmentDB.contactNameToContactID(contactIDField.getValue());
 
-                AppointmentObj newAppointment = new AppointmentObj(appointmentID, title, description, location, type, start, end, createDate, createdBy, updateDate, updatedBy, customerID, userID, contactID);
+                AppointmentObject newAppointment = new AppointmentObject(appointmentID, title, description, location, type, start, end, createDate, createdBy, updateDate, updatedBy, customerID, userID, contactID);
 
                  if (AppointmentDB.checkIfOpen(newAppointment)) {
                      AppointmentDB.addAppointment(newAppointment);

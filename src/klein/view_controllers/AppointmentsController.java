@@ -12,7 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import klein.helper_controllers.AppointmentObj;
+import klein.helper_controllers.AppointmentObject;
 import klein.helper_controllers.DAO.AppointmentDB;
 import klein.helper_controllers.JDBC;
 
@@ -25,21 +25,21 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AppointmentsController implements Initializable {
-    private static AppointmentObj selectedAppointment;
-    public static ObservableList<AppointmentObj> allAppointments = FXCollections.observableArrayList();
-    public static ObservableList<AppointmentObj> selectedAppointments = FXCollections.observableArrayList();
+    private static AppointmentObject selectedAppointment;
+    public static ObservableList<AppointmentObject> allAppointments = FXCollections.observableArrayList();
+    public static ObservableList<AppointmentObject> selectedAppointments = FXCollections.observableArrayList();
     public String searchBarText;
-    public TableView<AppointmentObj> appointmentTableView;
-    public TableColumn<AppointmentObj, Integer> appointmentIDColumn;
-    public TableColumn<AppointmentObj, String> titleColumn;
-    public TableColumn<AppointmentObj, String> descriptionColumn;
-    public TableColumn<AppointmentObj, String> locationColumn;
-    public TableColumn<AppointmentObj, String> typeColumn;
-    public TableColumn<AppointmentObj, Integer> contactIDColumn;
-    public TableColumn<AppointmentObj, LocalDateTime> startTimeColumn;
-    public TableColumn<AppointmentObj, LocalDateTime> endTimeColumn;
-    public TableColumn<AppointmentObj, Integer> customerIDColumn;
-    public TableColumn<AppointmentObj, Integer> userIDColumn;
+    public TableView<AppointmentObject> appointmentTableView;
+    public TableColumn<AppointmentObject, Integer> appointmentIDColumn;
+    public TableColumn<AppointmentObject, String> titleColumn;
+    public TableColumn<AppointmentObject, String> descriptionColumn;
+    public TableColumn<AppointmentObject, String> locationColumn;
+    public TableColumn<AppointmentObject, String> typeColumn;
+    public TableColumn<AppointmentObject, Integer> contactIDColumn;
+    public TableColumn<AppointmentObject, LocalDateTime> startTimeColumn;
+    public TableColumn<AppointmentObject, LocalDateTime> endTimeColumn;
+    public TableColumn<AppointmentObject, Integer> customerIDColumn;
+    public TableColumn<AppointmentObject, Integer> userIDColumn;
     public RadioButton toViewAllButton;
     public TextField searchBar;
 
@@ -232,7 +232,7 @@ public class AppointmentsController implements Initializable {
         }
     }
 
-    public static AppointmentObj getSelectedAppointment() {
+    public static AppointmentObject getSelectedAppointment() {
         return selectedAppointment;
     }
 

@@ -14,7 +14,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import klein.helper_controllers.DAO.CustomerDB;
 import klein.helper_controllers.JDBC;
-import klein.helper_controllers.CustomerObj;
+import klein.helper_controllers.CustomerObject;
 
 import java.io.IOException;
 import java.net.URL;
@@ -24,20 +24,20 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class CustomersController implements Initializable {
-    private static CustomerObj selectedCustomer;
-    public static ObservableList<CustomerObj> customerList = FXCollections.observableArrayList();
-    public static ObservableList<CustomerObj> selectedCustomers = FXCollections.observableArrayList();
+    private static CustomerObject selectedCustomer;
+    public static ObservableList<CustomerObject> customerList = FXCollections.observableArrayList();
+    public static ObservableList<CustomerObject> selectedCustomers = FXCollections.observableArrayList();
     public String searchBarText;
     public TextField searchBar;
-    public TableView<CustomerObj> customerTableView;
-    public TableColumn<CustomerObj, Integer> customerIDColumn;
-    public TableColumn<CustomerObj, String> nameColumn;
-    public TableColumn<CustomerObj, String> addressColumn;
-    public TableColumn<CustomerObj, String> postalCodeColumn;
-    public TableColumn<CustomerObj, String> phoneColumn;
-    public TableColumn<CustomerObj, Integer> divisionIDColumn;
-    public TableColumn<CustomerObj, String> countryColumn;
-    public TableColumn<CustomerObj, String> regionColumn;
+    public TableView<CustomerObject> customerTableView;
+    public TableColumn<CustomerObject, Integer> customerIDColumn;
+    public TableColumn<CustomerObject, String> nameColumn;
+    public TableColumn<CustomerObject, String> addressColumn;
+    public TableColumn<CustomerObject, String> postalCodeColumn;
+    public TableColumn<CustomerObject, String> phoneColumn;
+    public TableColumn<CustomerObject, Integer> divisionIDColumn;
+    public TableColumn<CustomerObject, String> countryColumn;
+    public TableColumn<CustomerObject, String> regionColumn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -125,12 +125,12 @@ public class CustomersController implements Initializable {
             alert.setContentText("No contacts found");
             alert.showAndWait();
         } else {
-            customerList.forEach(customerObj -> {
-                if (String.valueOf(customerObj.getCustomerID()).toLowerCase().contains(searchBarText)
-                        || customerObj.getName().toLowerCase().contains(searchBarText)
-                        || customerObj.getPhone().toLowerCase().contains(searchBarText)
-                        || customerObj.getAddress().toLowerCase().contains(searchBarText)) {
-                    selectedCustomers.add(customerObj);
+            customerList.forEach(customerObject -> {
+                if (String.valueOf(customerObject.getCustomerID()).toLowerCase().contains(searchBarText)
+                        || customerObject.getName().toLowerCase().contains(searchBarText)
+                        || customerObject.getPhone().toLowerCase().contains(searchBarText)
+                        || customerObject.getAddress().toLowerCase().contains(searchBarText)) {
+                    selectedCustomers.add(customerObject);
                 }
                 customerTableView.setItems(selectedCustomers);
             });
@@ -159,7 +159,7 @@ public class CustomersController implements Initializable {
         stage.show();
     }
 
-    public static CustomerObj getSelectedCustomer() {
+    public static CustomerObject getSelectedCustomer() {
         return selectedCustomer;
     }
 

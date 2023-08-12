@@ -9,11 +9,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import klein.helper_controllers.AppointmentObj;
+import klein.helper_controllers.AppointmentObject;
 import klein.helper_controllers.DAO.AppointmentDB;
 import klein.helper_controllers.DAO.UserDB;
 import klein.helper_controllers.JDBC;
-import klein.helper_controllers.UserObj;
+import klein.helper_controllers.UserObject;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -72,9 +72,9 @@ public class LoginController implements Initializable {
 
             populateLoginRecord(usernameAttempt, passwordAttempt, userID);
 
-            UserObj.setUserID(userID);
+            UserObject.setUserID(userID);
 
-            if (UserObj.getUserID() != 0) {
+            if (UserObject.getUserID() != 0) {
                 Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/klein/view/appointments.fxml")));
                 Scene scene = new Scene(parent);
                 Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -83,7 +83,7 @@ public class LoginController implements Initializable {
                 stage.centerOnScreen();
                 stage.show();
 
-                ObservableList<AppointmentObj> soonAppointments = AppointmentDB.getSoonAppointments(UserObj.getUserID());
+                ObservableList<AppointmentObject> soonAppointments = AppointmentDB.getSoonAppointments(UserObject.getUserID());
                 String upcomingAppointmentText = "You have " + soonAppointments.size() + " Appointment(s) in the next 15 minutes: \n"
                         + getSoonAppointmentDetail(soonAppointments);
 
@@ -131,9 +131,9 @@ public class LoginController implements Initializable {
         }
     }
 
-    private String getSoonAppointmentDetail(ObservableList<AppointmentObj> soonAppointments) throws SQLException {
+    private String getSoonAppointmentDetail(ObservableList<AppointmentObject> soonAppointments) throws SQLException {
         String appointmentDetail = "";
-        for (AppointmentObj currAppointment : soonAppointments) {
+        for (AppointmentObject currAppointment : soonAppointments) {
             appointmentDetail = appointmentDetail + "    " + "Appointment " + currAppointment.getAppointmentID()
                     + " is at " + currAppointment.getStart().format(DateTimeFormatter.ofPattern("HH:mm 'on' MM-dd-yyyy")) + "\n" + "        "
                     + " Customer: " + AppointmentDB.customerIDToCustomerName(currAppointment.getCustomerID()) + "\n" + "        "

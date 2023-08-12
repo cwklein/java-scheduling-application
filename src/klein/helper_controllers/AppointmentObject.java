@@ -5,7 +5,7 @@ import javafx.collections.ObservableList;
 
 import java.time.*;
 
-public class AppointmentObj {
+public class AppointmentObject {
     public static LocalDateTime openingDateTime = TimeConverter.getLocalOpenDateTime();
     public static LocalDateTime closingDateTime = TimeConverter.getLocalCloseDateTime();
 
@@ -24,7 +24,7 @@ public class AppointmentObj {
     private Integer userID;
     private Integer contactID;
 
-    public AppointmentObj(Integer appointmentID, String title, String description, String location, String type, LocalDateTime start, LocalDateTime end, LocalDateTime createDate, String createdBy, LocalDateTime updateDate, String updatedBy, Integer customerID, Integer userID, Integer contactID) {
+    public AppointmentObject(Integer appointmentID, String title, String description, String location, String type, LocalDateTime start, LocalDateTime end, LocalDateTime createDate, String createdBy, LocalDateTime updateDate, String updatedBy, Integer customerID, Integer userID, Integer contactID) {
         this.appointmentID = appointmentID;
         this.title = title;
         this.description = description;

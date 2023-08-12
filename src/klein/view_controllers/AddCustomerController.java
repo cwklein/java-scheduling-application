@@ -11,9 +11,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import klein.helper_controllers.CustomerObj;
+import klein.helper_controllers.CustomerObject;
 import klein.helper_controllers.DAO.CustomerDB;
-import klein.helper_controllers.UserObj;
+import klein.helper_controllers.UserObject;
 
 import java.io.IOException;
 import java.net.URL;
@@ -66,14 +66,14 @@ public class AddCustomerController implements Initializable {
                 String postalCode = postalCodeField.getText();
                 String phone = phoneField.getText();
                 LocalDateTime createDate = LocalDateTime.now();
-                String createdBy = UserObj.getUserName();
+                String createdBy = UserObject.getUserName();
                 LocalDateTime updateDate = LocalDateTime.now();
-                String updatedBy = UserObj.getUserName();
+                String updatedBy = UserObject.getUserName();
                 String country = countryField.getValue();
                 String region = regionField.getValue();
                 Integer divisionID = CustomerDB.getDivIDFromRegion(region);
 
-                CustomerObj newCustomer = new CustomerObj(customerID, name, address, postalCode, phone, createDate, createdBy, updateDate, updatedBy, divisionID, country, region);
+                CustomerObject newCustomer = new CustomerObject(customerID, name, address, postalCode, phone, createDate, createdBy, updateDate, updatedBy, divisionID, country, region);
 
                 CustomerDB.addCustomer(newCustomer);
 

@@ -14,6 +14,11 @@ import java.time.LocalDateTime;
 
 public class CustomerDB {
 
+    /**
+     * Returns an ObservableList of all CustomerObject's, including their associated country and region.
+     *
+     * @return an ObservableList of all customers.
+     * */
     public static ObservableList<CustomerObject> getAllCustomers() throws SQLException {
         ObservableList<CustomerObject> customerList = FXCollections.observableArrayList();
 
@@ -52,6 +57,12 @@ public class CustomerDB {
         return customerList;
     }
 
+    /**
+     * Returns an ObservableList of all countries as strings.
+     * Used for generating the country options within the country comboBox on both the Add and Modify Customer Pages.
+     *
+     * @return an ObservableList of all countries as strings.
+     * */
     public static ObservableList<String> getCountries() throws SQLException {
         ObservableList<String> countryList = FXCollections.observableArrayList();
 
@@ -71,6 +82,11 @@ public class CustomerDB {
         return countryList;
     }
 
+    /**
+     * Adds a new customer to the customers database.
+     *
+     * @param newCustomer the customerObject being added to the customers database.
+     * */
     public static void addCustomer(CustomerObject newCustomer) throws SQLException {
         int customerID = newCustomer.getCustomerID();
         String name = newCustomer.getName();
@@ -103,17 +119,22 @@ public class CustomerDB {
         ps.close();
     }
 
-    public static void updateCustomer(CustomerObject newCustomer) throws SQLException {
-        int customerID = newCustomer.getCustomerID();
-        String name = newCustomer.getName();
-        String address = newCustomer.getAddress();
-        String postalCode = newCustomer.getPostalCode();
-        String phone = newCustomer.getPhone();
-        LocalDateTime dateCreated = newCustomer.getDateCreated();
-        String createdBy = newCustomer.getCreatedBy();
-        LocalDateTime dateUpdated = newCustomer.getDateUpdated();
-        String updatedBy = newCustomer.getUpdatedBy();
-        int divisionID = newCustomer.getDivisionID();
+    /**
+     * Updates the given customer within the customers database.
+     *
+     * @param updatedCustomer the customerObject being modified within the customers database.
+     * */
+    public static void updateCustomer(CustomerObject updatedCustomer) throws SQLException {
+        int customerID = updatedCustomer.getCustomerID();
+        String name = updatedCustomer.getName();
+        String address = updatedCustomer.getAddress();
+        String postalCode = updatedCustomer.getPostalCode();
+        String phone = updatedCustomer.getPhone();
+        LocalDateTime dateCreated = updatedCustomer.getDateCreated();
+        String createdBy = updatedCustomer.getCreatedBy();
+        LocalDateTime dateUpdated = updatedCustomer.getDateUpdated();
+        String updatedBy = updatedCustomer.getUpdatedBy();
+        int divisionID = updatedCustomer.getDivisionID();
 
         String sqlQuery = "UPDATE customers " +
                 "SET Customer_ID = ?, Customer_Name = ?, Address = ?, Postal_Code = ?, " +
@@ -137,7 +158,11 @@ public class CustomerDB {
         ps.close();
     }
 
-
+    /**
+     * Deletes the selected customer from the customers database as well as any associated appointments from the appointments database.
+     *
+     * @param customerID the Customer_ID of the customer being deleted from the customers database.
+     * */
     public static void deleteCustomer(Integer customerID) throws SQLException {
         String sqlQuery = "DELETE FROM appointments WHERE Customer_ID = ?";
         PreparedStatement ps = JDBC.accessDB().prepareStatement(sqlQuery);
@@ -152,6 +177,13 @@ public class CustomerDB {
         ps.close();
     }
 
+    /**
+     * Returns the integer-type divisionID corresponding to the selected string-type regionName.
+     * Used for storing the selected region option from the region comboBox on both the Add and Modify Customer Pages.
+     *
+     * @param regionName the string-type regionName obtained from the value of the region comboBox.
+     * @return the integer-type divisionID corresponding to the given regionName.
+     * */
     public static Integer getDivIDFromRegion(String regionName) throws SQLException {
         Integer divisionID;
 
@@ -172,6 +204,14 @@ public class CustomerDB {
         return divisionID;
     }
 
+    /**
+     * Returns an ObservableList of string-type regionNames associated with the selected countryName.
+     * Used for generating the region options within the region comboBox on both the Add and Modify Customer Pages.
+     * Limits the regionList to only include those regions that are associated with the selected country.
+     *
+     * @param countryName the string-type countryName obtained from the value of the country comboBox.
+     * @return the string-type ObservableList of regions that are within the selected country.
+     * */
     public static ObservableList<String> getRegionsFromCountryName(String countryName) throws SQLException {
         Integer countryID = CustomerDB.countryNameToCountryID(countryName);
 
@@ -194,6 +234,13 @@ public class CustomerDB {
         return regionList;
     }
 
+    /**
+     * Returns the integer-type countryID corresponding to the selected string-type countryName.
+     * Used for storing the selected country option from the country comboBox on both the Add and Modify Customer Pages.
+     *
+     * @param countryName the string-type countryName obtained from the value of the country comboBox.
+     * @return the integer-type countryID corresponding to the given countryName.
+     * */
     private static Integer countryNameToCountryID(String countryName) throws SQLException {
         Integer countryID;
 
@@ -214,6 +261,11 @@ public class CustomerDB {
         return countryID;
     }
 
+    /**
+     * Returns the smallest Customer_ID within the customers database that isn't already assigned.
+     *
+     * @return the smallest integer-type Customer_ID that isn't being used currently.
+     * */
     public static Integer nextCustomerID() throws SQLException {
         int nextID = 0;
         for (int i = 1; i < 100; i++) {
@@ -241,6 +293,13 @@ public class CustomerDB {
         }
     }
 
+    /**
+     * Returns the number of appointments that are associated with the given customerID.
+     * Used in generating the confirmation alert when deleting a customer.
+     *
+     * @param customerID the integer-type customerID used to determine the number of associated appointments.
+     * @return returns an integer for the number of appointments relating to the given customerID.
+     * */
     public static Integer getAssocAppointmentCount(Integer customerID) throws SQLException {
         int appointmentCount;
 

@@ -31,94 +31,111 @@ public class CustomerObject {
         this.region = region;
     }
 
+    /**
+     * Basic getter function for the private attribute 'customerID'.
+     * @return integer-type private attribute 'customerID'.
+     * */
     public int getCustomerID() {
         return customerID;
     }
 
+    /**
+     * Basic getter function for the private attribute 'name'.
+     * @return string-type private attribute 'name'.
+     * */
     public String getName() {
         return name;
     }
+
 
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Basic getter function for the private attribute 'address'.
+     * @return string-type private attribute 'address'.
+     * */
     public String getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
+    /**
+     * Basic getter function for the private attribute 'postalCode'.
+     * @return string-type private attribute 'postalCode'.
+     * */
     public String getPostalCode() {
         return postalCode;
     }
 
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
-    }
-
+    /**
+     * Basic getter function for the private attribute 'phone'.
+     * @return string-type private attribute 'phone'.
+     * */
     public String getPhone() {
         return phone;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
+    /**
+     * Basic getter function for the private attribute 'dateCreated'.
+     * @return LocalDateTime-type private attribute 'dateCreated'.
+     * */
     public LocalDateTime getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(LocalDateTime dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
+    /**
+     * Basic getter function for the private attribute 'createdBy'.
+     * @return string-type private attribute 'createdBy'.
+     * */
     public String getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
+    /**
+     * Basic getter function for the private attribute 'dateUpdated'.
+     * @return LocalDateTime-type private attribute 'dateUpdate'.
+     * */
     public LocalDateTime getDateUpdated() {
         return dateUpdated;
     }
 
-    public void setDateUpdated(LocalDateTime dateUpdated) {
-        this.dateUpdated = dateUpdated;
-    }
-
+    /**
+     * Basic getter function for the private attribute 'updatedBy'.
+     * @return string-type private attribute 'updatedBy'.
+     * */
     public String getUpdatedBy() {
         return updatedBy;
     }
 
-    public void setUpdatedBy(String updatedBy) {
-        this.updatedBy = updatedBy;
-    }
-
+    /**
+     * Basic getter function for the private attribute 'divisionID'.
+     * @return integer-type private attribute 'divisionID'.
+     * */
     public int getDivisionID() {
         return divisionID;
     }
 
-    public void setDivisionID(int divisionID) {
-        this.divisionID = divisionID;
-    }
-
+    /**
+     * Basic getter function for the private attribute 'country'.
+     * @return string-type private attribute 'country'.
+     * */
     public String getCountry() {
         return country;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
+    /**
+     * Basic getter function for the private attribute 'region'.
+     * @return string-type private attribute 'region'.
+     * */
     public String getRegion() {
         return region;
     }
 
+    /**
+     * Basic setter function for the private attribute 'region'.
+     * @param region string to be assigned to private attribute 'region'.
+     * */
     public void setRegion(String region) {
         this.region = region;
     }

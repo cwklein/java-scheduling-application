@@ -11,6 +11,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.TimeZone;
 
 public class UserDB {
+
+    /**
+     * Returns the userID from the users database if the username and password are correct, if not then function returns 0.
+     *
+     * @param username the username to be tested during authentication.
+     * @param password the password to be tested during authentication.
+     * @return an integer-type userID if authentication was successful, or else it returns 0 to indicate unsuccessful.
+     * */
     public static int ValidateUser(String username, String password) throws SQLException {
         int userID = 0;
 

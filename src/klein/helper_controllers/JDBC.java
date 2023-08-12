@@ -14,6 +14,9 @@ public class JDBC {
     private static final String password = "Passw0rd!"; // Password
     public static Connection connection;  // Connection Interface
 
+    /**
+     * Opens a connection to MySQL Database.
+     * */
     public static void openConnection() {
         try {
             Class.forName(driver); // Locate Driver
@@ -24,6 +27,10 @@ public class JDBC {
             System.out.println("Error:" + e.getMessage());
         }
     }
+
+    /**
+     * Closes the connection with the MySQL Database.
+     * */
     public static void closeConnection() {
         try {
             connection.close();
@@ -35,6 +42,11 @@ public class JDBC {
         }
     }
 
+    /**
+     * Gives access to the private attribute 'connection' to facilitate SQL Queries elsewhere in the program.
+     *
+     * @return the previously made connection to use with SQL Queries.
+     * */
     public static Connection accessDB() {
         return connection;
     }

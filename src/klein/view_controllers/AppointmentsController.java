@@ -105,6 +105,11 @@ public class AppointmentsController implements Initializable {
 
             if (result.isPresent() && result.get() == ButtonType.OK) {
                 AppointmentDB.deleteAppointment(selectedAppointment.getAppointmentID());
+                Alert confirmation = new Alert(Alert.AlertType.INFORMATION);
+                confirmation.setTitle("Appointment Deleted");
+                confirmation.setHeaderText("Appointment Deleted");
+                confirmation.setContentText("You have successfully deleted appointment: " + selectedAppointment.getAppointmentID());
+                confirmation.showAndWait();
                 updateAppointmentList();
             }
         } catch (Exception e) {

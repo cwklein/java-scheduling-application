@@ -59,9 +59,11 @@ public class AddAppointmentController implements Initializable {
         contactIDField.setItems(contactList);
         customerIDField.setItems(customerList);
         userIDField.setItems(userList);
-
     }
 
+    /**
+     * Fills the startMinField comboBox after clearing startMinField, durationHr and durationMin Fields.
+     * */
     public void populateStartMinutes(ActionEvent actionEvent) {
         startMinField.setItems(null);
         startMinField.setValue(null);
@@ -72,6 +74,10 @@ public class AddAppointmentController implements Initializable {
         startMinField.setItems(AppointmentObject.getStartMinutes());
     }
 
+    /**
+     * Fills the durationHrField comboBox after clearing durationHr and durationMin Fields.
+     * Factors in the startTime and closingTime of the business so that only viable duration hours are populated.
+     * */
     public void populateDurationHours(ActionEvent actionEvent) {
         durationHrField.setItems(null);
         durationHrField.setValue(null);
@@ -90,6 +96,10 @@ public class AddAppointmentController implements Initializable {
         }
     }
 
+    /**
+     * Fills the durationMinField comboBox after clearing durationMin Fields.
+     * Factors in the startTime and closingTime of the business so that only viable duration minutes are populated.
+     * */
     public void populateDurationMinutes(ActionEvent actionEvent) {
         durationMinField.setItems(null);
         durationMinField.setValue(null);
@@ -114,6 +124,10 @@ public class AddAppointmentController implements Initializable {
         }
     }
 
+    /**
+     * Button function that checks that all input fields are non-null and valid, then calls function to add appointment to database.
+     * Will show corresponding alerts if any fields are null and calls the function to confirm that there are no scheduling conflicts prior to adding to the database.
+     * * */
     public void addAppointment(ActionEvent actionEvent) throws SQLException, IOException {
         if (titleField.getText().isBlank() || descriptionField.getText().isBlank() ||
                 locationField.getText().isBlank() || typeField.getText().isBlank()) {
@@ -165,6 +179,9 @@ public class AddAppointmentController implements Initializable {
         }
     }
 
+    /**
+     * Button function that redirects the user back to the 'appointments' page.
+     * */
     public void returnToAppointments(ActionEvent actionEvent) throws IOException {
         Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/klein/view/appointments.fxml")));
         Scene scene = new Scene(parent);

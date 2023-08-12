@@ -86,10 +86,16 @@ public class ModifyAppointmentController implements Initializable {
         userIDField.setItems(userList);
     }
 
+    /**
+     * Calls the findStartMinutes() function when startHrField is changed.
+     * */
     public void populateStartMinutes(ActionEvent actionEvent) {
         findStartMinutes();
     }
 
+    /**
+     * Fills the startMinField comboBox after clearing startMinField, durationHr and durationMin Fields.
+     * */
     private void findStartMinutes() {
         startMinField.setItems(null);
         startMinField.setValue(null);
@@ -100,10 +106,17 @@ public class ModifyAppointmentController implements Initializable {
         startMinField.setItems(AppointmentObject.getStartMinutes());
     }
 
+    /**
+     * Calls the findDurationHours() function when startMinField is changed.
+     * */
     public void populateDurationHours(ActionEvent actionEvent) {
         findDurationHours();
     }
 
+    /**
+     * Fills the durationHrField comboBox after clearing durationHr and durationMin Fields.
+     * Factors in the startTime and closingTime of the business so that only viable duration hours are populated.
+     * */
     private void findDurationHours() {
         durationHrField.setItems(null);
         durationHrField.setValue(null);
@@ -122,10 +135,17 @@ public class ModifyAppointmentController implements Initializable {
         }
     }
 
+    /**
+     * Calls the findDurationMinutes() function when durationHrField is changed.
+     * */
     public void populateDurationMinutes(ActionEvent actionEvent) {
         findDurationMinutes();
     }
 
+    /**
+     * Fills the durationMinField comboBox after clearing durationMin Fields.
+     * Factors in the startTime and closingTime of the business so that only viable duration minutes are populated.
+     * */
     private void findDurationMinutes() {
         durationMinField.setItems(null);
         durationMinField.setValue(null);
@@ -150,6 +170,10 @@ public class ModifyAppointmentController implements Initializable {
         }
     }
 
+    /**
+     * Button function that checks that all input fields are non-null and valid, then calls function to modify appointment within database.
+     * Will show corresponding alerts if any fields are null and calls the function to confirm that there are no scheduling conflicts prior to adding to the database.
+     * * */
     public void modifyAppointment(ActionEvent actionEvent) throws SQLException, IOException {
         if (titleField.getText().isBlank() || descriptionField.getText().isBlank() ||
                 locationField.getText().isBlank() || typeField.getText().isBlank()) {
@@ -200,6 +224,9 @@ public class ModifyAppointmentController implements Initializable {
         }
     }
 
+    /**
+     * Button function that redirects the user back to the 'appointments' page.
+     * */
     public void returnToAppointments(ActionEvent actionEvent) throws IOException {
         Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/klein/view/appointments.fxml")));
         Scene scene = new Scene(parent);

@@ -57,6 +57,12 @@ public class LoginController implements Initializable {
         passwordLabel.setText(rb.getString("password"));
     }
 
+    /**
+     * Button function that attempts to establish the user as a particular userID and access the database.
+     * Checks the username and password against the usernames and passwords within the users database and calls the function to append a login-attempt to the login_activity text file.
+     * If the login information is correct, calls the functions needed to generate an alert of all appointments within the next 15 minutes and redirects the user to the appointments page.
+     * If the login information is incorrect, generates and error alert telling the user that their username or password are incorrect.
+     * */
     public void attemptLogin(ActionEvent actionEvent) throws IOException, SQLException {
         if (usernameText.getText().isEmpty() || passwordText.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -112,6 +118,12 @@ public class LoginController implements Initializable {
         }
     }
 
+    /**
+     * Generates a login record and fills the login_attempt text file with the information.
+     * @param usernameAttempt String used to document the attempted userName value.
+     * @param passwordAttempt String used to document the attempted password value.
+     * @param userID Integer used here to indicate whether the login attempt was successful.
+     * */
     private void populateLoginRecord(String usernameAttempt, String passwordAttempt, int userID) {
         String result = "Unsuccessful Attempt: ";
         if (userID != 0) {
@@ -131,6 +143,12 @@ public class LoginController implements Initializable {
         }
     }
 
+    /**
+     * Generates and returns a string outlining the basic details of any and all appointments coming up in the next 15 minutes.
+     *
+     * @param soonAppointments The appointmentObject-type ObservableList of all appointments coming up in the next 15 minutes.
+     * @return String outlining the basic details of all upcoming appointments.
+     * */
     private String getSoonAppointmentDetail(ObservableList<AppointmentObject> soonAppointments) throws SQLException {
         String appointmentDetail = "";
         for (AppointmentObject currAppointment : soonAppointments) {
@@ -142,6 +160,9 @@ public class LoginController implements Initializable {
         return appointmentDetail;
     }
 
+    /**
+     * Button function that closes the application after a confirmation alert.
+     * */
     public void closeApplication(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirm Exit");

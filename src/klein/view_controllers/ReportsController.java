@@ -78,13 +78,36 @@ public class ReportsController implements Initializable {
         userIDColumn.setCellValueFactory(new PropertyValueFactory<>("userID"));
     }
 
+    /**
+     * Lambda function used to obtain the Integer equivalent of the selected month.
+     * This lambda adds efficiency to my program because I would be able to reuse this method any time I have a month comboBox.
+     * Additionally, this will be useful if there is ever another circumstance where I need to easily obtain the index+1 of a given string with an ObservableList of strings.
+     *
+     * @param monthList The String-type ObservableList of all months displayed in the month comboBox.
+     * @param selectedMonth the String being indexed within the given ObservableList.
+     *
+     * @return Returns the integer equivalent of the selectedString's index in the ObservableList if the index count began with 1 rather than 0.
+     * */
     ComboInterface findIndexPlusOne = (ObservableList<String> monthList, String selectedMonth) -> monthList.indexOf(selectedMonth)+1;
 
+    /**
+     * Lambda function used to fill the resultTable and resultCountField with the given ObservableList and information pertaining to it.
+     * This lambda has already added efficiency to my program in that I was able to readily reuse it to populate the result fields of all three reports within my reports page.
+     *
+     * @param tableToSet The AppointmentObject-type tableView to set the resultList on.
+     * @param labelToSet The label to fill with information obtained from the resultList.
+     * @param resultList the AppointmentObject-type ObservableList used to fill both field parameters.
+     * */
     ResultInterface resultFill = (TableView<AppointmentObject> tableToSet, Label labelToSet, ObservableList<AppointmentObject> resultList) -> {
         tableToSet.setItems(resultList);
         labelToSet.setText("Result Count:  " + resultList.size());
     };
 
+    /**
+     * Generates and displays a monthlyReport in the results field.
+     * Uses the lambda function findIndexPlusOne.givenListAndObject() to find the integer values of the month strings in the month comboBox.
+     * Uses the lambda function resultFill.generateResultView() to fill the resultTable and resultCountField with information appropriate to the resultList.
+     * */
     public void generateMonthlyReport(ActionEvent actionEvent) throws SQLException {
         Integer month = findIndexPlusOne.givenListAndObject(monthList, monthField.getValue());
         resultList = AppointmentDB.getAppointmentsByMonth(typeField.getValue(), month);
@@ -94,6 +117,10 @@ public class ReportsController implements Initializable {
         resultFill.generateResultView(resultTable, resultCountField, resultList);
     }
 
+    /**
+     * Generates and displays a contactReport in the results field.
+     * Uses the lambda function resultFill.generateResultView() to fill the resultTable and resultCountField with information appropriate to the resultList.
+     * */
     public void generateContactReport(ActionEvent actionEvent) throws SQLException {
         Integer contact = AppointmentDB.contactNameToContactID(contactNameField.getValue());
         resultList = AppointmentDB.getAppointmentsByContactID(contact);
@@ -103,6 +130,10 @@ public class ReportsController implements Initializable {
         resultFill.generateResultView(resultTable, resultCountField, resultList);
     }
 
+    /**
+     * Generates and displays a customerReport in the results field.
+     * Uses the lambda function resultFill.generateResultView() to fill the resultTable and resultCountField with information appropriate to the resultList.
+     * */
     public void generateCustomerReport(ActionEvent actionEvent) throws SQLException {
         Integer customer = AppointmentDB.customerNameToCustomerID(customerNameField.getValue());
         resultList = AppointmentDB.getAppointmentsByCustomerID(customer);
@@ -112,6 +143,9 @@ public class ReportsController implements Initializable {
         resultFill.generateResultView(resultTable, resultCountField, resultList);
     }
 
+    /**
+     * Button function that redirects the user back to the 'appointments' page.
+     * */
     public void toAppointments(ActionEvent actionEvent) throws IOException {
         Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/klein/view/appointments.fxml")));
         Scene scene = new Scene(parent);
@@ -121,6 +155,9 @@ public class ReportsController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Button function that redirects the user to the 'customers' page.
+     * */
     public void toCustomers(ActionEvent actionEvent) throws IOException{
         Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/klein/view/customers.fxml")));
         Scene scene = new Scene(parent);
@@ -130,6 +167,9 @@ public class ReportsController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Button function that closes the application after a confirmation alert.
+     * */
     public void closeApplication(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirm Exit");

@@ -58,10 +58,17 @@ public class CustomersController implements Initializable {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * Mouse function that labels the selected row within the customers table as the 'selectedCustomer'.
+     * */
     public void selectCustomer(MouseEvent mouseEvent) {
         selectedCustomer = customerTableView.getSelectionModel().getSelectedItem();
     }
 
+    /**
+     * Button function that redirects the user to the 'addCustomer' page.
+     * */
     public void toAddCustomer(ActionEvent actionEvent) throws IOException {
         Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/klein/view/addCustomer.fxml")));
         Scene scene = new Scene(parent);
@@ -72,6 +79,10 @@ public class CustomersController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Button function that redirects the user to the 'modifyCustomer' page.
+     * Will populate the modifyCustomer page with the data for the selectedCustomer, or if one isn't currently selected it will generate an error alert.
+     * */
     public void toModifyCustomer(ActionEvent actionEvent) {
         try {
             Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/klein/view/modifyCustomer.fxml")));
@@ -90,6 +101,10 @@ public class CustomersController implements Initializable {
         }
     }
 
+    /**
+     * Button function that deletes the selectedCustomer after confirming the selection with a confirmation alert.
+     * Generates an error alert if no customer is currently selected.
+     * */
     public void deleteCustomer(ActionEvent actionEvent) {
         try {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -112,6 +127,11 @@ public class CustomersController implements Initializable {
         }
     }
 
+    /**
+     * Populates the customers tableView with all customers related to the currently logged in user that match the search criteria.
+     * When the user selects the search button, the program parses through the database and returns all customers that match the search criteria.
+     * Customers in the database must match by customerID, name, address, or phone, as indicated by the prompt text in the search bar.
+     * */
     public void searchCustomers(ActionEvent actionEvent) throws SQLException {
         customerList = CustomerDB.getAllCustomers();
         searchBarText = searchBar.getText().toLowerCase();
@@ -137,10 +157,9 @@ public class CustomersController implements Initializable {
         }
     }
 
-    public void updateCustomerList() throws SQLException {
-        customerList = CustomerDB.getAllCustomers();
-        customerTableView.setItems(customerList);
-    }
+    /**
+     * Button function that redirects the user back to the 'reports' page.
+     * */
     public void toReports(ActionEvent actionEvent) throws IOException {
         Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/klein/view/reports.fxml")));
         Scene scene = new Scene(parent);
@@ -150,6 +169,9 @@ public class CustomersController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Button function that redirects the user back to the 'appointments' page.
+     * */
     public void toAppointments(ActionEvent actionEvent) throws IOException {
         Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/klein/view/appointments.fxml")));
         Scene scene = new Scene(parent);
@@ -159,10 +181,9 @@ public class CustomersController implements Initializable {
         stage.show();
     }
 
-    public static CustomerObject getSelectedCustomer() {
-        return selectedCustomer;
-    }
-
+    /**
+     * Button function that closes the application after a confirmation alert.
+     * */
     public void closeApplication(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirm Exit");
@@ -174,7 +195,21 @@ public class CustomersController implements Initializable {
             JDBC.closeConnection();
             System.exit(0);
         }
+    }
 
+    /**
+     * Basic getter function for the private attribute 'selectedCustomer'.
+     * @return customerObject-type private attribute 'selectedCustomer'.
+     * */
+    public static CustomerObject getSelectedCustomer() {
+        return selectedCustomer;
+    }
 
+    /**
+     * Button function that refreshes the customers tableView after adding or modifying a customer.
+     * */
+    public void updateCustomerList() throws SQLException {
+        customerList = CustomerDB.getAllCustomers();
+        customerTableView.setItems(customerList);
     }
 }

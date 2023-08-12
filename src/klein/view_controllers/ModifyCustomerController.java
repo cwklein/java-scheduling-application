@@ -31,7 +31,6 @@ public class ModifyCustomerController implements Initializable {
     public ComboBox<String> regionField;
     public ObservableList<String> regionList;
     public TextField phoneField;
-
     private CustomerObject selectedCustomer;
 
     @Override
@@ -54,6 +53,10 @@ public class ModifyCustomerController implements Initializable {
         }
     }
 
+    /**
+     * Fills the regionField comboBox with only those regions that are in the selected country.
+     * Factors in the selected country so that only viable regions are populated.
+     * */
     public void populateRegions(ActionEvent actionEvent) throws SQLException {
         String selectedCountry = countryField.getValue();
 
@@ -62,6 +65,10 @@ public class ModifyCustomerController implements Initializable {
         regionField.setItems(regionList);
     }
 
+    /**
+     * Button function that checks that all input fields are non-null and valid, then calls function to modify customer within the database.
+     * Will show corresponding alerts if any fields are null.
+     * * */
     public void modifyCustomer(ActionEvent actionEvent) throws IOException, SQLException {
         if (nameField.getText().isBlank() || addressField.getText().isBlank() ||
                 postalCodeField.getText().isBlank() || phoneField.getText().isBlank()) {
@@ -100,6 +107,9 @@ public class ModifyCustomerController implements Initializable {
         }
     }
 
+    /**
+     * Button function that redirects the user back to the 'customers' page.
+     * */
     public void returnToCustomers(ActionEvent actionEvent) throws IOException {
         Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/klein/view/customers.fxml")));
         Scene scene = new Scene(parent);

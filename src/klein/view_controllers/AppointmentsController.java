@@ -26,7 +26,7 @@ import java.util.ResourceBundle;
 
 public class AppointmentsController implements Initializable {
     private static AppointmentObject selectedAppointment;
-    public static ObservableList<AppointmentObject> allAppointments = FXCollections.observableArrayList();
+    public static ObservableList<AppointmentObject> allUserAppointments = FXCollections.observableArrayList();
     public static ObservableList<AppointmentObject> selectedAppointments = FXCollections.observableArrayList();
     public String searchBarText;
     public TableView<AppointmentObject> appointmentTableView;
@@ -63,10 +63,16 @@ public class AppointmentsController implements Initializable {
         }
     }
 
+    /**
+     * Mouse function that labels the selected row within the appointments table as the 'selectedAppointment'.
+     * */
     public void selectAppointment(MouseEvent mouseEvent) {
         selectedAppointment = appointmentTableView.getSelectionModel().getSelectedItem();
     }
 
+    /**
+     * Button function that redirects the user to the 'addAppointment' page.
+     * */
     public void toAddAppointment(ActionEvent actionEvent) throws IOException {
         Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/klein/view/addAppointment.fxml")));
         Scene scene = new Scene(parent);
@@ -77,6 +83,10 @@ public class AppointmentsController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Button function that redirects the user to the 'modifyAppointment' page.
+     * Will populate the modifyAppointment page with the data for the selectedAppointment, or if one isn't currently selected it will generate an error alert.
+     * */
     public void toModifyAppointment(ActionEvent actionEvent) {
         try {
             Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/klein/view/modifyAppointment.fxml")));
@@ -95,6 +105,10 @@ public class AppointmentsController implements Initializable {
         }
     }
 
+    /**
+     * Button function that deletes the selectedAppointment after confirming the selection with a confirmation alert.
+     * Generates an error alert if no appointment is currently selected.
+     * */
     public void deleteAppointment(ActionEvent actionEvent) {
         try {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -121,20 +135,28 @@ public class AppointmentsController implements Initializable {
         }
     }
 
+    /**
+     * Populates the appointments tableView with all appointments related to the currently logged in user.
+     * Is the default view when the appointments screen is initially loaded.
+     * */
     public void toViewAll(ActionEvent actionEvent) throws SQLException {
-        allAppointments = AppointmentDB.getUserAppointments();
-        appointmentTableView.setItems(allAppointments);
+        allUserAppointments = AppointmentDB.getUserAppointments();
+        appointmentTableView.setItems(allUserAppointments);
     }
 
+    /**
+     * Populates the appointments tableView with all appointments related to the currently logged in user that start during the coming month.
+     * Is selected when the user selects the monthlyView radio button.
+     * */
     public void toMonthlyView(ActionEvent actionEvent) throws SQLException {
-        allAppointments = AppointmentDB.getUserAppointments();
+        allUserAppointments = AppointmentDB.getUserAppointments();
 
         LocalDateTime startDate = LocalDateTime.now();
         LocalDateTime endDate = LocalDateTime.now().plusMonths(1);
 
         selectedAppointments.clear();
 
-        if (allAppointments.isEmpty()) {
+        if (allUserAppointments.isEmpty()) {
             toViewAllButton.selectedProperty().setValue(true);
 
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -143,7 +165,7 @@ public class AppointmentsController implements Initializable {
             alert.setContentText("You don't have any appointments");
             alert.showAndWait();
         } else {
-            allAppointments.forEach(appointmentObj -> {
+            allUserAppointments.forEach(appointmentObj -> {
                 if (appointmentObj.getStart().isAfter(startDate) && appointmentObj.getEnd().isBefore(endDate)) {
                     selectedAppointments.add(appointmentObj);
                 }
@@ -152,15 +174,19 @@ public class AppointmentsController implements Initializable {
         }
     }
 
+    /**
+     * Populates the appointments tableView with all appointments related to the currently logged in user that start during the coming week.
+     * Is selected when the user selects the weeklyView radio button.
+     * */
     public void toWeeklyView(ActionEvent actionEvent) throws SQLException {
-        allAppointments = AppointmentDB.getUserAppointments();
+        allUserAppointments = AppointmentDB.getUserAppointments();
 
         LocalDateTime startDate = LocalDateTime.now();
         LocalDateTime endDate = LocalDateTime.now().plusWeeks(1);
 
         selectedAppointments.clear();
 
-        if (allAppointments.isEmpty()) {
+        if (allUserAppointments.isEmpty()) {
             toViewAllButton.selectedProperty().setValue(true);
 
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -169,7 +195,7 @@ public class AppointmentsController implements Initializable {
             alert.setContentText("You don't have any appointments");
             alert.showAndWait();
         } else {
-            allAppointments.forEach(appointmentObj -> {
+            allUserAppointments.forEach(appointmentObj -> {
                 if (appointmentObj.getStart().isAfter(startDate) && appointmentObj.getEnd().isBefore(endDate)) {
                     selectedAppointments.add(appointmentObj);
                 }
@@ -178,13 +204,18 @@ public class AppointmentsController implements Initializable {
         }
     }
 
+    /**
+     * Populates the appointments tableView with all appointments related to the currently logged in user that match the search criteria.
+     * When the user selects the search button, the program parses through the database and returns all appointments that match the search criteria.
+     * Appointments in the database must match by appointmentID, title, description, location or type, as indicated by the prompt text in the search bar.
+     * */
     public void searchAppointments(ActionEvent actionEvent) throws SQLException {
-        allAppointments = AppointmentDB.getUserAppointments();
+        allUserAppointments = AppointmentDB.getUserAppointments();
         searchBarText = searchBar.getText().toLowerCase();
 
         selectedAppointments.clear();
 
-        if (allAppointments.isEmpty()) {
+        if (allUserAppointments.isEmpty()) {
             toViewAllButton.selectedProperty().setValue(true);
 
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -193,7 +224,7 @@ public class AppointmentsController implements Initializable {
             alert.setContentText("No appointments match your search");
             alert.showAndWait();
         } else {
-            allAppointments.forEach(appointmentObj -> {
+            allUserAppointments.forEach(appointmentObj -> {
                 if (String.valueOf(appointmentObj.getAppointmentID()).toLowerCase().contains(searchBarText)
                         || appointmentObj.getTitle().toLowerCase().contains(searchBarText)
                         || appointmentObj.getDescription().toLowerCase().contains(searchBarText)
@@ -206,6 +237,9 @@ public class AppointmentsController implements Initializable {
         }
     }
 
+    /**
+     * Button function that redirects the user back to the 'reports' page.
+     * */
     public void toReports(ActionEvent actionEvent) throws IOException {
         Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/klein/view/reports.fxml")));
         Scene scene = new Scene(parent);
@@ -215,6 +249,9 @@ public class AppointmentsController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Button function that redirects the user back to the 'customers' page.
+     * */
     public void toCustomers(ActionEvent actionEvent) throws IOException {
         Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/klein/view/customers.fxml")));
         Scene scene = new Scene(parent);
@@ -224,6 +261,9 @@ public class AppointmentsController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Button function that closes the application after a confirmation alert.
+     * */
     public void closeApplication(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirm Exit");
@@ -237,13 +277,20 @@ public class AppointmentsController implements Initializable {
         }
     }
 
+    /**
+     * Basic getter function for the private attribute 'selectedAppointment'.
+     * @return appointmentObject-type private attribute 'selectedAppointment'.
+     * */
     public static AppointmentObject getSelectedAppointment() {
         return selectedAppointment;
     }
 
+    /**
+     * Button function that refreshes the appointments tableView after adding or modifying an appointment.
+     * */
     public void updateAppointmentList() throws SQLException {
-        allAppointments = AppointmentDB.getUserAppointments();
-        appointmentTableView.setItems(allAppointments);
+        allUserAppointments = AppointmentDB.getUserAppointments();
+        appointmentTableView.setItems(allUserAppointments);
     }
 }
 

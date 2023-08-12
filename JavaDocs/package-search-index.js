@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"klein"},{"l":"klein.helper_controllers"},{"l":"klein.helper_controllers.DAO"},{"l":"klein.helper_controllers.interfaces"},{"l":"klein.view_controllers"}];updateSearchResults();
